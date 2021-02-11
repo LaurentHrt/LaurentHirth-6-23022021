@@ -1,19 +1,30 @@
 {
-  "name": "fish-eye",
-  "version": "1.0.0",
-  "description": "Openclassrooms - Parcours développeur Front-end",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/LaurentHrt/LaurentHirth-6-23022021.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/LaurentHrt/LaurentHirth-6-23022021/issues"
-  },
-  "homepage": "https://github.com/LaurentHrt/LaurentHirth-6-23022021#readme"
+	"name": "fish-eye",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/LaurentHrt/LaurentHirth-6-23022021.git"
+	},
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/LaurentHrt/LaurentHirth-6-23022021/issues"
+	},
+	"homepage": "https://github.com/LaurentHrt/LaurentHirth-6-23022021#readme",
+	"devDependencies": {
+		"autoprefixer": "^10.2.4",
+		"eslint": "^7.19.0",
+		"eslint-config-standard": "^16.0.2",
+		"eslint-plugin-import": "^2.22.1",
+		"eslint-plugin-node": "^11.1.0",
+		"eslint-plugin-promise": "^4.3.1",
+		"postcss": "^8.2.6",
+		"postcss-cli": "^8.3.1",
+		"sass": "^1.32.7"
+	}
 }
