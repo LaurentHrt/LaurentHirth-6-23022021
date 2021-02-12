@@ -2,4 +2,26 @@ body {
   font-family: "DM Sans", sans-serif;
 }
 
+.card-photograph {
+  text-align: center;
+}
+.card-photograph img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+main {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+}
+
 /*# sourceMappingURL=main.css.map */
