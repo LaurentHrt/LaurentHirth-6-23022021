@@ -33,7 +33,7 @@ function buildCardPhotograph(photographers) {
           <div class="tag-list card-photograph__tags">`
 
     photographer.tags.forEach((tag) => {
-      cardPhotographBloc += `<div class="tag">${tag}</div>`
+      cardPhotographBloc += `<div class="tag">#${tag}</div>`
     })
 
     cardPhotographBloc += '</div></section>'
@@ -51,7 +51,7 @@ function buildTagList(photographers) {
   })
 
   new Set(tags).forEach((tag) => {
-    tagListBloc += `<div class="tag">${tag}</div>`
+    tagListBloc += `<div class="tag">#${tag}</div>`
   })
 
   return tagListBloc
