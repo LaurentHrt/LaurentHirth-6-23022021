@@ -26,19 +26,19 @@ function buildCardPhotograph(photographers) {
 
     cardPhotographBloc += `
         <section class="card-photograph">
-        <a href="${link}">
+        <a class="display-contents" href="${link}" role="link">
           <div class="card-photograph__portrait">
             <img src="./public/img/1_small/PhotographersID/${photographer.portrait}" alt="" />
           </div>
           <div class="card-photograph__name">${photographer.name}</div>
         </a>
-          <div class="card-photograph__city">${photographer.city} ${photographer.country}</div>
+          <div class="card-photograph__city">${photographer.city}, ${photographer.country}</div>
           <div class="card-photograph__tagline">${photographer.tagline}</div>
           <div class="card-photograph__price">${photographer.price}€/jour</div>
           <div class="tag-list card-photograph__tags">`
 
     photographer.tags.forEach((tag) => {
-      cardPhotographBloc += `<span class="tag">#${tag}</span>`
+      cardPhotographBloc += `<a class="display-contents" href=""><span class="tag">#${tag}</span></a>`
     })
 
     cardPhotographBloc += '</div></section>'
@@ -52,11 +52,13 @@ function buildTagList(photographers) {
 
   const tags = []
   photographers.forEach((photographer) => {
-    tags.push(...photographer.tags)
+    photographer.tags.forEach((tag) => {
+      tags.push(tag[0].toUpperCase() + tag.substring(1))
+    })
   })
 
   new Set(tags).forEach((tag) => {
-    tagListBloc += `<span class="tag">#${tag}</span>`
+    tagListBloc += `<a class="display-contents" href=""><span class="tag">#${tag}</span></a>`
   })
 
   return tagListBloc

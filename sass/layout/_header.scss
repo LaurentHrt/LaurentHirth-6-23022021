@@ -1,5 +1,37 @@
 header {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  row-gap: 15px;
+  grid-column-gap: 15px;
+  padding-right: 40px;
+  padding-left: 40px;
+  margin-bottom: 100px;
+
+  @include desktop-only {
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-rows: auto;
+  }
+
+  img {
+    width: 150px;
+    @include desktop-only {
+      width: 200px;
+    }
+  }
+
+  nav {
+    grid-column: 1/3;
+    grid-row: 2;
+
+    @include desktop-only {
+      grid-column: auto;
+      grid-row: auto;
+    }
+  }
+
+  h1 {
+    white-space: nowrap;
+    text-align: right;
+  }
 }

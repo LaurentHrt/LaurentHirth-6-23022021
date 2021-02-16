@@ -1,3 +1,12 @@
+// Responsive design
+$breakpoints: (
+  'tablet': 768px,
+  'desktop': 1200px,
+);
+
+$page-max-width: 1400px;
+
+// Colors
 $colors: (
   'primary': #901c1c,
   'secondary': #d3573c,

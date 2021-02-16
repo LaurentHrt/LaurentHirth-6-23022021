@@ -1,10 +1,37 @@
 body {
-  font-family: "DM Sans", sans-serif;
+  font-family: 'DM Sans', sans-serif;
+}
+
+@media screen and (min-width: 1200px) {
+  body {
+    padding: 50px;
+    margin: 0;
+  }
+}
+
+a,
+a:visited {
+  text-decoration: none;
+}
+
+.display-contents {
+  display: contents;
+}
+
+h1 {
+  color: #901c1c;
+  font-weight: 200;
+  margin: 0;
+}
+
+nav {
+  color: #901c1c;
 }
 
 .card-photograph {
   text-align: center;
 }
+
 .card-photograph img {
   width: 200px;
   height: 200px;
@@ -12,16 +39,109 @@ body {
   object-fit: cover;
 }
 
-header {
+.card-photograph__name {
+  color: #d3573c;
+  font-size: 36px;
+  padding-top: 20px;
+  padding-bottom: 5px;
+}
+
+.card-photograph__city {
+  color: #901c1c;
+  font-size: 13px;
+  padding-bottom: 5px;
+}
+
+.card-photograph__tagline {
+  font-size: 10px;
+  padding-bottom: 5px;
+}
+
+.card-photograph__price {
+  padding-bottom: 10px;
+  color: #757575;
+  font-size: 9px;
+}
+
+.tag-list {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.tag {
+  height: 17px;
+  text-align: center;
+  border: solid 1px #c4c4c4;
+  border-radius: 25px;
+  color: #901c1c;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  font-weight: bold;
+  font-size: 12px;
+  padding-top: 2px;
+  padding-right: 7px;
+  padding-left: 7px;
+}
+
+header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  row-gap: 15px;
+  grid-column-gap: 15px;
+  padding-right: 40px;
+  padding-left: 40px;
+  margin-bottom: 100px;
+}
+
+@media screen and (min-width: 1200px) {
+  header {
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-rows: auto;
+  }
+}
+
+header img {
+  width: 150px;
+}
+
+@media screen and (min-width: 1200px) {
+  header img {
+    width: 200px;
+  }
+}
+
+header nav {
+  grid-column: 1/3;
+  grid-row: 2;
+}
+
+@media screen and (min-width: 1200px) {
+  header nav {
+    grid-column: auto;
+    grid-row: auto;
+  }
+}
+
+header h1 {
+  white-space: nowrap;
+  text-align: right;
 }
 
 main {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1fr;
   justify-items: center;
+  column-gap: 20px;
+  row-gap: 20px;
 }
 
+@media screen and (min-width: 1200px) {
+  main {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
 /*# sourceMappingURL=main.css.map */
