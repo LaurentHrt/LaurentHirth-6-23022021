@@ -31,22 +31,41 @@
     color: #757575;
     font-size: 9px;
   }
+
+  &__tags {
+    justify-content: center;
+  }
 }
 
 .card-banner-photograph {
-  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 140px;
+  background-color: map-get($map: $colors, $key: quadrary);
 
-  img {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    object-fit: cover;
+  &__portrait {
+    width: 100px;
+    height: 100px;
+    margin-right: 20px;
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: auto;
+    }
+  }
+
+  &__textContainer {
+    padding-left: 20px;
   }
 
   &__name {
     color: map-get($map: $colors, $key: secondary);
     font-size: 36px;
-    padding-top: 20px;
+    padding-top: 10px;
     padding-bottom: 5px;
   }
 
@@ -57,39 +76,58 @@
   }
 
   &__tagline {
+    color: #757575;
     font-size: 10px;
     padding-bottom: 5px;
   }
 
-  &__price {
-    padding-bottom: 10px;
-    color: #757575;
-    font-size: 9px;
+  &__tags {
+  }
+
+  &__button {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    @include tablet-only {
+      position: initial;
+    }
   }
 }
 
 .card-media {
-  text-align: center;
-
-  img {
-    width: 200px;
+  &__media {
     height: 200px;
-    object-fit: cover;
+    @include tablet-only {
+    }
+    @include desktop-only {
+    }
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 5px;
+    }
   }
 
-  &__alt {
-    color: map-get($map: $colors, $key: secondary);
-    font-size: 36px;
-    padding-top: 20px;
-    padding-bottom: 5px;
+  &__textContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+  }
+
+  &__title {
+    color: map-get($map: $colors, $key: primary);
+    flex-grow: 10;
   }
 
   &__price {
-    padding-bottom: 10px;
-    color: #757575;
-    font-size: 9px;
+    color: map-get($map: $colors, $key: primary);
+    padding-right: 10px;
   }
 
   &__likes {
+    color: map-get($map: $colors, $key: primary);
   }
 }

@@ -27,7 +27,6 @@ class Photographer {
     const linkToPage =
       '/pages/' + this.name.toLowerCase().replace(' ', '') + '.html'
     const linkToPhoto = '/public/img/1_small/PhotographersID/' + this.portrait
-
     const section = document.createElement('section')
     const a = document.createElement('a')
     const img = document.createElement('img')
@@ -87,7 +86,6 @@ class Photographer {
 
   getBanner() {
     const linkToPhoto = '/public/img/1_small/PhotographersID/' + this.portrait
-
     const section = document.createElement('section')
     const divPortrait = document.createElement('div')
     const img = document.createElement('img')
@@ -95,27 +93,36 @@ class Photographer {
     const divCity = document.createElement('div')
     const divTagline = document.createElement('div')
     const divTag = document.createElement('div')
+    const button = document.createElement('button')
+    const textContainer = document.createElement('div')
 
     section.classList.add('card-banner-photograph')
-    divPortrait.classList.add('card-banner-photograph__protrait')
+    divPortrait.classList.add('card-banner-photograph__portrait')
     divName.classList.add('card-banner-photograph__name')
     divCity.classList.add('card-banner-photograph__city')
     divTagline.classList.add('card-banner-photograph__tagline')
     divTag.classList.add('tag-list')
     divTag.classList.add('card-banner-photograph__tags')
+    button.classList.add('card-banner-photograph__button')
+    textContainer.classList.add('card-banner-photograph__textContainer')
 
     img.setAttribute('src', linkToPhoto)
     img.setAttribute('alt', '')
+    button.setAttribute('type', 'button')
 
     divName.textContent = this.name
     divCity.textContent = this.city + ', ' + this.country
     divTagline.textContent = this.tagline
+    button.textContent = 'Contactez-moi'
 
     divPortrait.appendChild(img)
+    section.appendChild(textContainer)
+    section.appendChild(button)
     section.appendChild(divPortrait)
-    section.appendChild(divCity)
-    section.appendChild(divTagline)
-    section.appendChild(divTag)
+    textContainer.appendChild(divName)
+    textContainer.appendChild(divCity)
+    textContainer.appendChild(divTagline)
+    textContainer.appendChild(divTag)
 
     this.tags.forEach((tag) => {
       const a = document.createElement('a')
@@ -143,33 +150,51 @@ class Photographer {
         '/public/img/1_small/' +
         this.name.toLowerCase().replace(' ', '') +
         '/' +
-        media.image
+        (media.image || media.video)
 
       const sectionCardMedia = document.createElement('section')
       const divMedia = document.createElement('div')
       const img = document.createElement('img')
+      const video = document.createElement('video')
+      const source = document.createElement('source')
       const divTitle = document.createElement('div')
       const divPrice = document.createElement('div')
       const divLikes = document.createElement('div')
+      const textContainer = document.createElement('div')
 
+      sectionListMedia.classList.add('list-media')
       sectionCardMedia.classList.add('card-media')
       divMedia.classList.add('card-media__media')
       divTitle.classList.add('card-media__title')
       divPrice.classList.add('card-media__price')
       divLikes.classList.add('card-media__likes')
+      textContainer.classList.add('card-media__textContainer')
 
       img.setAttribute('src', linkToMedia)
       img.setAttribute('alt', media.alt)
+      video.setAttribute('width', '100%')
+      video.setAttribute('height', '100%')
+      video.setAttribute('controls', 'true')
+      video.setAttribute('muted', 'true')
+      video.setAttribute('loop', 'true')
+      source.setAttribute('src', linkToMedia)
+      source.setAttribute('type', 'video/mp4')
 
-      divTitle.textContent = media.image
+      divTitle.textContent = media.image || media.video
       divPrice.textContent = media.price + '€'
       divLikes.textContent = media.likes + '❤'
 
       sectionCardMedia.appendChild(divMedia)
-      divMedia.appendChild(img)
-      sectionCardMedia.appendChild(divTitle)
-      sectionCardMedia.appendChild(divPrice)
-      sectionCardMedia.appendChild(divLikes)
+      if (media.image) {
+        divMedia.appendChild(img)
+      } else {
+        divMedia.appendChild(video)
+        video.appendChild(source)
+      }
+      textContainer.appendChild(divTitle)
+      textContainer.appendChild(divPrice)
+      textContainer.appendChild(divLikes)
+      sectionCardMedia.appendChild(textContainer)
       sectionListMedia.appendChild(sectionCardMedia)
     })
 
@@ -216,6 +241,7 @@ function displayPage(photographerId) {
       tagList.appendChild(tag)
     }
   } else {
+    document.title += ' - ' + photographerList[photographerId].name
     mainPhotographerPage.appendChild(
       photographerList[photographerId].getBanner()
     )

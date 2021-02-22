@@ -1,0 +1,10 @@
+#main-homePage {
+  @include tablet-only {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include desktop-only {
+    grid-template-columns: repeat(3, 1fr);
+    margin-top: 100px;
+  }
+}
