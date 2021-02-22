@@ -1,7 +1,8 @@
 const url = '/public/data/FishEyeDataFR.json'
-const main = document.getElementById('main')
+const mainHomePage = document.getElementById('main-homePage')
+const mainPhotographerPage = document.getElementById('main-photographerPage')
 const tagList = document.querySelector('nav.tag-list')
-const photographerList = []
+const photographerList = {}
 
 // Classes
 class Photographer {
@@ -11,189 +12,244 @@ class Photographer {
     this.city = city
     this.country = country
     this.tags = tags
-    this.tageline = tagline
+    this.tagline = tagline
     this.price = price
     this.portrait = portrait
     this.alt = alt
+    this.mediaList = []
+  }
+
+  addMedia(media) {
+    this.mediaList.push(media)
   }
 
   getCard() {
-    let HTMLbloc = ''
-    const link = '/pages/' + this.name.toLowerCase().replace(' ', '') + '.html'
+    const linkToPage =
+      '/pages/' + this.name.toLowerCase().replace(' ', '') + '.html'
+    const linkToPhoto = '/public/img/1_small/PhotographersID/' + this.portrait
 
-    HTMLbloc += `
-        <section class="card-photograph">
-        <a class="display-contents" href="${link}" role="link">
-          <div class="card-photograph__portrait">
-            <img src="/public/img/1_small/PhotographersID/${this.portrait}" alt="" />
-          </div>
-          <div class="card-photograph__name">${this.name}</div>
-        </a>
-          <div class="card-photograph__city">${this.city}, ${this.country}</div>
-          <div class="card-photograph__tagline">${this.tagline}</div>
-          <div class="card-photograph__price">${this.price}€/jour</div>
-          <div class="tag-list card-photograph__tags">`
+    const section = document.createElement('section')
+    const a = document.createElement('a')
+    const img = document.createElement('img')
+    const divPortrait = document.createElement('div')
+    const divName = document.createElement('div')
+    const divCity = document.createElement('div')
+    const divTagline = document.createElement('div')
+    const divPrice = document.createElement('div')
+    const divTag = document.createElement('div')
+
+    section.classList.add('card-photograph')
+    a.classList.add('display-contents')
+    divPortrait.classList.add('card-photograph__protrait')
+    divName.classList.add('card-photograph__name')
+    divCity.classList.add('card-photograph__city')
+    divTagline.classList.add('card-photograph__tagline')
+    divPrice.classList.add('card-photograph__price')
+    divTag.classList.add('tag-list')
+    divTag.classList.add('card-photograph__tags')
+
+    a.setAttribute('href', linkToPage)
+    a.setAttribute('role', 'link')
+    img.setAttribute('src', linkToPhoto)
+    img.setAttribute('alt', '')
+
+    divName.textContent = this.name
+    divCity.textContent = this.city + ', ' + this.country
+    divTagline.textContent = this.tagline
+    divPrice.textContent = this.price + '€/jour'
+
+    divPortrait.appendChild(img)
+    a.appendChild(divPortrait)
+    a.appendChild(divName)
+    section.appendChild(a)
+    section.appendChild(divCity)
+    section.appendChild(divTagline)
+    section.appendChild(divPrice)
+    section.appendChild(divTag)
 
     this.tags.forEach((tag) => {
-      HTMLbloc += `<a class="display-contents" href=""><span class="tag">#${tag}</span></a>`
+      const a = document.createElement('a')
+      const span = document.createElement('span')
+
+      a.classList.add('display-contents')
+      span.classList.add('tag')
+
+      a.setAttribute('href', '')
+
+      span.textContent = '#' + tag
+
+      a.appendChild(span)
+      divTag.appendChild(a)
     })
 
-    HTMLbloc += '</div></section>'
-
-    return HTMLbloc
+    return section
   }
 
-  getBanner() {}
+  getBanner() {
+    const linkToPhoto = '/public/img/1_small/PhotographersID/' + this.portrait
+
+    const section = document.createElement('section')
+    const divPortrait = document.createElement('div')
+    const img = document.createElement('img')
+    const divName = document.createElement('div')
+    const divCity = document.createElement('div')
+    const divTagline = document.createElement('div')
+    const divTag = document.createElement('div')
+
+    section.classList.add('card-banner-photograph')
+    divPortrait.classList.add('card-banner-photograph__protrait')
+    divName.classList.add('card-banner-photograph__name')
+    divCity.classList.add('card-banner-photograph__city')
+    divTagline.classList.add('card-banner-photograph__tagline')
+    divTag.classList.add('tag-list')
+    divTag.classList.add('card-banner-photograph__tags')
+
+    img.setAttribute('src', linkToPhoto)
+    img.setAttribute('alt', '')
+
+    divName.textContent = this.name
+    divCity.textContent = this.city + ', ' + this.country
+    divTagline.textContent = this.tagline
+
+    divPortrait.appendChild(img)
+    section.appendChild(divPortrait)
+    section.appendChild(divCity)
+    section.appendChild(divTagline)
+    section.appendChild(divTag)
+
+    this.tags.forEach((tag) => {
+      const a = document.createElement('a')
+      const span = document.createElement('span')
+
+      a.classList.add('display-contents')
+      span.classList.add('tag')
+
+      a.setAttribute('href', '')
+
+      span.textContent = '#' + tag
+
+      a.appendChild(span)
+      divTag.appendChild(a)
+    })
+
+    return section
+  }
+
+  getMedia() {
+    const sectionListMedia = document.createElement('section')
+
+    this.mediaList.forEach((media) => {
+      const linkToMedia =
+        '/public/img/1_small/' +
+        this.name.toLowerCase().replace(' ', '') +
+        '/' +
+        media.image
+
+      const sectionCardMedia = document.createElement('section')
+      const divMedia = document.createElement('div')
+      const img = document.createElement('img')
+      const divTitle = document.createElement('div')
+      const divPrice = document.createElement('div')
+      const divLikes = document.createElement('div')
+
+      sectionCardMedia.classList.add('card-media')
+      divMedia.classList.add('card-media__media')
+      divTitle.classList.add('card-media__title')
+      divPrice.classList.add('card-media__price')
+      divLikes.classList.add('card-media__likes')
+
+      img.setAttribute('src', linkToMedia)
+      img.setAttribute('alt', media.alt)
+
+      divTitle.textContent = media.image
+      divPrice.textContent = media.price + '€'
+      divLikes.textContent = media.likes + '❤'
+
+      sectionCardMedia.appendChild(divMedia)
+      divMedia.appendChild(img)
+      sectionCardMedia.appendChild(divTitle)
+      sectionCardMedia.appendChild(divPrice)
+      sectionCardMedia.appendChild(divLikes)
+      sectionListMedia.appendChild(sectionCardMedia)
+    })
+
+    return sectionListMedia
+  }
 }
 
-// Récupération des données pour l'affichage de la page d'accueil
-// La fonction appelle getData puis displayHomePage
-function getDataHomePage() {
+function createContent(photographerId) {
   fetch(url)
     .then((response) => {
       if (response.ok) {
         return response.json()
       }
     })
-    .then((data) => buildPhotographerList(data.photographers))
-    .then(() => displayHomePage())
+    .then((data) => createPhotographerList(data))
+    .then(() => displayPage(photographerId))
 }
 
-// Récupération des données pour l'affichage d'une page d'un photographe
-// @param : l'ID du photographe
-// La fonction appelle getData, puis tri les données du JSON en fonction de l'id du photographe
-// puis appelle la fonction displayPhotographerPage
-function getDataPhotographerPage(photographerId) {
-  fetch(url)
-    .then((response) => {
-      if (response.ok) {
-        return response.json()
-      }
-    })
-    .then((data) => {
-      const mediaData = []
-      let photographerData
-
-      data.photographers.forEach((photographer) => {
-        if (photographer.id === photographerId) {
-          photographerData = photographer
-        }
-      })
-
-      data.media.forEach((media) => {
-        if (media.photographerId === photographerId) {
-          mediaData.push(media)
-        }
-      })
-    })
-    .then(() =>
-      displayPhotographerPage(photographerData, mediaData, photographerId)
-    )
-}
-
-function displayPhotographerPage(photographerData, mediaData, photographerId) {
-  main.innerHTML = buildPhotographerBanner(photographerData, photographerId)
-  main.innerHTML += buildPhotographerContentList(
-    photographerData,
-    mediaData,
-    photographerId
-  )
-}
-
-function buildPhotographerBanner(photographerData, photographerId) {
-  let photographerBannerBloc = ''
-
-  photographerBannerBloc += `
-          <section class="card-banner-photograph">
-            <div class="card-banner-photograph__portrait">
-              <img src="/public/img/1_small/PhotographersID/${photographerData.portrait}" alt="" />
-            </div>
-            <div class="card-banner-photograph__name">${photographerData.name}</div>
-            <div class="card-banner-photograph__city">${photographerData.city}, ${photographerData.country}</div>
-            <div class="card-banner-photograph__tagline">${photographerData.tagline}</div>
-            <div class="tag-list card-banner-photograph__tags">`
-
-  photographerData.tags.forEach((tag) => {
-    photographerBannerBloc += `<a class="display-contents" href=""><span class="tag">#${tag}</span></a>`
-  })
-
-  photographerBannerBloc += '</div></section>'
-
-  return photographerBannerBloc
-}
-
-function buildPhotographerContentList(
-  photographerData,
-  mediaData,
-  photographerId
-) {
-  let photographerContentBloc = ''
-
-  mediaData.forEach((media) => {
-    const mediaLink =
-      '/public/img/1_small/' +
-      photographerData.name.toLowerCase().replace(' ', '') +
-      '/' +
-      media.image
-
-    photographerContentBloc += `
-          <section class="card-media">
-            <div class="card-media__media">
-              <img src="${mediaLink}" alt="" />
-            </div>
-            <div class="card-media__alt">${media.alt}</div>
-            <div class="card-media__price">${media.price}</div>
-            <div class="card-media__likes">${media.likes}</div>`
-  })
-}
-
-function buildPhotographerList(fetchedPhotographers) {
-  fetchedPhotographers.forEach((photographer) => {
-    photographerList.push(
-      new Photographer(
-        photographer.name,
-        photographer.id,
-        photographer.city,
-        photographer.country,
-        photographer.tags,
-        photographer.tagline,
-        photographer.price,
-        photographer.portrait,
-        photographer.alt
-      )
+function createPhotographerList(fetchedData) {
+  fetchedData.photographers.forEach((photographer) => {
+    photographerList[photographer.id] = new Photographer(
+      photographer.name,
+      photographer.id,
+      photographer.city,
+      photographer.country,
+      photographer.tags,
+      photographer.tagline,
+      photographer.price,
+      photographer.portrait,
+      photographer.alt
     )
   })
-}
-
-// Fonction d'affichage
-function displayHomePage() {
-  main.innerHTML = displayPhotographerList()
-  tagList.innerHTML = buildTagList()
-}
-
-function displayPhotographerList() {
-  let HTMLbloc = ''
-
-  photographerList.forEach((photographer) => {
-    HTMLbloc += photographer.getCard()
+  fetchedData.media.forEach((media) => {
+    photographerList[media.photographerId].addMedia(media)
   })
-
-  return HTMLbloc
 }
 
-function buildTagList() {
-  let tagListBloc = ''
+function displayPage(photographerId) {
+  if (!photographerId) {
+    for (const photographer of Object.values(photographerList)) {
+      mainHomePage.appendChild(photographer.getCard())
+    }
+    for (const tag of getDistinctTag()) {
+      tagList.appendChild(tag)
+    }
+  } else {
+    mainPhotographerPage.appendChild(
+      photographerList[photographerId].getBanner()
+    )
+    mainPhotographerPage.appendChild(
+      photographerList[photographerId].getMedia()
+    )
+  }
+}
+
+function getDistinctTag() {
+  const returnTagList = []
 
   const tags = []
-  photographerList.forEach((photographer) => {
+  for (const photographer of Object.values(photographerList)) {
     photographer.tags.forEach((tag) => {
       tags.push(tag[0].toUpperCase() + tag.substring(1))
     })
-  })
+  }
 
   new Set(tags).forEach((tag) => {
-    tagListBloc += `<a class="display-contents" href=""><span class="tag">#${tag}</span></a>`
+    const a = document.createElement('a')
+    const span = document.createElement('span')
+
+    a.classList.add('display-contents')
+    span.classList.add('tag')
+
+    a.setAttribute('href', '')
+
+    span.textContent = '#' + tag
+
+    a.appendChild(span)
+
+    returnTagList.push(a)
   })
 
-  return tagListBloc
+  return returnTagList
 }
