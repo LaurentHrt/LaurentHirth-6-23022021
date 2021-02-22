@@ -1,56 +1,94 @@
 const url = '/public/data/FishEyeDataFR.json'
 const main = document.getElementById('main')
 const tagList = document.querySelector('nav.tag-list')
+const photographerList = []
+
+// Classes
+class Photographer {
+  constructor(name, id, city, country, tags, tagline, price, portrait, alt) {
+    this.name = name
+    this.id = id
+    this.city = city
+    this.country = country
+    this.tags = tags
+    this.tageline = tagline
+    this.price = price
+    this.portrait = portrait
+    this.alt = alt
+  }
+
+  getCard() {
+    let HTMLbloc = ''
+    const link = '/pages/' + this.name.toLowerCase().replace(' ', '') + '.html'
+
+    HTMLbloc += `
+        <section class="card-photograph">
+        <a class="display-contents" href="${link}" role="link">
+          <div class="card-photograph__portrait">
+            <img src="/public/img/1_small/PhotographersID/${this.portrait}" alt="" />
+          </div>
+          <div class="card-photograph__name">${this.name}</div>
+        </a>
+          <div class="card-photograph__city">${this.city}, ${this.country}</div>
+          <div class="card-photograph__tagline">${this.tagline}</div>
+          <div class="card-photograph__price">${this.price}€/jour</div>
+          <div class="tag-list card-photograph__tags">`
+
+    this.tags.forEach((tag) => {
+      HTMLbloc += `<a class="display-contents" href=""><span class="tag">#${tag}</span></a>`
+    })
+
+    HTMLbloc += '</div></section>'
+
+    return HTMLbloc
+  }
+
+  getBanner() {}
+}
 
 // Récupération des données pour l'affichage de la page d'accueil
 // La fonction appelle getData puis displayHomePage
-async function getDataHomePage() {
-  getData().then((data) => displayHomePage(data.photographers))
+function getDataHomePage() {
+  fetch(url)
+    .then((response) => {
+      if (response.ok) {
+        return response.json()
+      }
+    })
+    .then((data) => buildPhotographerList(data.photographers))
+    .then(() => displayHomePage())
 }
 
 // Récupération des données pour l'affichage d'une page d'un photographe
 // @param : l'ID du photographe
 // La fonction appelle getData, puis tri les données du JSON en fonction de l'id du photographe
 // puis appelle la fonction displayPhotographerPage
-async function getDataPhotographerPage(photographerId) {
-  getData().then((data) => {
-    const mediaData = []
-    let photographerData
-
-    data.photographers.forEach((photographer) => {
-      if (photographer.id === photographerId) {
-        photographerData = photographer
+function getDataPhotographerPage(photographerId) {
+  fetch(url)
+    .then((response) => {
+      if (response.ok) {
+        return response.json()
       }
     })
+    .then((data) => {
+      const mediaData = []
+      let photographerData
 
-    data.media.forEach((media) => {
-      if (media.photographerId === photographerId) {
-        mediaData.push(media)
-      }
+      data.photographers.forEach((photographer) => {
+        if (photographer.id === photographerId) {
+          photographerData = photographer
+        }
+      })
+
+      data.media.forEach((media) => {
+        if (media.photographerId === photographerId) {
+          mediaData.push(media)
+        }
+      })
     })
-
-    displayPhotographerPage(photographerData, mediaData, photographerId)
-  })
-}
-
-// Récupération des données dans le fichier JSON
-async function getData() {
-  let data
-
-  const response = await fetch(url)
-  if (response.ok) {
-    data = await response.json()
-  } else {
-    alert('HTTP-Error: ' + response.status)
-  }
-
-  return data
-}
-
-// Fonction d'affichage
-function displayHomePage(photographersList) {
-  main.innerHTML = buildPhotographersList(photographersList)
-  tagList.innerHTML = buildTagList(photographersList)
+    .then(() =>
+      displayPhotographerPage(photographerData, mediaData, photographerId)
+    )
 }
 
 function displayPhotographerPage(photographerData, mediaData, photographerId) {
@@ -107,45 +145,47 @@ function buildPhotographerContentList(
             <div class="card-media__price">${media.price}</div>
             <div class="card-media__likes">${media.likes}</div>`
   })
-
-  return photographerContentBloc
 }
 
-function buildPhotographersList(photographersList) {
-  let cardPhotographBloc = ''
+function buildPhotographerList(fetchedPhotographers) {
+  fetchedPhotographers.forEach((photographer) => {
+    photographerList.push(
+      new Photographer(
+        photographer.name,
+        photographer.id,
+        photographer.city,
+        photographer.country,
+        photographer.tags,
+        photographer.tagline,
+        photographer.price,
+        photographer.portrait,
+        photographer.alt
+      )
+    )
+  })
+}
 
-  photographersList.forEach((photographer) => {
-    const link =
-      '/pages/' + photographer.name.toLowerCase().replace(' ', '') + '.html'
+// Fonction d'affichage
+function displayHomePage() {
+  main.innerHTML = displayPhotographerList()
+  tagList.innerHTML = buildTagList()
+}
 
-    cardPhotographBloc += `
-        <section class="card-photograph">
-        <a class="display-contents" href="${link}" role="link">
-          <div class="card-photograph__portrait">
-            <img src="/public/img/1_small/PhotographersID/${photographer.portrait}" alt="" />
-          </div>
-          <div class="card-photograph__name">${photographer.name}</div>
-        </a>
-          <div class="card-photograph__city">${photographer.city}, ${photographer.country}</div>
-          <div class="card-photograph__tagline">${photographer.tagline}</div>
-          <div class="card-photograph__price">${photographer.price}€/jour</div>
-          <div class="tag-list card-photograph__tags">`
+function displayPhotographerList() {
+  let HTMLbloc = ''
 
-    photographer.tags.forEach((tag) => {
-      cardPhotographBloc += `<a class="display-contents" href=""><span class="tag">#${tag}</span></a>`
-    })
-
-    cardPhotographBloc += '</div></section>'
+  photographerList.forEach((photographer) => {
+    HTMLbloc += photographer.getCard()
   })
 
-  return cardPhotographBloc
+  return HTMLbloc
 }
 
-function buildTagList(photographersList) {
+function buildTagList() {
   let tagListBloc = ''
 
   const tags = []
-  photographersList.forEach((photographer) => {
+  photographerList.forEach((photographer) => {
     photographer.tags.forEach((tag) => {
       tags.push(tag[0].toUpperCase() + tag.substring(1))
     })
