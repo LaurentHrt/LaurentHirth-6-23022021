@@ -1,4 +1,10 @@
 #main-homePage {
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  column-gap: 20px;
+  row-gap: 20px;
+
   @include tablet-only {
     grid-template-columns: repeat(2, 1fr);
   }

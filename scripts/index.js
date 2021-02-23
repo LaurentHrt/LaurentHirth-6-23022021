@@ -161,15 +161,18 @@ class Photographer {
       const divPrice = document.createElement('div')
       const divLikes = document.createElement('div')
       const textContainer = document.createElement('div')
+      const a = document.createElement('a')
 
-      sectionListMedia.classList.add('list-media')
+      sectionListMedia.classList.add('media-list')
       sectionCardMedia.classList.add('card-media')
       divMedia.classList.add('card-media__media')
       divTitle.classList.add('card-media__title')
       divPrice.classList.add('card-media__price')
       divLikes.classList.add('card-media__likes')
       textContainer.classList.add('card-media__textContainer')
+      a.classList.add('display-contents')
 
+      a.setAttribute('href', '')
       img.setAttribute('src', linkToMedia)
       img.setAttribute('alt', media.alt)
 
@@ -187,7 +190,8 @@ class Photographer {
 
       sectionCardMedia.appendChild(divMedia)
       if (media.image) {
-        divMedia.appendChild(img)
+        a.appendChild(img)
+        divMedia.appendChild(a)
       } else {
         divMedia.appendChild(video)
         video.appendChild(source)
