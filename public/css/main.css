@@ -101,7 +101,7 @@ nav {
 }
 
 .card-banner-photograph__textContainer {
-  padding-left: 20px;
+  padding: 0 20px;
 }
 
 .card-banner-photograph__name {
@@ -146,11 +146,21 @@ nav {
   bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
+  background-color: #901c1c;
+  color: white;
+  border-radius: 5px;
+  width: 170px;
+  height: 35px;
+  font-size: 18px;
+  border: none;
 }
 
 @media screen and (min-width: 768px) {
   .card-banner-photograph__button {
+    transform: translate(0, -40px);
     position: initial;
+    min-width: 170px;
+    height: 69px;
   }
 }
 

@@ -67,7 +67,7 @@
   }
 
   &__textContainer {
-    padding-left: 20px;
+    padding: 0 20px;
   }
 
   &__name {
@@ -106,8 +106,18 @@
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
+    background-color: map-get($map: $colors, $key: primary);
+    color: white;
+    border-radius: 5px;
+    width: 170px;
+    height: 35px;
+    font-size: 18px;
+    border: none;
     @include tablet-only {
+      transform: translate(0, -40px);
       position: initial;
+      min-width: 170px;
+      height: 69px;
     }
   }
 }
