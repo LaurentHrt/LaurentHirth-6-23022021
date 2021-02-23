@@ -42,13 +42,21 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 140px;
   background-color: map-get($map: $colors, $key: quadrary);
 
   &__portrait {
     width: 100px;
     height: 100px;
-    margin-right: 20px;
+    min-width: 100px;
+    min-height: 100px;
+    margin: 20px;
+    @include tablet-only {
+      width: 200px;
+      height: 200px;
+      min-width: 200px;
+      min-height: 200px;
+      margin: 30px;
+    }
     img {
       width: 100%;
       height: 100%;
@@ -67,18 +75,27 @@
     font-size: 36px;
     padding-top: 10px;
     padding-bottom: 5px;
+    @include tablet-only {
+      font-size: 64px;
+    }
   }
 
   &__city {
     color: map-get($map: $colors, $key: primary);
     font-size: 13px;
     padding-bottom: 5px;
+    @include tablet-only {
+      font-size: 24px;
+    }
   }
 
   &__tagline {
     color: #757575;
     font-size: 10px;
     padding-bottom: 5px;
+    @include tablet-only {
+      font-size: 18px;
+    }
   }
 
   &__tags {
@@ -96,25 +113,33 @@
 }
 
 .card-media {
+  min-width: 100px;
   &__media {
-    height: 200px;
-    @include tablet-only {
-    }
-    @include desktop-only {
-    }
-    img {
+    img,
+    video {
       width: 100%;
-      height: 100%;
+      height: 60vw;
       object-fit: cover;
       border-radius: 5px;
+      @include tablet-only {
+        height: 35vw;
+      }
+      @include desktop-only {
+        height: 25vw;
+      }
     }
   }
 
   &__textContainer {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    padding: 10px 0;
+    align-items: baseline;
+    padding: 0 0 15px 0;
+    font-size: 14px;
+    font-size: medium;
+    @include tablet-only {
+      font-size: 24px;
+    }
   }
 
   &__title {
@@ -124,7 +149,7 @@
 
   &__price {
     color: map-get($map: $colors, $key: primary);
-    padding-right: 10px;
+    padding-right: 20px;
   }
 
   &__likes {

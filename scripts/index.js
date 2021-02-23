@@ -172,17 +172,18 @@ class Photographer {
 
       img.setAttribute('src', linkToMedia)
       img.setAttribute('alt', media.alt)
-      video.setAttribute('width', '100%')
-      video.setAttribute('height', '100%')
+
       video.setAttribute('controls', 'true')
       video.setAttribute('muted', 'true')
       video.setAttribute('loop', 'true')
       source.setAttribute('src', linkToMedia)
       source.setAttribute('type', 'video/mp4')
 
-      divTitle.textContent = media.image || media.video
+      divTitle.textContent =
+        media.image?.replace('.jpg', '').replaceAll('_', ' ') ||
+        media.video?.replace('.jpg', '').replaceAll('_', ' ')
       divPrice.textContent = media.price + '€'
-      divLikes.textContent = media.likes + '❤'
+      divLikes.textContent = media.likes + ' ❤'
 
       sectionCardMedia.appendChild(divMedia)
       if (media.image) {

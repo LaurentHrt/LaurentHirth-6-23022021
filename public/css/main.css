@@ -71,14 +71,25 @@ nav {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 140px;
   background-color: #fafafa;
 }
 
 .card-banner-photograph__portrait {
   width: 100px;
   height: 100px;
-  margin-right: 20px;
+  min-width: 100px;
+  min-height: 100px;
+  margin: 20px;
+}
+
+@media screen and (min-width: 768px) {
+  .card-banner-photograph__portrait {
+    width: 200px;
+    height: 200px;
+    min-width: 200px;
+    min-height: 200px;
+    margin: 30px;
+  }
 }
 
 .card-banner-photograph__portrait img {
@@ -100,16 +111,34 @@ nav {
   padding-bottom: 5px;
 }
 
+@media screen and (min-width: 768px) {
+  .card-banner-photograph__name {
+    font-size: 64px;
+  }
+}
+
 .card-banner-photograph__city {
   color: #901c1c;
   font-size: 13px;
   padding-bottom: 5px;
 }
 
+@media screen and (min-width: 768px) {
+  .card-banner-photograph__city {
+    font-size: 24px;
+  }
+}
+
 .card-banner-photograph__tagline {
   color: #757575;
   font-size: 10px;
   padding-bottom: 5px;
+}
+
+@media screen and (min-width: 768px) {
+  .card-banner-photograph__tagline {
+    font-size: 18px;
+  }
 }
 
 .card-banner-photograph__button {
@@ -125,22 +154,45 @@ nav {
   }
 }
 
-.card-media__media {
-  height: 200px;
+.card-media {
+  min-width: 100px;
 }
 
-.card-media__media img {
+.card-media__media img,
+.card-media__media video {
   width: 100%;
-  height: 100%;
+  height: 60vw;
   object-fit: cover;
   border-radius: 5px;
+}
+
+@media screen and (min-width: 768px) {
+  .card-media__media img,
+  .card-media__media video {
+    height: 35vw;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .card-media__media img,
+  .card-media__media video {
+    height: 25vw;
+  }
 }
 
 .card-media__textContainer {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 10px 0;
+  align-items: baseline;
+  padding: 0 0 15px 0;
+  font-size: 14px;
+  font-size: medium;
+}
+
+@media screen and (min-width: 768px) {
+  .card-media__textContainer {
+    font-size: 24px;
+  }
 }
 
 .card-media__title {
@@ -150,7 +202,7 @@ nav {
 
 .card-media__price {
   color: #901c1c;
-  padding-right: 10px;
+  padding-right: 20px;
 }
 
 .card-media__likes {
@@ -177,6 +229,14 @@ nav {
   padding-top: 2px;
   padding-right: 7px;
   padding-left: 7px;
+}
+
+@media screen and (min-width: 1200px) {
+  .tag {
+    height: 24px;
+    font-size: 18px;
+    padding-top: 4px;
+  }
 }
 
 header {
@@ -274,14 +334,14 @@ nav.tag-list {
 
 @media screen and (min-width: 768px) {
   .list-media {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 75px 75px;
   }
 }
 
 @media screen and (min-width: 1200px) {
   .list-media {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 /*# sourceMappingURL=main.css.map */
