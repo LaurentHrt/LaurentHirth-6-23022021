@@ -3,6 +3,7 @@ const mainHomePage = document.getElementById('main-homePage')
 const mainPhotographerPage = document.getElementById('main-photographerPage')
 const tagList = document.querySelector('nav.tag-list')
 const photographerList = {}
+const formModal = document.getElementsByClassName('form-modal')[0]
 
 // Classes
 class Photographer {
@@ -65,64 +66,6 @@ class Photographer {
     section.appendChild(divTagline)
     section.appendChild(divPrice)
     section.appendChild(divTag)
-
-    this.tags.forEach((tag) => {
-      const a = document.createElement('a')
-      const span = document.createElement('span')
-
-      a.classList.add('display-contents')
-      span.classList.add('tag')
-
-      a.setAttribute('href', '')
-
-      span.textContent = '#' + tag
-
-      a.appendChild(span)
-      divTag.appendChild(a)
-    })
-
-    return section
-  }
-
-  getBanner() {
-    const linkToPhoto = '/public/img/1_small/PhotographersID/' + this.portrait
-    const section = document.createElement('section')
-    const divPortrait = document.createElement('div')
-    const img = document.createElement('img')
-    const divName = document.createElement('div')
-    const divCity = document.createElement('div')
-    const divTagline = document.createElement('div')
-    const divTag = document.createElement('div')
-    const button = document.createElement('button')
-    const textContainer = document.createElement('div')
-
-    section.classList.add('card-banner-photograph')
-    divPortrait.classList.add('card-banner-photograph__portrait')
-    divName.classList.add('card-banner-photograph__name')
-    divCity.classList.add('card-banner-photograph__city')
-    divTagline.classList.add('card-banner-photograph__tagline')
-    divTag.classList.add('tag-list')
-    divTag.classList.add('card-banner-photograph__tags')
-    button.classList.add('card-banner-photograph__button')
-    textContainer.classList.add('card-banner-photograph__textContainer')
-
-    img.setAttribute('src', linkToPhoto)
-    img.setAttribute('alt', '')
-    button.setAttribute('type', 'button')
-
-    divName.textContent = this.name
-    divCity.textContent = this.city + ', ' + this.country
-    divTagline.textContent = this.tagline
-    button.textContent = 'Contactez-moi'
-
-    divPortrait.appendChild(img)
-    section.appendChild(textContainer)
-    section.appendChild(button)
-    section.appendChild(divPortrait)
-    textContainer.appendChild(divName)
-    textContainer.appendChild(divCity)
-    textContainer.appendChild(divTagline)
-    textContainer.appendChild(divTag)
 
     this.tags.forEach((tag) => {
       const a = document.createElement('a')
@@ -218,6 +161,28 @@ function createContent(photographerId) {
     .then(() => displayPage(photographerId))
 }
 
+function displayModal(photographerId) {
+  const close = document.querySelector('.close')
+  const title = document.querySelector('.form-modal-content__title')
+
+  title.innerHTML =
+    photographerList[photographerId].name + '</br>' + 'Contactez-moi'
+
+  // When the user clicks on <span> (x), close the modal
+  close.onclick = function () {
+    formModal.style.display = 'none'
+    document.body.classList.remove('disable-scroll')
+  }
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function (event) {
+    if (event.target === formModal) {
+      formModal.style.display = 'none'
+      document.body.classList.remove('disable-scroll')
+    }
+  }
+}
+
 function createPhotographerList(fetchedData) {
   fetchedData.photographers.forEach((photographer) => {
     photographerList[photographer.id] = new Photographer(
@@ -247,12 +212,50 @@ function displayPage(photographerId) {
     }
   } else {
     document.title += ' - ' + photographerList[photographerId].name
-    mainPhotographerPage.appendChild(
-      photographerList[photographerId].getBanner()
-    )
+    fillBanner(photographerId)
     mainPhotographerPage.appendChild(
       photographerList[photographerId].getMedia()
     )
+    displayModal(photographerId)
+  }
+}
+
+function fillBanner(photographerId) {
+  const linkToPhoto =
+    '/public/img/1_small/PhotographersID/' +
+    photographerList[photographerId].portrait
+  const img = document.querySelector('.card-banner-photograph__portrait img')
+  const divName = document.querySelector('.card-banner-photograph__name')
+  const divCity = document.querySelector('.card-banner-photograph__city')
+  const divTagline = document.querySelector('.card-banner-photograph__tagline')
+  const divTag = document.querySelector('.card-banner-photograph__tags')
+  const button = document.querySelector('.card-banner-photograph__button')
+
+  img.setAttribute('src', linkToPhoto)
+  img.setAttribute('alt', '')
+
+  divName.textContent = photographerList[photographerId].name
+  divCity.textContent =
+    photographerList[photographerId].city +
+    ', ' +
+    photographerList[photographerId].country
+  divTagline.textContent = photographerList[photographerId].tagline
+
+  photographerList[photographerId].tags.forEach((tag) => {
+    const a = document.createElement('a')
+    const span = document.createElement('span')
+    a.classList.add('display-contents')
+    span.classList.add('tag')
+    a.setAttribute('href', '')
+    span.textContent = '#' + tag
+    a.appendChild(span)
+    divTag.appendChild(a)
+  })
+
+  // When the user clicks on the button, open the modal
+  button.onclick = function () {
+    formModal.style.display = 'block'
+    document.body.classList.add('disable-scroll')
   }
 }
 
@@ -269,16 +272,11 @@ function getDistinctTag() {
   new Set(tags).forEach((tag) => {
     const a = document.createElement('a')
     const span = document.createElement('span')
-
     a.classList.add('display-contents')
     span.classList.add('tag')
-
     a.setAttribute('href', '')
-
     span.textContent = '#' + tag
-
     a.appendChild(span)
-
     returnTagList.push(a)
   })
 

@@ -22,3 +22,8 @@ h1 {
 nav {
   color: map-get($map: $colors, $key: primary);
 }
+
+.disable-scroll {
+  height: 100%;
+  overflow: hidden;
+}

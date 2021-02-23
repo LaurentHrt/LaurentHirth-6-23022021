@@ -1,0 +1,60 @@
+.form-modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba($color: black, $alpha: 0.7);
+  @include tablet-only {
+  }
+}
+
+.form-modal-content {
+  background-color: #db8876;
+  margin: 0;
+  border: 1px solid #888;
+  padding: 20px;
+  height: 100%;
+  @include tablet-only {
+    margin: 20px auto;
+    height: initial;
+    width: 320px;
+  }
+  .text-control {
+    width: -webkit-fill-available;
+    border-radius: $standard-border-radius;
+    border: none;
+    height: 35px;
+    margin-top: 5px;
+  }
+  &__title {
+    font-size: 36px;
+    margin-bottom: 20px;
+  }
+  label {
+  }
+}
+
+.formData {
+  margin-bottom: 10px;
+}
+
+/* The Close Button */
+.close {
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: map-get($map: $colors, $key: primary);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.btn-submit {
+  margin: 0 auto;
+}
