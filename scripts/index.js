@@ -1,4 +1,4 @@
-const url = '../public/data/FishEyeDataFR.json'
+const url = './public/data/FishEyeDataFR.json'
 const mainHomePage = document.getElementById('main-homePage')
 const mainPhotographerPage = document.getElementById('main-photographerPage')
 const tagList = document.querySelector('nav.tag-list')
@@ -25,9 +25,8 @@ class Photographer {
   }
 
   getCard() {
-    const linkToPage =
-      'pages/' + this.name.toLowerCase().replace(' ', '') + '.html'
-    const linkToPhoto = 'public/img/1_small/PhotographersID/' + this.portrait
+    const linkToPage = this.name.toLowerCase().replace(' ', '') + '.html'
+    const linkToPhoto = './public/img/1_small/PhotographersID/' + this.portrait
     const section = document.createElement('section')
     const a = document.createElement('a')
     const img = document.createElement('img')
@@ -90,7 +89,7 @@ class Photographer {
 
     this.mediaList.forEach((media) => {
       const linkToMedia =
-        '../public/img/1_small/' +
+        './public/img/1_small/' +
         this.name.toLowerCase().replace(' ', '') +
         '/' +
         (media.image || media.video)
@@ -222,7 +221,7 @@ function displayPage(photographerId) {
 
 function fillBanner(photographerId) {
   const linkToPhoto =
-    '../public/img/1_small/PhotographersID/' +
+    './public/img/1_small/PhotographersID/' +
     photographerList[photographerId].portrait
   const img = document.querySelector('.card-banner-photograph__portrait img')
   const divName = document.querySelector('.card-banner-photograph__name')
