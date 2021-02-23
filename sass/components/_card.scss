@@ -147,22 +147,25 @@
     padding: 0 0 15px 0;
     font-size: 14px;
     font-size: medium;
+    color: map-get($map: $colors, $key: primary);
     @include tablet-only {
       font-size: 24px;
     }
   }
 
   &__title {
-    color: map-get($map: $colors, $key: primary);
     flex-grow: 10;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
 
   &__price {
-    color: map-get($map: $colors, $key: primary);
-    padding-right: 20px;
+    padding: 0 20px;
+    white-space: nowrap;
   }
 
   &__likes {
-    color: map-get($map: $colors, $key: primary);
+    white-space: nowrap;
   }
 }

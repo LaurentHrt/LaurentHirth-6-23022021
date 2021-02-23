@@ -197,6 +197,7 @@ nav {
   padding: 0 0 15px 0;
   font-size: 14px;
   font-size: medium;
+  color: #901c1c;
 }
 
 @media screen and (min-width: 768px) {
@@ -206,17 +207,19 @@ nav {
 }
 
 .card-media__title {
-  color: #901c1c;
   flex-grow: 10;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .card-media__price {
-  color: #901c1c;
-  padding-right: 20px;
+  padding: 0 20px;
+  white-space: nowrap;
 }
 
 .card-media__likes {
-  color: #901c1c;
+  white-space: nowrap;
 }
 
 .tag-list {
