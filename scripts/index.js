@@ -1,4 +1,4 @@
-const url = '/public/data/FishEyeDataFR.json'
+const url = './public/data/FishEyeDataFR.json'
 const mainHomePage = document.getElementById('main-homePage')
 const mainPhotographerPage = document.getElementById('main-photographerPage')
 const tagList = document.querySelector('nav.tag-list')
