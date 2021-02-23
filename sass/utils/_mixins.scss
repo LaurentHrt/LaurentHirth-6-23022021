@@ -1,0 +1,30 @@
+// ************* Responsive style ************* //
+@mixin tablet-only {
+  @media screen and (min-width: map-get($breakpoints, tablet)) {
+    @content;
+  }
+}
+
+@mixin desktop-only {
+  @media screen and (min-width: map-get($breakpoints, desktop)) {
+    @content;
+  }
+}
+
+// *************  ************* //
+@mixin standard-btn-style {
+  background-color: map-get($map: $colors, $key: primary);
+  color: white;
+  border-radius: $standard-border-radius;
+  width: 170px;
+  height: 35px;
+  font-size: 18px;
+  border: none;
+  @include tablet-only {
+    min-width: 170px;
+    height: 69px;
+  }
+  &:hover {
+    cursor: pointer;
+  }
+}

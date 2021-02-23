@@ -1,0 +1,29 @@
+body {
+  @include desktop-only {
+    margin: 0;
+  }
+}
+
+a,
+a:visited {
+  text-decoration: none;
+}
+
+.display-contents {
+  display: contents;
+}
+
+h1 {
+  color: map-get($map: $colors, $key: primary);
+  font-weight: 200;
+  margin: 0;
+}
+
+nav {
+  color: map-get($map: $colors, $key: primary);
+}
+
+.disable-scroll {
+  height: 100%;
+  overflow: hidden;
+}
