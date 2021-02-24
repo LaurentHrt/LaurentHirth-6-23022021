@@ -395,6 +395,26 @@ nav {
   }
 }
 
+.info-box {
+  display: none;
+}
+
+@media screen and (min-width: 768px) {
+  .info-box {
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    width: 150px;
+    padding: 0 20px;
+    bottom: 0;
+    right: 20px;
+    background-color: #db8876;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+  }
+}
+
 header {
   display: grid;
   padding: 30px 15px;
@@ -481,7 +501,7 @@ nav {
 
 @media screen and (min-width: 768px) {
   #main-photographerPage {
-    padding: 0 35px;
+    padding: 0 35px 50px;
   }
 }
 /*# sourceMappingURL=main.css.map */

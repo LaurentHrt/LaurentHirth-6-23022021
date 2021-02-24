@@ -24,6 +24,32 @@ class Photographer {
     this.mediaList.push(media)
   }
 
+  getLikes() {
+    let sum = 0
+    this.mediaList.forEach((media) => {
+      sum += media.likes
+    })
+    return sum
+  }
+
+  getInfoBox() {
+    const section = document.createElement('section')
+    const likeText = document.createElement('p')
+    const priceText = document.createElement('p')
+
+    section.classList.add('info-box')
+    likeText.classList.add('info-box__like')
+    priceText.classList.add('info-box__price')
+
+    section.appendChild(likeText)
+    section.appendChild(priceText)
+
+    likeText.textContent = this.getLikes() + '❤'
+    priceText.textContent = this.price + '€/jour'
+
+    return section
+  }
+
   getCard() {
     const linkToPage = this.name.toLowerCase().replace(' ', '') + '.html'
     const linkToPhoto = './public/img/1_small/PhotographersID/' + this.portrait
@@ -214,6 +240,9 @@ function displayPage(photographerId) {
     fillBanner(photographerId)
     mainPhotographerPage.appendChild(
       photographerList[photographerId].getMedia()
+    )
+    mainPhotographerPage.appendChild(
+      photographerList[photographerId].getInfoBox()
     )
     displayModal(photographerId)
   }

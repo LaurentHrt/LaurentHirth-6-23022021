@@ -15,7 +15,7 @@
 
 .form-modal-content {
   box-sizing: border-box;
-  background-color: #db8876;
+  background-color: map-get($map: $colors, $key: light-background);
   margin: 0;
   border: 1px solid #888;
   padding: 20px;
