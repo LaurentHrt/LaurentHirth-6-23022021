@@ -110,10 +110,27 @@ class Photographer {
     return section
   }
 
-  getMedia() {
+  getMedia(filter, sort) {
     const sectionListMedia = document.createElement('section')
+    let localMediaList = this.mediaList.slice()
 
-    this.mediaList.forEach((media) => {
+    if (filter) {
+      localMediaList = localMediaList.filter((media) =>
+        media.tags.includes(filter)
+      )
+    }
+
+    if (sort) {
+      if (sort === 'likes') {
+        localMediaList.sort((a, b) => a.likes - b.likes)
+      } else if (sort === 'title') {
+        localMediaList.sort((a, b) => a.image - b.image)
+      } else if (sort === 'date') {
+        localMediaList.sort((a, b) => a.date - b.date)
+      }
+    }
+
+    localMediaList.forEach((media) => {
       const linkToMedia =
         './public/img/1_small/' +
         this.name.toLowerCase().replace(' ', '') +
@@ -239,7 +256,7 @@ function displayPage(photographerId) {
     document.title += ' - ' + photographerList[photographerId].name
     fillBanner(photographerId)
     mainPhotographerPage.appendChild(
-      photographerList[photographerId].getMedia()
+      photographerList[photographerId].getMedia('events', 'likes')
     )
     mainPhotographerPage.appendChild(
       photographerList[photographerId].getInfoBox()
