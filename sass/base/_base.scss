@@ -9,8 +9,13 @@ a:visited {
   text-decoration: none;
 }
 
-.display-contents {
-  display: contents;
+/* Faire en sorte que input, select, textarea et button 
+   héritent la police de body. Pas d'héritage par défaut */
+input,
+select,
+textarea,
+button {
+  font-family: inherit;
 }
 
 h1 {
@@ -23,6 +28,9 @@ nav {
   color: map-get($map: $colors, $key: primary);
 }
 
+.display-contents {
+  display: contents;
+}
 .disable-scroll {
   height: 100%;
   overflow: hidden;

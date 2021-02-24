@@ -1,3 +1,4 @@
+@charset "UTF-8";
 body {
   font-family: 'DM Sans', sans-serif;
 }
@@ -13,8 +14,13 @@ a:visited {
   text-decoration: none;
 }
 
-.display-contents {
-  display: contents;
+/* Faire en sorte que input, select, textarea et button 
+   héritent la police de body. Pas d'héritage par défaut */
+input,
+select,
+textarea,
+button {
+  font-family: inherit;
 }
 
 h1 {
@@ -25,6 +31,10 @@ h1 {
 
 nav {
   color: #901c1c;
+}
+
+.display-contents {
+  display: contents;
 }
 
 .disable-scroll {
@@ -220,37 +230,61 @@ nav {
 
 .form-modal {
   display: none;
+  flex-direction: column;
   position: fixed;
   z-index: 1;
   left: 0;
   top: 0;
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   background: rgba(0, 0, 0, 0.7);
+  overflow: auto;
 }
 
 .form-modal-content {
+  box-sizing: border-box;
   background-color: #db8876;
   margin: 0;
   border: 1px solid #888;
   padding: 20px;
   height: 100%;
+  min-height: 520px;
 }
 
 @media screen and (min-width: 768px) {
   .form-modal-content {
-    margin: 20px auto;
-    height: initial;
-    width: 320px;
+    margin: 30px auto;
+    width: 400px;
+    height: 90vh;
+    max-height: 800px;
   }
 }
 
+.form-modal-content form {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
 .form-modal-content .text-control {
-  width: -webkit-fill-available;
+  box-sizing: border-box;
+  width: 100%;
   border-radius: 5px;
   border: none;
   height: 35px;
   margin-top: 5px;
+  padding: 5px;
+}
+
+.form-modal-content .textarea-control {
+  box-sizing: border-box;
+  width: 100%;
+  border-radius: 5px;
+  border: none;
+  margin-top: 5px;
+  padding: 5px;
+  resize: none;
+  flex-grow: 2;
 }
 
 .form-modal-content__title {
@@ -258,8 +292,24 @@ nav {
   margin-bottom: 20px;
 }
 
+.form-modal-content__btn-submit {
+  align-self: flex-start;
+}
+
+@media screen and (min-width: 768px) {
+  .form-modal-content__btn-submit {
+    align-self: center;
+  }
+}
+
 .formData {
   margin-bottom: 10px;
+}
+
+.formData:nth-child(5) {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 2;
 }
 
 /* The Close Button */
@@ -274,10 +324,6 @@ nav {
   color: #901c1c;
   text-decoration: none;
   cursor: pointer;
-}
-
-.btn-submit {
-  margin: 0 auto;
 }
 
 .button {
@@ -430,7 +476,7 @@ nav {
   justify-items: center;
   column-gap: 20px;
   row-gap: 20px;
-  padding: 0 15px 50px 0;
+  padding: 0 0 50px 0;
 }
 
 @media screen and (min-width: 768px) {
