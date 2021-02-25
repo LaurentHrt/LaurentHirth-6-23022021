@@ -43,9 +43,10 @@
 
 body {
   font-family: 'DM Sans', sans-serif;
+  margin: 8px 20px;
 }
 
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: 768px) {
   body {
     margin: 0;
   }
@@ -128,7 +129,12 @@ nav {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  background-color: #fafafa;
+}
+
+@media screen and (min-width: 768px) {
+  .card-banner-photograph {
+    background-color: #fafafa;
+  }
 }
 
 .card-banner-photograph__portrait {
@@ -158,7 +164,13 @@ nav {
 }
 
 .card-banner-photograph__textContainer {
-  padding: 0 20px;
+  padding-right: 20px;
+}
+
+@media screen and (min-width: 768px) {
+  .card-banner-photograph__textContainer {
+    padding-left: 20px;
+  }
 }
 
 .card-banner-photograph__name {
@@ -360,7 +372,7 @@ nav {
 .close {
   float: right;
   font-size: 28px;
-  font-weight: bold;
+  font-weight: 700;
 }
 
 .close:hover,
@@ -399,7 +411,7 @@ nav {
 @media screen and (min-width: 768px) {
   .media-list {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 75px 75px;
+    gap: 20px 75px;
   }
 }
 

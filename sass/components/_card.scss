@@ -42,7 +42,10 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  background-color: map-get($map: $colors, $key: quadrary);
+
+  @include tablet-only {
+    background-color: map-get($map: $colors, $key: quadrary);
+  }
 
   &__portrait {
     width: 100px;
@@ -67,7 +70,10 @@
   }
 
   &__textContainer {
-    padding: 0 20px;
+    padding-right: 20px;
+    @include tablet-only {
+      padding-left: 20px;
+    }
   }
 
   &__name {
