@@ -11,7 +11,7 @@
 
 .filter {
   display: none;
-  font-weight: bold;
+  font-weight: 700;
   @include tablet-only {
     display: block;
   }
