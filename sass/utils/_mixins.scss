@@ -1,11 +1,11 @@
 // ************* Responsive style ************* //
-@mixin tablet-only {
+@mixin tablet-and-higher {
   @media screen and (min-width: map-get($breakpoints, tablet)) {
     @content;
   }
 }
 
-@mixin desktop-only {
+@mixin desktop-and-higher {
   @media screen and (min-width: map-get($breakpoints, desktop)) {
     @content;
   }
@@ -20,7 +20,7 @@
   height: 35px;
   font-size: 18px;
   border: none;
-  @include tablet-only {
+  @include tablet-and-higher {
     min-width: 170px;
     height: 69px;
   }

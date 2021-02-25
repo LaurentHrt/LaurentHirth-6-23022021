@@ -10,7 +10,7 @@
   font-size: 13px;
   padding-right: 7px;
   padding-left: 7px;
-  @include desktop-only {
+  @include desktop-and-higher {
     height: 24px;
     font-size: 18px;
   }

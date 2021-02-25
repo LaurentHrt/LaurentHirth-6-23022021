@@ -1,7 +1,7 @@
 body {
   font-family: 'DM Sans', sans-serif;
   margin: 8px 20px;
-  @include tablet-only {
+  @include tablet-and-higher {
     margin: 0;
   }
 }

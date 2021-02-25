@@ -5,11 +5,11 @@
   column-gap: 20px;
   row-gap: 20px;
 
-  @include tablet-only {
+  @include tablet-and-higher {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  @include desktop-only {
+  @include desktop-and-higher {
     grid-template-columns: repeat(3, 1fr);
     margin-top: 100px;
   }

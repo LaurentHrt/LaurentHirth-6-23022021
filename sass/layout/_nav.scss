@@ -3,7 +3,7 @@ nav {
   grid-row: 2;
   justify-content: center;
 
-  @include desktop-only {
+  @include desktop-and-higher {
     grid-column: auto;
     grid-row: auto;
   }

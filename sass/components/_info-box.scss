@@ -1,6 +1,6 @@
 .info-box {
   display: none;
-  @include tablet-only {
+  @include tablet-and-higher {
     position: fixed;
     display: flex;
     justify-content: space-between;
