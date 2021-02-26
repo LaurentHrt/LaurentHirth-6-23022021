@@ -10,8 +10,16 @@
   font-size: 13px;
   padding-right: 7px;
   padding-left: 7px;
+  transition: $standard-transition-time;
+
   @include desktop-and-higher {
     height: 24px;
     font-size: 18px;
+  }
+
+  &:hover {
+    color: white;
+    background-color: map-get($map: $colors, $key: primary);
+    border-color: map-get($map: $colors, $key: primary);
   }
 }

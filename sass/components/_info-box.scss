@@ -9,7 +9,7 @@
     padding: 0 20px;
     bottom: 0;
     right: 20px;
-    background-color: map-get($map: $colors, $key: light-background);
+    background-color: map-get($map: $colors, $key: secondary-light);
     border-top-left-radius: $standard-border-radius;
     border-top-right-radius: $standard-border-radius;
     &__like {

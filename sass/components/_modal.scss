@@ -2,7 +2,7 @@
   display: none;
   flex-direction: column;
   position: fixed;
-  z-index: 1;
+  z-index: 9999;
   left: 0;
   top: 0;
   width: 100vw;
@@ -15,12 +15,14 @@
 
 .form-modal-content {
   box-sizing: border-box;
-  background-color: map-get($map: $colors, $key: light-background);
+  background-color: map-get($map: $colors, $key: secondary-light);
   margin: 0;
   border: 1px solid #888;
   padding: 20px;
   height: 100%;
-  min-height: 520px;
+  min-height: 600px;
+  animation: modalOpen 0.5s;
+
   @include tablet-and-higher {
     margin: 30px auto;
     width: 400px;
@@ -53,6 +55,7 @@
   }
   &__title {
     font-size: 36px;
+    margin-top: 0;
     margin-bottom: 20px;
   }
   &__btn-submit {
@@ -84,4 +87,14 @@
   color: map-get($map: $colors, $key: primary);
   text-decoration: none;
   cursor: pointer;
+}
+
+@keyframes modalOpen {
+  from {
+    opacity: 0;
+    transform: translateY(-150px);
+  }
+  to {
+    opacity: 1;
+  }
 }

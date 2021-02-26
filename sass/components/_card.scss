@@ -1,11 +1,19 @@
 .card-photograph {
   text-align: center;
 
+  &:hover {
+    img {
+      transform: scale(1.1);
+    }
+  }
+
   img {
+    transform-origin: top;
     width: 200px;
     height: 200px;
     border-radius: 50%;
     object-fit: cover;
+    transition: 0.5s;
   }
 
   &__name {
@@ -121,7 +129,14 @@
 
 .card-media {
   min-width: 100px;
+
   &__media {
+    transition: 0.5s;
+
+    &:hover {
+      transform: scale(1.02) rotateZ(-1deg);
+    }
+
     img,
     video {
       width: 100%;
@@ -129,9 +144,11 @@
       object-fit: cover;
       object-position: top;
       border-radius: $standard-border-radius;
+
       @include tablet-and-higher {
         height: 35vw;
       }
+
       @include desktop-and-higher {
         height: 25vw;
       }
