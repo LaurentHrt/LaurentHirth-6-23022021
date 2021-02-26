@@ -1,11 +1,18 @@
 #main-photographerPage {
   display: grid;
   grid-template-columns: 1fr;
-  justify-items: center;
   column-gap: 20px;
   row-gap: 20px;
-  padding: 0 15px 50px 0;
-  @include tablet-only {
-    padding: 0 35px;
+  padding: 0 0 50px 0;
+  @include tablet-and-higher {
+    padding: 0 35px 50px;
+  }
+}
+
+.filter {
+  display: none;
+  font-weight: 700;
+  @include tablet-and-higher {
+    display: block;
   }
 }

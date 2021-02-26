@@ -6,14 +6,20 @@
   color: map-get($map: $colors, $key: primary);
   margin-right: 5px;
   margin-bottom: 5px;
-  font-weight: bold;
-  font-size: 12px;
-  padding-top: 2px;
+  font-weight: 500;
+  font-size: 13px;
   padding-right: 7px;
   padding-left: 7px;
-  @include desktop-only {
+  transition: $standard-transition-time;
+
+  @include desktop-and-higher {
     height: 24px;
     font-size: 18px;
-    padding-top: 4px;
+  }
+
+  &:hover {
+    color: white;
+    background-color: map-get($map: $colors, $key: primary);
+    border-color: map-get($map: $colors, $key: primary);
   }
 }

@@ -1,51 +1,85 @@
 .form-modal {
   display: none;
+  flex-direction: column;
   position: fixed;
-  z-index: 1;
+  z-index: 9999;
   left: 0;
   top: 0;
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   background: rgba($color: black, $alpha: 0.7);
-  @include tablet-only {
+  overflow: auto;
+  @include tablet-and-higher {
   }
 }
 
 .form-modal-content {
-  background-color: #db8876;
+  box-sizing: border-box;
+  background-color: map-get($map: $colors, $key: secondary-light);
   margin: 0;
   border: 1px solid #888;
   padding: 20px;
   height: 100%;
-  @include tablet-only {
-    margin: 20px auto;
-    height: initial;
-    width: 320px;
+  min-height: 600px;
+  animation: modalOpen 0.5s;
+
+  @include tablet-and-higher {
+    margin: 30px auto;
+    width: 400px;
+    height: 90vh;
+    max-height: 800px;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
   }
   .text-control {
-    width: -webkit-fill-available;
+    box-sizing: border-box;
+    width: 100%;
     border-radius: $standard-border-radius;
     border: none;
     height: 35px;
     margin-top: 5px;
+    padding: 5px;
+  }
+  .textarea-control {
+    box-sizing: border-box;
+    width: 100%;
+    border-radius: $standard-border-radius;
+    border: none;
+    margin-top: 5px;
+    padding: 5px;
+    resize: none;
+    flex-grow: 2;
   }
   &__title {
     font-size: 36px;
+    margin-top: 0;
     margin-bottom: 20px;
   }
-  label {
+  &__btn-submit {
+    align-self: flex-start;
+    @include tablet-and-higher {
+      align-self: center;
+    }
   }
 }
 
 .formData {
   margin-bottom: 10px;
+  &:nth-child(5) {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 2;
+  }
 }
 
 /* The Close Button */
 .close {
   float: right;
   font-size: 28px;
-  font-weight: bold;
+  font-weight: 700;
 }
 
 .close:hover,
@@ -55,6 +89,12 @@
   cursor: pointer;
 }
 
-.btn-submit {
-  margin: 0 auto;
+@keyframes modalOpen {
+  from {
+    opacity: 0;
+    transform: translateY(-150px);
+  }
+  to {
+    opacity: 1;
+  }
 }

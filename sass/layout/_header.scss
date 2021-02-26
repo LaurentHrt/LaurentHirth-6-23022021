@@ -7,7 +7,11 @@ header {
   grid-column-gap: 15px;
   align-items: center;
 
-  @include desktop-only {
+  @include tablet-and-higher {
+    padding: 30px 35px 15px;
+  }
+
+  @include desktop-and-higher {
     grid-template-columns: auto 1fr auto;
     grid-template-rows: auto;
     padding-right: 40px;
@@ -16,7 +20,7 @@ header {
 
   img {
     width: 150px;
-    @include desktop-only {
+    @include desktop-and-higher {
       width: 200px;
     }
   }
@@ -25,7 +29,7 @@ header {
     white-space: nowrap;
     text-align: right;
     font-size: 14px;
-    @include desktop-only {
+    @include desktop-and-higher {
       font-size: 36px;
     }
   }

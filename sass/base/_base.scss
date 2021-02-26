@@ -1,5 +1,7 @@
 body {
-  @include desktop-only {
+  font-family: 'DM Sans', sans-serif;
+  margin: 8px 20px;
+  @include tablet-and-higher {
     margin: 0;
   }
 }
@@ -9,20 +11,28 @@ a:visited {
   text-decoration: none;
 }
 
-.display-contents {
-  display: contents;
+/* Faire en sorte que input, select, textarea et button 
+   héritent la police de body. Pas d'héritage par défaut */
+input,
+select,
+textarea,
+button {
+  font-family: inherit;
 }
 
 h1 {
   color: map-get($map: $colors, $key: primary);
-  font-weight: 200;
   margin: 0;
+  font-weight: 400;
 }
 
 nav {
   color: map-get($map: $colors, $key: primary);
 }
 
+.display-contents {
+  display: contents;
+}
 .disable-scroll {
   height: 100%;
   overflow: hidden;

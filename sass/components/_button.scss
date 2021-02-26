@@ -1,3 +1,22 @@
 .button {
-  @include standard-btn-style;
+  background-color: map-get($map: $colors, $key: primary);
+  color: white;
+  border-radius: $standard-border-radius;
+  width: 170px;
+  height: 35px;
+  font-size: 18px;
+  border: none;
+  transition: $standard-transition-time;
+  z-index: 1000;
+
+  @include tablet-and-higher {
+    min-width: 170px;
+    height: 69px;
+  }
+
+  &:hover {
+    cursor: pointer;
+    background-color: map-get($map: $colors, $key: secondary-light);
+    color: black;
+  }
 }

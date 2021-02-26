@@ -60,24 +60,26 @@
             </div>
             <div class="formData" data-error="Vous devez écrire un message">
               <label>Votre message</label>
-              <input
-                class="text-control"
-                type="text"
+              <textarea
+                class="textarea-control"
                 id="message"
                 name="message"
-                placeholder="Message..."
+                placeholder="Votre message..."
+                maxlength="500"
                 required
-              />
+              ></textarea>
             </div>
 
-            <input class="button btn-submit" type="submit" value="Envoyer" />
+            <div class="form-modal-content__btn-submit">
+              <input class="button" type="submit" value="Envoyer" />
+            </div>
           </form>
         </div>
       </div>
 
       <section class="card-banner-photograph">
         <div class="card-banner-photograph__textContainer">
-          <div class="card-banner-photograph__name"></div>
+          <h1 class="card-banner-photograph__name"></h1>
           <div class="card-banner-photograph__city"></div>
           <div class="card-banner-photograph__tagline"></div>
           <div class="tag-list card-banner-photograph__tags"></div>
@@ -88,6 +90,10 @@
         <div class="card-banner-photograph__portrait">
           <img />
         </div>
+      </section>
+      <section class="filter">
+        Trier par
+        <button class="filter__button button" type="button">Popularité</button>
       </section>
     </main>
     <script src="./scripts/index.js"></script>

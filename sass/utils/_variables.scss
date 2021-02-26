@@ -10,9 +10,13 @@ $page-max-width: 1400px;
 $colors: (
   'primary': #901c1c,
   'secondary': #d3573c,
+  'secondary-light': #db8876,
   'tertiary': #525252,
   'quadrary': #fafafa,
 );
 
 // Borders
 $standard-border-radius: 5px;
+
+// Transitions
+$standard-transition-time: 0.2s;

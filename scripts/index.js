@@ -7,7 +7,7 @@ const formModal = document.getElementsByClassName('form-modal')[0]
 
 // Classes
 class Photographer {
-  constructor(name, id, city, country, tags, tagline, price, portrait, alt) {
+  constructor (name, id, city, country, tags, tagline, price, portrait, alt) {
     this.name = name
     this.id = id
     this.city = city
@@ -20,11 +20,37 @@ class Photographer {
     this.mediaList = []
   }
 
-  addMedia(media) {
+  addMedia (media) {
     this.mediaList.push(media)
   }
 
-  getCard() {
+  getLikes () {
+    let sum = 0
+    this.mediaList.forEach((media) => {
+      sum += media.likes
+    })
+    return sum
+  }
+
+  getInfoBox () {
+    const section = document.createElement('section')
+    const likeText = document.createElement('p')
+    const priceText = document.createElement('p')
+
+    section.classList.add('info-box')
+    likeText.classList.add('info-box__like')
+    priceText.classList.add('info-box__price')
+
+    section.appendChild(likeText)
+    section.appendChild(priceText)
+
+    likeText.textContent = this.getLikes() + '❤'
+    priceText.textContent = this.price + '€/jour'
+
+    return section
+  }
+
+  getCard () {
     const linkToPage = this.name.toLowerCase().replace(' ', '') + '.html'
     const linkToPhoto = './public/img/1_small/PhotographersID/' + this.portrait
     const section = document.createElement('section')
@@ -84,10 +110,27 @@ class Photographer {
     return section
   }
 
-  getMedia() {
+  getMedia (filter, sort) {
     const sectionListMedia = document.createElement('section')
+    let localMediaList = this.mediaList.slice()
 
-    this.mediaList.forEach((media) => {
+    if (filter) {
+      localMediaList = localMediaList.filter((media) =>
+        media.tags.includes(filter)
+      )
+    }
+
+    if (sort) {
+      if (sort === 'likes') {
+        localMediaList.sort((a, b) => a.likes - b.likes)
+      } else if (sort === 'title') {
+        localMediaList.sort((a, b) => a.image - b.image)
+      } else if (sort === 'date') {
+        localMediaList.sort((a, b) => a.date - b.date)
+      }
+    }
+
+    localMediaList.forEach((media) => {
       const linkToMedia =
         './public/img/1_small/' +
         this.name.toLowerCase().replace(' ', '') +
@@ -149,7 +192,7 @@ class Photographer {
   }
 }
 
-function createContent(photographerId) {
+function createContent (photographerId) {
   fetch(url)
     .then((response) => {
       if (response.ok) {
@@ -160,7 +203,7 @@ function createContent(photographerId) {
     .then(() => displayPage(photographerId))
 }
 
-function displayModal(photographerId) {
+function displayModal (photographerId) {
   const close = document.querySelector('.close')
   const title = document.querySelector('.form-modal-content__title')
 
@@ -182,7 +225,7 @@ function displayModal(photographerId) {
   }
 }
 
-function createPhotographerList(fetchedData) {
+function createPhotographerList (fetchedData) {
   fetchedData.photographers.forEach((photographer) => {
     photographerList[photographer.id] = new Photographer(
       photographer.name,
@@ -201,7 +244,7 @@ function createPhotographerList(fetchedData) {
   })
 }
 
-function displayPage(photographerId) {
+function displayPage (photographerId) {
   if (!photographerId) {
     for (const photographer of Object.values(photographerList)) {
       mainHomePage.appendChild(photographer.getCard())
@@ -215,11 +258,14 @@ function displayPage(photographerId) {
     mainPhotographerPage.appendChild(
       photographerList[photographerId].getMedia()
     )
+    mainPhotographerPage.appendChild(
+      photographerList[photographerId].getInfoBox()
+    )
     displayModal(photographerId)
   }
 }
 
-function fillBanner(photographerId) {
+function fillBanner (photographerId) {
   const linkToPhoto =
     './public/img/1_small/PhotographersID/' +
     photographerList[photographerId].portrait
@@ -234,10 +280,7 @@ function fillBanner(photographerId) {
   img.setAttribute('alt', '')
 
   divName.textContent = photographerList[photographerId].name
-  divCity.textContent =
-    photographerList[photographerId].city +
-    ', ' +
-    photographerList[photographerId].country
+  divCity.textContent = photographerList[photographerId].city + ', ' + photographerList[photographerId].country
   divTagline.textContent = photographerList[photographerId].tagline
 
   photographerList[photographerId].tags.forEach((tag) => {
@@ -258,7 +301,7 @@ function fillBanner(photographerId) {
   }
 }
 
-function getDistinctTag() {
+function getDistinctTag () {
   const returnTagList = []
 
   const tags = []
