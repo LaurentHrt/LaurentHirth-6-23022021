@@ -1,9 +1,9 @@
 const url = './public/data/FishEyeDataFR.json'
-const mainHomePage = document.getElementById('main-homePage')
-const mainPhotographerPage = document.getElementById('main-photographerPage')
+const mainHomePage = document.querySelector('#main-homePage')
+const mainPhotographerPage = document.querySelector('#main-photographerPage')
 const tagList = document.querySelector('nav.tag-list')
 const photographerList = {}
-const formModal = document.getElementsByClassName('form-modal')[0]
+const formModal = document.querySelector('.form-modal')
 
 // Classes
 class Photographer {
@@ -41,8 +41,7 @@ class Photographer {
     likeText.classList.add('info-box__like')
     priceText.classList.add('info-box__price')
 
-    section.appendChild(likeText)
-    section.appendChild(priceText)
+    section.append(likeText, priceText)
 
     likeText.textContent = this.getLikes() + '❤'
     priceText.textContent = this.price + '€/jour'
@@ -70,27 +69,22 @@ class Photographer {
     divCity.classList.add('card-photograph__city')
     divTagline.classList.add('card-photograph__tagline')
     divPrice.classList.add('card-photograph__price')
-    divTag.classList.add('tag-list')
-    divTag.classList.add('card-photograph__tags')
+    divTag.classList.add('tag-list', 'card-photograph__tags')
 
-    a.setAttribute('href', linkToPage)
+    a.href = linkToPage
     a.setAttribute('role', 'link')
-    img.setAttribute('src', linkToPhoto)
-    img.setAttribute('alt', '')
+
+    img.src = linkToPhoto
+    img.alt = ''
 
     divName.textContent = this.name
     divCity.textContent = this.city + ', ' + this.country
     divTagline.textContent = this.tagline
     divPrice.textContent = this.price + '€/jour'
 
-    divPortrait.appendChild(img)
-    a.appendChild(divPortrait)
-    a.appendChild(divName)
-    section.appendChild(a)
-    section.appendChild(divCity)
-    section.appendChild(divTagline)
-    section.appendChild(divPrice)
-    section.appendChild(divTag)
+    divPortrait.append(img)
+    a.append(divPortrait, divName)
+    section.append(a, divCity, divTagline, divPrice, divTag)
 
     this.tags.forEach((tag) => {
       const a = document.createElement('a')
@@ -99,12 +93,12 @@ class Photographer {
       a.classList.add('display-contents')
       span.classList.add('tag')
 
-      a.setAttribute('href', '')
+      a.href = ''
 
       span.textContent = '#' + tag
 
-      a.appendChild(span)
-      divTag.appendChild(a)
+      a.append(span)
+      divTag.append(a)
     })
 
     return section
@@ -157,15 +151,16 @@ class Photographer {
       textContainer.classList.add('card-media__textContainer')
       a.classList.add('display-contents')
 
-      a.setAttribute('href', '')
-      img.setAttribute('src', linkToMedia)
-      img.setAttribute('alt', media.alt)
+      a.href = ''
+      img.src = linkToMedia
+      img.alt = media.alt
 
-      video.setAttribute('controls', 'true')
-      video.setAttribute('muted', 'true')
-      video.setAttribute('loop', 'true')
-      source.setAttribute('src', linkToMedia)
-      source.setAttribute('type', 'video/mp4')
+      video.controls = true
+      video.muted = true
+      video.loop = true
+
+      source.src = linkToMedia
+      source.type = 'video/mp4'
 
       divTitle.textContent =
         media.image?.replace('.jpg', '').replaceAll('_', ' ') ||
@@ -173,19 +168,17 @@ class Photographer {
       divPrice.textContent = media.price + '€'
       divLikes.textContent = media.likes + ' ❤'
 
-      sectionCardMedia.appendChild(divMedia)
+      sectionCardMedia.append(divMedia)
       if (media.image) {
-        a.appendChild(img)
-        divMedia.appendChild(a)
+        a.append(img)
+        divMedia.append(a)
       } else {
-        divMedia.appendChild(video)
-        video.appendChild(source)
+        divMedia.append(video)
+        video.append(source)
       }
-      textContainer.appendChild(divTitle)
-      textContainer.appendChild(divPrice)
-      textContainer.appendChild(divLikes)
-      sectionCardMedia.appendChild(textContainer)
-      sectionListMedia.appendChild(sectionCardMedia)
+      textContainer.append(divTitle, divPrice, divLikes)
+      sectionCardMedia.append(textContainer)
+      sectionListMedia.append(sectionCardMedia)
     })
 
     return sectionListMedia
@@ -203,26 +196,23 @@ function createContent (photographerId) {
     .then(() => displayPage(photographerId))
 }
 
-function displayModal (photographerId) {
-  const close = document.querySelector('.close')
+function openModal (photographerId) {
   const title = document.querySelector('.form-modal-content__title')
+  const close = document.querySelector('.close')
 
-  title.innerHTML =
-    photographerList[photographerId].name + '</br>' + 'Contactez-moi'
+  title.innerHTML = photographerList[photographerId].name + '</br>' + 'Contactez-moi'
 
-  // When the user clicks on <span> (x), close the modal
-  close.onclick = function () {
-    formModal.style.display = 'none'
-    document.body.classList.remove('disable-scroll')
-  }
+  close.addEventListener('click', closeModal)
+  formModal.addEventListener('click', closeModal)
+  formModal.firstElementChild.addEventListener('click', (e) => e.stopPropagation())
 
-  // When the user clicks anywhere outside of the modal, close it
-  window.onclick = function (event) {
-    if (event.target === formModal) {
-      formModal.style.display = 'none'
-      document.body.classList.remove('disable-scroll')
-    }
-  }
+  formModal.style.display = 'block'
+  document.body.classList.add('disable-scroll')
+}
+
+function closeModal () {
+  formModal.style.display = 'none'
+  document.body.classList.remove('disable-scroll')
 }
 
 function createPhotographerList (fetchedData) {
@@ -247,21 +237,20 @@ function createPhotographerList (fetchedData) {
 function displayPage (photographerId) {
   if (!photographerId) {
     for (const photographer of Object.values(photographerList)) {
-      mainHomePage.appendChild(photographer.getCard())
+      mainHomePage.append(photographer.getCard())
     }
     for (const tag of getDistinctTag()) {
-      tagList.appendChild(tag)
+      tagList.append(tag)
     }
   } else {
     document.title += ' - ' + photographerList[photographerId].name
     fillBanner(photographerId)
-    mainPhotographerPage.appendChild(
+    mainPhotographerPage.append(
       photographerList[photographerId].getMedia()
     )
-    mainPhotographerPage.appendChild(
+    mainPhotographerPage.append(
       photographerList[photographerId].getInfoBox()
     )
-    displayModal(photographerId)
   }
 }
 
@@ -270,14 +259,16 @@ function fillBanner (photographerId) {
     './public/img/1_small/PhotographersID/' +
     photographerList[photographerId].portrait
   const img = document.querySelector('.card-banner-photograph__portrait img')
+
   const divName = document.querySelector('.card-banner-photograph__name')
+
   const divCity = document.querySelector('.card-banner-photograph__city')
   const divTagline = document.querySelector('.card-banner-photograph__tagline')
   const divTag = document.querySelector('.card-banner-photograph__tags')
   const button = document.querySelector('.card-banner-photograph__button')
 
-  img.setAttribute('src', linkToPhoto)
-  img.setAttribute('alt', '')
+  img.src = linkToPhoto
+  img.alt = ''
 
   divName.textContent = photographerList[photographerId].name
   divCity.textContent = photographerList[photographerId].city + ', ' + photographerList[photographerId].country
@@ -288,17 +279,13 @@ function fillBanner (photographerId) {
     const span = document.createElement('span')
     a.classList.add('display-contents')
     span.classList.add('tag')
-    a.setAttribute('href', '')
+    a.href = ''
     span.textContent = '#' + tag
-    a.appendChild(span)
-    divTag.appendChild(a)
+    a.append(span)
+    divTag.append(a)
   })
 
-  // When the user clicks on the button, open the modal
-  button.onclick = function () {
-    formModal.style.display = 'block'
-    document.body.classList.add('disable-scroll')
-  }
+  button.addEventListener('click', () => openModal(photographerId))
 }
 
 function getDistinctTag () {
@@ -316,9 +303,9 @@ function getDistinctTag () {
     const span = document.createElement('span')
     a.classList.add('display-contents')
     span.classList.add('tag')
-    a.setAttribute('href', '')
+    a.href = ''
     span.textContent = '#' + tag
-    a.appendChild(span)
+    a.append(span)
     returnTagList.push(a)
   })
 
