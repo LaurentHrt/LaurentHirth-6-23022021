@@ -290,7 +290,9 @@ function createPhotographerList (fetchedData) {
 
 function displayPage (photographerId) {
   if (!photographerId) {
-    photographerList.forEach((photographer) => { mainHomePage.append(photographer.getCard()) })
+    for (const photographer of Object.values(photographerList)) {
+      mainHomePage.append(photographer.getCard())
+    }
     getDistinctTag().forEach((tag) => { tagList.append(tag) })
   } else {
     document.title += ' - ' + photographerList[photographerId].name
@@ -324,6 +326,10 @@ function fillBanner (photographerId) {
     span.textContent = '#' + tag
     a.append(span)
     divTag.append(a)
+    a.addEventListener('click', (e) => e.preventDefault())
+    a.addEventListener('click', () => {
+      document.querySelector('.media-list').replaceWith(photographerList[photographerId].getMediaList(tag))
+    })
   })
 
   button.addEventListener('click', () => openModal(photographerId))
