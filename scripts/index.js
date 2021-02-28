@@ -1,3 +1,4 @@
+// ***************** Declarations ***************** //
 const url = './public/data/FishEyeDataFR.json'
 const mainHomePage = document.querySelector('#main-homePage')
 const mainPhotographerPage = document.querySelector('#main-photographerPage')
@@ -5,7 +6,7 @@ const tagList = document.querySelector('nav.tag-list')
 const photographerList = {}
 const formModal = document.querySelector('.form-modal')
 
-// Classes
+// ***************** Classes ***************** //
 class Photographer {
   constructor (name, id, city, country, tags, tagline, price, portrait, alt) {
     this.name = name
@@ -73,10 +74,8 @@ class Photographer {
 
     a.href = linkToPage
     a.setAttribute('role', 'link')
-
     img.src = linkToPhoto
     img.alt = ''
-
     divName.textContent = this.name
     divCity.textContent = this.city + ', ' + this.country
     divTagline.textContent = this.tagline
@@ -92,11 +91,8 @@ class Photographer {
 
       a.classList.add('display-contents')
       span.classList.add('tag')
-
       a.href = ''
-
       span.textContent = '#' + tag
-
       a.append(span)
       divTag.append(a)
     })
@@ -104,9 +100,11 @@ class Photographer {
     return section
   }
 
-  getMedia (filter, sort) {
+  getMediaList (filter, sort) {
     const sectionListMedia = document.createElement('section')
     let localMediaList = this.mediaList.slice()
+
+    sectionListMedia.classList.add('media-list')
 
     if (filter) {
       localMediaList = localMediaList.filter((media) =>
@@ -125,66 +123,141 @@ class Photographer {
     }
 
     localMediaList.forEach((media) => {
-      const linkToMedia =
-        './public/img/1_small/' +
-        this.name.toLowerCase().replace(' ', '') +
-        '/' +
-        (media.image || media.video)
-
-      const sectionCardMedia = document.createElement('section')
-      const divMedia = document.createElement('div')
-      const img = document.createElement('img')
-      const video = document.createElement('video')
-      const source = document.createElement('source')
-      const divTitle = document.createElement('div')
-      const divPrice = document.createElement('div')
-      const divLikes = document.createElement('div')
-      const textContainer = document.createElement('div')
-      const a = document.createElement('a')
-
-      sectionListMedia.classList.add('media-list')
-      sectionCardMedia.classList.add('card-media')
-      divMedia.classList.add('card-media__media')
-      divTitle.classList.add('card-media__title')
-      divPrice.classList.add('card-media__price')
-      divLikes.classList.add('card-media__likes')
-      textContainer.classList.add('card-media__textContainer')
-      a.classList.add('display-contents')
-
-      a.href = ''
-      img.src = linkToMedia
-      img.alt = media.alt
-
-      video.controls = true
-      video.muted = true
-      video.loop = true
-
-      source.src = linkToMedia
-      source.type = 'video/mp4'
-
-      divTitle.textContent =
-        media.image?.replace('.jpg', '').replaceAll('_', ' ') ||
-        media.video?.replace('.jpg', '').replaceAll('_', ' ')
-      divPrice.textContent = media.price + '€'
-      divLikes.textContent = media.likes + ' ❤'
-
-      sectionCardMedia.append(divMedia)
-      if (media.image) {
-        a.append(img)
-        divMedia.append(a)
-      } else {
-        divMedia.append(video)
-        video.append(source)
-      }
-      textContainer.append(divTitle, divPrice, divLikes)
-      sectionCardMedia.append(textContainer)
-      sectionListMedia.append(sectionCardMedia)
+      sectionListMedia.append(media.getCard())
     })
 
     return sectionListMedia
   }
 }
 
+class Media {
+  createMedia (id, photographerId, type, link, tags, likes, date, price, alt) {
+    if (type === 'jpg') {
+      return new Photo(id, photographerId, link, tags, likes, date, price, alt)
+    } else if (type === 'mp4') {
+      return new Video(id, photographerId, link, tags, likes, date, price, alt)
+    }
+  }
+}
+
+class Photo extends Media {
+  constructor (id, photographerId, link, tags, likes, date, price, alt) {
+    super()
+    this.id = id
+    this.photographerId = photographerId
+    this.link = link
+    this.tags = tags
+    this.likes = likes
+    this.date = date
+    this.price = price
+    this.alt = alt
+  }
+
+  getCard () {
+    const linkToMedia = './public/img/1_small/' + photographerList[this.photographerId].name.toLowerCase().replace(' ', '') + '/' + this.link
+
+    const sectionCardMedia = document.createElement('section')
+    const divMedia = document.createElement('div')
+    const img = document.createElement('img')
+    const divTitle = document.createElement('div')
+    const divPrice = document.createElement('div')
+    const divLikes = document.createElement('div')
+    const textContainer = document.createElement('div')
+    const a = document.createElement('a')
+
+    sectionCardMedia.classList.add('card-media')
+    divMedia.classList.add('card-media__media')
+    divTitle.classList.add('card-media__title')
+    divPrice.classList.add('card-media__price')
+    divLikes.classList.add('card-media__likes')
+    textContainer.classList.add('card-media__textContainer')
+    a.classList.add('display-contents')
+
+    a.href = ''
+    img.src = linkToMedia
+    img.alt = this.alt
+
+    divTitle.textContent = this.link.replace('.jpg', '').replaceAll('_', ' ')
+    divPrice.textContent = this.price + '€'
+    divLikes.textContent = this.likes + ' ❤'
+
+    sectionCardMedia.append(divMedia)
+    a.append(img)
+    divMedia.append(a)
+    textContainer.append(divTitle, divPrice, divLikes)
+    sectionCardMedia.append(textContainer)
+
+    return sectionCardMedia
+  }
+
+  getModal () {
+
+  }
+}
+
+class Video extends Media {
+  constructor (id, photographerId, link, tags, likes, date, price, alt) {
+    super()
+    this.id = id
+    this.photographerId = photographerId
+    this.link = link
+    this.tags = tags
+    this.likes = likes
+    this.date = date
+    this.price = price
+    this.alt = alt
+  }
+
+  getCard () {
+    const linkToMedia = './public/img/1_small/' + photographerList[this.photographerId].name.toLowerCase().replace(' ', '') + '/' + this.link
+
+    const sectionCardMedia = document.createElement('section')
+    const divMedia = document.createElement('div')
+    const video = document.createElement('video')
+    const source = document.createElement('source')
+    const divTitle = document.createElement('div')
+    const divPrice = document.createElement('div')
+    const divLikes = document.createElement('div')
+    const textContainer = document.createElement('div')
+    const a = document.createElement('a')
+
+    sectionCardMedia.classList.add('card-media')
+    divMedia.classList.add('card-media__media')
+    divTitle.classList.add('card-media__title')
+    divPrice.classList.add('card-media__price')
+    divLikes.classList.add('card-media__likes')
+    textContainer.classList.add('card-media__textContainer')
+    a.classList.add('display-contents')
+
+    a.href = ''
+
+    video.controls = true
+    video.muted = true
+    video.loop = true
+
+    source.src = linkToMedia
+    source.type = 'video/mp4'
+
+    divTitle.textContent = this.link.replace('.jpg', '').replaceAll('_', ' ')
+    divPrice.textContent = this.price + '€'
+    divLikes.textContent = this.likes + ' ❤'
+
+    sectionCardMedia.append(divMedia)
+    divMedia.append(video)
+    video.append(source)
+
+    textContainer.append(divTitle, divPrice, divLikes)
+    sectionCardMedia.append(textContainer)
+
+    return sectionCardMedia
+  }
+
+  getModal () {
+
+  }
+}
+
+// ***************** Functions ***************** //
 function createContent (photographerId) {
   fetch(url)
     .then((response) => {
@@ -194,25 +267,6 @@ function createContent (photographerId) {
     })
     .then((data) => createPhotographerList(data))
     .then(() => displayPage(photographerId))
-}
-
-function openModal (photographerId) {
-  const title = document.querySelector('.form-modal-content__title')
-  const close = document.querySelector('.close')
-
-  title.innerHTML = photographerList[photographerId].name + '</br>' + 'Contactez-moi'
-
-  close.addEventListener('click', closeModal)
-  formModal.addEventListener('click', closeModal)
-  formModal.firstElementChild.addEventListener('click', (e) => e.stopPropagation())
-
-  formModal.style.display = 'block'
-  document.body.classList.add('disable-scroll')
-}
-
-function closeModal () {
-  formModal.style.display = 'none'
-  document.body.classList.remove('disable-scroll')
 }
 
 function createPhotographerList (fetchedData) {
@@ -230,38 +284,26 @@ function createPhotographerList (fetchedData) {
     )
   })
   fetchedData.media.forEach((media) => {
-    photographerList[media.photographerId].addMedia(media)
+    photographerList[media.photographerId].addMedia(Media.prototype.createMedia(media.id, media.photographerId, media.image?.split('.').pop() || media.video?.split('.').pop(), media.image || media.video, media.tags, media.likes, media.date, media.price, media.alt))
   })
 }
 
 function displayPage (photographerId) {
   if (!photographerId) {
-    for (const photographer of Object.values(photographerList)) {
-      mainHomePage.append(photographer.getCard())
-    }
-    for (const tag of getDistinctTag()) {
-      tagList.append(tag)
-    }
+    photographerList.forEach((photographer) => { mainHomePage.append(photographer.getCard()) })
+    getDistinctTag().forEach((tag) => { tagList.append(tag) })
   } else {
     document.title += ' - ' + photographerList[photographerId].name
     fillBanner(photographerId)
-    mainPhotographerPage.append(
-      photographerList[photographerId].getMedia()
-    )
-    mainPhotographerPage.append(
-      photographerList[photographerId].getInfoBox()
-    )
+    mainPhotographerPage.append(photographerList[photographerId].getMediaList())
+    mainPhotographerPage.append(photographerList[photographerId].getInfoBox())
   }
 }
 
 function fillBanner (photographerId) {
-  const linkToPhoto =
-    './public/img/1_small/PhotographersID/' +
-    photographerList[photographerId].portrait
+  const linkToPhoto = './public/img/1_small/PhotographersID/' + photographerList[photographerId].portrait
   const img = document.querySelector('.card-banner-photograph__portrait img')
-
   const divName = document.querySelector('.card-banner-photograph__name')
-
   const divCity = document.querySelector('.card-banner-photograph__city')
   const divTagline = document.querySelector('.card-banner-photograph__tagline')
   const divTag = document.querySelector('.card-banner-photograph__tags')
@@ -269,7 +311,6 @@ function fillBanner (photographerId) {
 
   img.src = linkToPhoto
   img.alt = ''
-
   divName.textContent = photographerList[photographerId].name
   divCity.textContent = photographerList[photographerId].city + ', ' + photographerList[photographerId].country
   divTagline.textContent = photographerList[photographerId].tagline
@@ -290,8 +331,8 @@ function fillBanner (photographerId) {
 
 function getDistinctTag () {
   const returnTagList = []
-
   const tags = []
+
   for (const photographer of Object.values(photographerList)) {
     photographer.tags.forEach((tag) => {
       tags.push(tag[0].toUpperCase() + tag.substring(1))
@@ -310,4 +351,22 @@ function getDistinctTag () {
   })
 
   return returnTagList
+}
+
+function openModal (photographerId) {
+  const title = document.querySelector('.form-modal-content__title')
+  const close = document.querySelector('.close')
+
+  close.addEventListener('click', closeModal)
+  formModal.addEventListener('click', closeModal)
+  formModal.firstElementChild.addEventListener('click', (e) => e.stopPropagation())
+
+  title.innerHTML = photographerList[photographerId].name + '</br>' + 'Contactez-moi'
+  formModal.style.display = 'block'
+  document.body.classList.add('disable-scroll')
+}
+
+function closeModal () {
+  formModal.style.display = 'none'
+  document.body.classList.remove('disable-scroll')
 }
