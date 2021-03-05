@@ -1,4 +1,5 @@
 import { Photographer } from './Photographer.js'
+import { PhotographerList } from './PhotographerList.js'
 import { Media } from './Media.js'
 
 // ***************** Declarations ***************** //
@@ -6,7 +7,7 @@ const urlParams = new URLSearchParams(window.location.search)
 const linkToData = './public/data/FishEyeDataFR.json'
 const relativePathToSmallImg = './public/img/1_small/'
 const mainPhotographerPage = document.querySelector('#main-photographerPage')
-const photographerList = {}
+const photographerList = new PhotographerList()
 const formModal = document.querySelector('.form-modal')
 
 // ***************** Functions ***************** //
@@ -23,7 +24,7 @@ function createContent (photographerId) {
 
 function createPhotographerList (fetchedData) {
   fetchedData.photographers.forEach((photographer) => {
-    photographerList[photographer.id] = new Photographer(
+    photographerList.addPhotographer(new Photographer(
       photographer.name,
       photographer.id,
       photographer.city,
@@ -33,16 +34,16 @@ function createPhotographerList (fetchedData) {
       photographer.price,
       photographer.portrait,
       photographer.alt
-    )
+    ))
   })
   fetchedData.media.forEach((media) => {
     const mediaFactory = new Media(media.id, media.photographerId, media.image?.split('.').pop() || media.video?.split('.').pop(), media.image || media.video, media.tags, media.likes, media.date, media.price, media.alt)
-    photographerList[media.photographerId].addMedia(mediaFactory.createMedia())
+    photographerList.getPhotographerById(media.photographerId).addMedia(mediaFactory.createMedia())
   })
 }
 
 function displayPage (photographerId) {
-  document.title += ' - ' + photographerList[photographerId].name
+  document.title += ' - ' + photographerList.getPhotographerById(photographerId).name
 
   displayBanner(photographerId)
   displayMediaList(photographerId)
@@ -50,7 +51,7 @@ function displayPage (photographerId) {
 }
 
 function displayBanner (photographerId) {
-  const linkToPhoto = './public/img/1_small/PhotographersID/' + photographerList[photographerId].portrait
+  const linkToPhoto = './public/img/1_small/PhotographersID/' + photographerList.getPhotographerById(photographerId).portrait
   const img = document.querySelector('.card-banner-photograph__portrait img')
   const divName = document.querySelector('.card-banner-photograph__name')
   const divCity = document.querySelector('.card-banner-photograph__city')
@@ -60,11 +61,11 @@ function displayBanner (photographerId) {
 
   img.src = linkToPhoto
   img.alt = ''
-  divName.textContent = photographerList[photographerId].name
-  divCity.textContent = photographerList[photographerId].city + ', ' + photographerList[photographerId].country
-  divTagline.textContent = photographerList[photographerId].tagline
+  divName.textContent = photographerList.getPhotographerById(photographerId).name
+  divCity.textContent = photographerList.getPhotographerById(photographerId).city + ', ' + photographerList.getPhotographerById(photographerId).country
+  divTagline.textContent = photographerList.getPhotographerById(photographerId).tagline
 
-  photographerList[photographerId].tags.forEach((tag) => {
+  photographerList.getPhotographerById(photographerId).tags.forEach((tag) => {
     const a = document.createElement('a')
     const span = document.createElement('span')
     a.classList.add('display-contents')
@@ -75,7 +76,7 @@ function displayBanner (photographerId) {
     divTag.append(a)
     a.addEventListener('click', (e) => e.preventDefault())
     a.addEventListener('click', () => {
-      document.querySelector('.media-list').replaceWith(photographerList[photographerId].getMediaList(tag))
+      document.querySelector('.media-list').replaceWith(photographerList.getPhotographerById(photographerId).getMediaList(tag))
     })
   })
 
@@ -93,15 +94,15 @@ function displayInfoBox (photographerId) {
 
   section.append(likeText, priceText)
 
-  likeText.textContent = photographerList[photographerId].getLikes() + '❤'
-  priceText.textContent = photographerList[photographerId].price + '€/jour'
+  likeText.textContent = photographerList.getPhotographerById(photographerId).getLikes() + '❤'
+  priceText.textContent = photographerList.getPhotographerById(photographerId).price + '€/jour'
 
   mainPhotographerPage.append(section)
 }
 
 function displayMediaList (photographerId, filter, sort) {
   const sectionListMedia = document.createElement('section')
-  let localMediaList = photographerList[photographerId].mediaList.slice()
+  let localMediaList = photographerList.getPhotographerById(photographerId).mediaList.slice()
 
   sectionListMedia.classList.add('media-list')
 
@@ -122,7 +123,7 @@ function displayMediaList (photographerId, filter, sort) {
   }
 
   localMediaList.forEach((media) => {
-    const linkToMedia = relativePathToSmallImg + photographerList[photographerId].name.toLowerCase().replace(' ', '') + '/' + media.link
+    const linkToMedia = relativePathToSmallImg + photographerList.getPhotographerById(photographerId).name.toLowerCase().replace(' ', '') + '/' + media.link
 
     const sectionCardMedia = document.createElement('section')
     const divMedia = document.createElement('div')
@@ -167,7 +168,7 @@ function openModal (photographerId) {
   formModal.addEventListener('click', closeModal)
   formModal.firstElementChild.addEventListener('click', (e) => e.stopPropagation())
 
-  title.innerHTML = photographerList[photographerId].name + '</br>' + 'Contactez-moi'
+  title.innerHTML = photographerList.getPhotographerById(photographerId).name + '</br>' + 'Contactez-moi'
   formModal.style.display = 'block'
   document.body.classList.add('disable-scroll')
 }
