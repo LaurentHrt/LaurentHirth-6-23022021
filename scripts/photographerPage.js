@@ -6,7 +6,6 @@ import { Media } from './Media.js'
 const urlParams = new URLSearchParams(window.location.search)
 const linkToData = './public/data/FishEyeDataFR.json'
 const relativePathToSmallImg = './public/img/1_small/'
-const mainPhotographerPage = document.querySelector('#main-photographerPage')
 const photographerList = new PhotographerList()
 const contactModal = document.querySelector('.contactModal')
 const mediaModal = document.querySelector('.mediaModal')
@@ -49,6 +48,7 @@ function displayPage (photographerId) {
   displayBanner(photographerId)
   displayMediaList(photographerId)
   displayInfoBox(photographerId)
+  buildMediaModal()
 }
 
 function displayBanner (photographerId) {
@@ -81,45 +81,17 @@ function displayBanner (photographerId) {
 }
 
 function displayInfoBox (photographerId) {
-  const section = document.createElement('section')
-  const likeText = document.createElement('p')
-  const priceText = document.createElement('p')
-
-  section.classList.add('info-box')
-  likeText.classList.add('info-box__like')
-  priceText.classList.add('info-box__price')
-
-  section.append(likeText, priceText)
+  const likeText = document.querySelector('.info-box__like')
+  const priceText = document.querySelector('.info-box__price')
 
   likeText.textContent = photographerList.getPhotographerById(photographerId).getLikes() + '❤'
   priceText.textContent = photographerList.getPhotographerById(photographerId).price + '€/jour'
-
-  mainPhotographerPage.append(section)
 }
 
-function displayMediaList (photographerId, filter, sort) {
-  const sectionListMedia = document.createElement('section')
-  let localMediaList = photographerList.getPhotographerById(photographerId).mediaList.slice()
+function displayMediaList (photographerId) {
+  const sectionMediaList = document.querySelector('.media-list')
 
-  sectionListMedia.classList.add('media-list')
-
-  if (filter) {
-    localMediaList = localMediaList.filter((media) =>
-      media.tags.includes(filter)
-    )
-  }
-
-  if (sort) {
-    if (sort === 'likes') {
-      localMediaList.sort((a, b) => a.likes - b.likes)
-    } else if (sort === 'title') {
-      localMediaList.sort((a, b) => a.image - b.image)
-    } else if (sort === 'date') {
-      localMediaList.sort((a, b) => a.date - b.date)
-    }
-  }
-
-  localMediaList.forEach((media) => {
+  photographerList.getPhotographerById(photographerId).mediaList.forEach((media) => {
     const linkToMedia = relativePathToSmallImg + photographerList.getPhotographerById(photographerId).name.toLowerCase().replace(' ', '') + '/' + media.link
 
     const sectionCardMedia = document.createElement('section')
@@ -141,7 +113,7 @@ function displayMediaList (photographerId, filter, sort) {
 
     a.href = ''
     a.addEventListener('click', (e) => e.preventDefault())
-    a.addEventListener('click', () => openMediaModal())
+    a.addEventListener('click', () => openMediaModal(media, linkToMedia))
 
     divTitle.textContent = media.link.replace('.jpg', '').replaceAll('_', ' ')
     divPrice.textContent = media.price + '€'
@@ -152,11 +124,21 @@ function displayMediaList (photographerId, filter, sort) {
     divMedia.append(a)
     textContainer.append(divTitle, divPrice, divLikes)
     sectionCardMedia.append(textContainer)
-
-    sectionListMedia.append(sectionCardMedia)
+    sectionMediaList.append(sectionCardMedia)
   })
+}
 
-  mainPhotographerPage.append(sectionListMedia)
+function buildMediaModal () {
+  const close = mediaModal.querySelector('.mediaModal__content__close')
+  const rightArrow = mediaModal.querySelector('.mediaModal__content__rightArrow')
+  const leftArrow = mediaModal.querySelector('.mediaModal__content__leftArrow')
+
+  close.addEventListener('click', closeMediaModal)
+  mediaModal.addEventListener('click', closeMediaModal)
+  mediaModal.firstElementChild.addEventListener('click', (e) => e.stopPropagation())
+
+  rightArrow.addEventListener('click', () => {})
+  leftArrow.addEventListener('click', () => {})
 }
 
 function openContactModal (photographerId) {
@@ -177,12 +159,10 @@ function closeContactModal () {
   document.body.classList.remove('disable-scroll')
 }
 
-function openMediaModal () {
-  const close = mediaModal.querySelector('.mediaModal__content__close')
+function openMediaModal (media, linkToMedia) {
+  const mediaSection = mediaModal.querySelector('.mediaModal__content__media')
 
-  close.addEventListener('click', closeMediaModal)
-  mediaModal.addEventListener('click', closeMediaModal)
-  mediaModal.firstElementChild.addEventListener('click', (e) => e.stopPropagation())
+  mediaSection.firstChild.replaceWith(media.getDOMComponent(linkToMedia))
 
   mediaModal.style.display = 'block'
   document.body.classList.add('disable-scroll')
