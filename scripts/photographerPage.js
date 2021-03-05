@@ -4,6 +4,7 @@ import { Media } from './Media.js'
 // ***************** Declarations ***************** //
 const urlParams = new URLSearchParams(window.location.search)
 const linkToData = './public/data/FishEyeDataFR.json'
+const relativePathToSmallImg = './public/img/1_small/'
 const mainPhotographerPage = document.querySelector('#main-photographerPage')
 const photographerList = {}
 const formModal = document.querySelector('.form-modal')
@@ -35,7 +36,8 @@ function createPhotographerList (fetchedData) {
     )
   })
   fetchedData.media.forEach((media) => {
-    photographerList[media.photographerId].addMedia(Media.prototype.createMedia(media.id, media.photographerId, media.image?.split('.').pop() || media.video?.split('.').pop(), media.image || media.video, media.tags, media.likes, media.date, media.price, media.alt))
+    const mediaFactory = new Media(media.id, media.photographerId, media.image?.split('.').pop() || media.video?.split('.').pop(), media.image || media.video, media.tags, media.likes, media.date, media.price, media.alt)
+    photographerList[media.photographerId].addMedia(mediaFactory.createMedia())
   })
 }
 
@@ -120,11 +122,11 @@ function displayMediaList (photographerId, filter, sort) {
   }
 
   localMediaList.forEach((media) => {
-    const linkToMedia = './public/img/1_small/' + photographerList[photographerId].name.toLowerCase().replace(' ', '') + '/' + media.link
+    const linkToMedia = relativePathToSmallImg + photographerList[photographerId].name.toLowerCase().replace(' ', '') + '/' + media.link
 
     const sectionCardMedia = document.createElement('section')
     const divMedia = document.createElement('div')
-    const img = document.createElement('img')
+    const specificMediaElement = media.getDOMComponent(linkToMedia)
     const divTitle = document.createElement('div')
     const divPrice = document.createElement('div')
     const divLikes = document.createElement('div')
@@ -140,15 +142,13 @@ function displayMediaList (photographerId, filter, sort) {
     a.classList.add('display-contents')
 
     a.href = ''
-    img.src = linkToMedia
-    img.alt = media.alt
 
     divTitle.textContent = media.link.replace('.jpg', '').replaceAll('_', ' ')
     divPrice.textContent = media.price + '€'
     divLikes.textContent = media.likes + ' ❤'
 
     sectionCardMedia.append(divMedia)
-    a.append(img)
+    a.append(specificMediaElement)
     divMedia.append(a)
     textContainer.append(divTitle, divPrice, divLikes)
     sectionCardMedia.append(textContainer)

@@ -12,8 +12,8 @@ export class Photographer {
     this.mediaList = []
   }
 
-  addMedia (media) {
-    this.mediaList.push(media)
+  getFolderName () {
+    return this.name.toLowerCase().replace(' ', '')
   }
 
   getLikes () {
@@ -22,5 +22,17 @@ export class Photographer {
       sum += media.likes
     })
     return sum
+  }
+
+  getMediaByTag (...tag) {
+
+  }
+
+  getMediaSorted (sort) {
+
+  }
+
+  addMedia (media) {
+    this.mediaList.push(media)
   }
 }
