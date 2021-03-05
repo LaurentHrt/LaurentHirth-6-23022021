@@ -39,12 +39,12 @@
         <button class="filter__button button" type="button">Popularité</button>
       </section>
 
-      <div class="form-modal">
-        <div class="form-modal-content">
-          <span class="close">&times;</span>
+      <div class="contactModal">
+        <div class="contactModal__content">
+          <span class="contactModal__content__close">&times;</span>
 
           <form name="contact" action="index.js" method="get" onsubmit="">
-            <p class="form-modal-content__title"></p>
+            <p class="contactModal__content__title"></p>
             <div class="formData" data-error="Veuillez entrer votre prénom">
               <label for="firstname">Prénom</label>
               <input
@@ -90,10 +90,15 @@
               ></textarea>
             </div>
 
-            <div class="form-modal-content__btn-submit">
+            <div class="contactModal__content__btn-submit">
               <input class="button" type="submit" value="Envoyer" />
             </div>
           </form>
+        </div>
+      </div>
+      <div class="mediaModal">
+        <div class="mediaModal__content">
+          <span class="mediaModal__content__close">&times;</span>
         </div>
       </div>
     </main>

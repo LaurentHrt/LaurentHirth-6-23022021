@@ -298,7 +298,7 @@ nav {
   white-space: nowrap;
 }
 
-.form-modal {
+.contactModal {
   display: none;
   flex-direction: column;
   position: fixed;
@@ -311,7 +311,7 @@ nav {
   overflow: auto;
 }
 
-.form-modal-content {
+.contactModal__content {
   box-sizing: border-box;
   background-color: #db8876;
   margin: 0;
@@ -323,7 +323,7 @@ nav {
 }
 
 @media screen and (min-width: 768px) {
-  .form-modal-content {
+  .contactModal__content {
     margin: 30px auto;
     width: 400px;
     height: 90vh;
@@ -331,13 +331,13 @@ nav {
   }
 }
 
-.form-modal-content form {
+.contactModal__content form {
   display: flex;
   flex-direction: column;
   height: 100%;
 }
 
-.form-modal-content .text-control {
+.contactModal__content .text-control {
   box-sizing: border-box;
   width: 100%;
   border-radius: 5px;
@@ -347,7 +347,7 @@ nav {
   padding: 5px;
 }
 
-.form-modal-content .textarea-control {
+.contactModal__content .textarea-control {
   box-sizing: border-box;
   width: 100%;
   border-radius: 5px;
@@ -358,20 +358,32 @@ nav {
   flex-grow: 2;
 }
 
-.form-modal-content__title {
+.contactModal__content__title {
   font-size: 36px;
   margin-top: 0;
   margin-bottom: 20px;
 }
 
-.form-modal-content__btn-submit {
+.contactModal__content__btn-submit {
   align-self: flex-start;
 }
 
 @media screen and (min-width: 768px) {
-  .form-modal-content__btn-submit {
+  .contactModal__content__btn-submit {
     align-self: center;
   }
+}
+
+.contactModal__content__close {
+  float: right;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.contactModal__content__close:hover, .contactModal__content__close:focus {
+  color: #901c1c;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 .formData {
@@ -384,15 +396,46 @@ nav {
   flex-grow: 2;
 }
 
-/* The Close Button */
-.close {
+.mediaModal {
+  display: none;
+  flex-direction: column;
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  overflow: auto;
+}
+
+.mediaModal__content {
+  box-sizing: border-box;
+  background-color: #db8876;
+  margin: 0;
+  border: 1px solid #888;
+  padding: 20px;
+  height: 100%;
+  min-height: 600px;
+  animation: modalOpen 0.5s;
+}
+
+@media screen and (min-width: 768px) {
+  .mediaModal__content {
+    margin: 30px auto;
+    width: 400px;
+    height: 90vh;
+    max-height: 800px;
+  }
+}
+
+.mediaModal__content__close {
   float: right;
   font-size: 28px;
   font-weight: 700;
 }
 
-.close:hover,
-.close:focus {
+.mediaModal__content__close:hover, .mediaModal__content__close:focus {
   color: #901c1c;
   text-decoration: none;
   cursor: pointer;

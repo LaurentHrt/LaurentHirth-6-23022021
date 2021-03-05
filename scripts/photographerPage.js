@@ -8,7 +8,8 @@ const linkToData = './public/data/FishEyeDataFR.json'
 const relativePathToSmallImg = './public/img/1_small/'
 const mainPhotographerPage = document.querySelector('#main-photographerPage')
 const photographerList = new PhotographerList()
-const formModal = document.querySelector('.form-modal')
+const contactModal = document.querySelector('.contactModal')
+const mediaModal = document.querySelector('.mediaModal')
 
 // ***************** Functions ***************** //
 function createContent (photographerId) {
@@ -74,13 +75,9 @@ function displayBanner (photographerId) {
     span.textContent = '#' + tag
     a.append(span)
     divTag.append(a)
-    a.addEventListener('click', (e) => e.preventDefault())
-    a.addEventListener('click', () => {
-      document.querySelector('.media-list').replaceWith(photographerList.getPhotographerById(photographerId).getMediaList(tag))
-    })
   })
 
-  button.addEventListener('click', () => openModal(photographerId))
+  button.addEventListener('click', () => openContactModal(photographerId))
 }
 
 function displayInfoBox (photographerId) {
@@ -143,6 +140,8 @@ function displayMediaList (photographerId, filter, sort) {
     a.classList.add('display-contents')
 
     a.href = ''
+    a.addEventListener('click', (e) => e.preventDefault())
+    a.addEventListener('click', () => openMediaModal())
 
     divTitle.textContent = media.link.replace('.jpg', '').replaceAll('_', ' ')
     divPrice.textContent = media.price + '€'
@@ -160,21 +159,37 @@ function displayMediaList (photographerId, filter, sort) {
   mainPhotographerPage.append(sectionListMedia)
 }
 
-function openModal (photographerId) {
-  const title = document.querySelector('.form-modal-content__title')
-  const close = document.querySelector('.close')
+function openContactModal (photographerId) {
+  const title = contactModal.querySelector('.contactModal__content__title')
+  const close = contactModal.querySelector('.contactModal__content__close')
 
-  close.addEventListener('click', closeModal)
-  formModal.addEventListener('click', closeModal)
-  formModal.firstElementChild.addEventListener('click', (e) => e.stopPropagation())
+  close.addEventListener('click', closeContactModal)
+  contactModal.addEventListener('click', closeContactModal)
+  contactModal.firstElementChild.addEventListener('click', (e) => e.stopPropagation())
 
   title.innerHTML = photographerList.getPhotographerById(photographerId).name + '</br>' + 'Contactez-moi'
-  formModal.style.display = 'block'
+  contactModal.style.display = 'block'
   document.body.classList.add('disable-scroll')
 }
 
-function closeModal () {
-  formModal.style.display = 'none'
+function closeContactModal () {
+  contactModal.style.display = 'none'
+  document.body.classList.remove('disable-scroll')
+}
+
+function openMediaModal () {
+  const close = mediaModal.querySelector('.mediaModal__content__close')
+
+  close.addEventListener('click', closeMediaModal)
+  mediaModal.addEventListener('click', closeMediaModal)
+  mediaModal.firstElementChild.addEventListener('click', (e) => e.stopPropagation())
+
+  mediaModal.style.display = 'block'
+  document.body.classList.add('disable-scroll')
+}
+
+function closeMediaModal () {
+  mediaModal.style.display = 'none'
   document.body.classList.remove('disable-scroll')
 }
 
