@@ -18,6 +18,7 @@
         <img src="./public/img/logo/logo.svg" alt="FishEye page d'accueil" />
       </a>
     </header>
+
     <main id="main-photographerPage">
       <section class="card-banner-photograph">
         <div class="card-banner-photograph__textContainer">
@@ -34,9 +35,14 @@
           <img />
         </div>
       </section>
+
       <section class="filter">
         Trier par
-        <button class="filter__button button" type="button">Popularité</button>
+        <select>
+          <option value="popularite">Popularite</option>
+          <option value="date">Date</option>
+          <option value="titre">Titre</option>
+        </select>
       </section>
 
       <section class="media-list"></section>
