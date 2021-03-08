@@ -55,7 +55,7 @@ function displayPage () {
 
   displayBanner()
   displayFilterMenu()
-  displayMediaList(mediaList.getMediaSorted('likes'))
+  displayMediaList(mediaList.getMediaSorted('popularite'))
   displayInfoBox()
   buildMediaModal()
 }
@@ -140,7 +140,7 @@ function displayMediaList (mediaList) {
     a.addEventListener('click', (e) => e.preventDefault())
     a.addEventListener('click', () => openMediaModal(media, linkToMedia))
 
-    divTitle.textContent = media.link.replace('.jpg', '').replaceAll('_', ' ')
+    divTitle.textContent = media.title
     divPrice.textContent = media.price + '€'
     divLikes.textContent = media.likes + ' ❤'
 
