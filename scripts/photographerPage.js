@@ -1,4 +1,3 @@
-import { displayTags } from './functions.js'
 import { Photographer } from './Photographer.js'
 import { Media } from './Media.js'
 import { MediaList } from './MediaList.js'
@@ -55,7 +54,7 @@ function displayPage () {
 
   displayBanner()
   displayFilterMenu()
-  displayMediaList(mediaList.getMediaSorted('popularite'))
+  displayMediaList()
   displayInfoBox()
   buildMediaModal()
 }
@@ -75,7 +74,22 @@ function displayBanner () {
   divCity.textContent = currentPhotographer.city + ', ' + currentPhotographer.country
   divTagline.textContent = currentPhotographer.tagline
 
-  displayTags(currentPhotographer.tags, divTag)
+  currentPhotographer.tags.forEach((tag) => {
+    const a = document.createElement('a')
+    const span = document.createElement('span')
+    a.classList.add('display-contents')
+    span.classList.add('tag')
+    a.href = ''
+    span.textContent = '#' + tag
+    a.append(span)
+    divTag.append(a)
+
+    a.addEventListener('click', (e) => {
+      e.preventDefault()
+      span.classList.toggle('tag--selected')
+      displayMediaList()
+    })
+  })
 
   button.addEventListener('click', () => openContactModal())
 }
@@ -91,7 +105,7 @@ function displayFilterMenu () {
         this.parentNode.querySelector('.custom-option.selected').classList.remove('selected')
         this.classList.add('selected')
         this.closest('.custom-select').querySelector('.custom-select__trigger span').textContent = this.textContent
-        displayMediaList(mediaList.getMediaSorted(this.getAttribute('data-value')))
+        displayMediaList()
       }
     })
   }
@@ -112,11 +126,17 @@ function displayInfoBox () {
   priceText.textContent = currentPhotographer.price + '€/jour'
 }
 
-function displayMediaList (mediaList) {
+function displayMediaList () {
   const sectionMediaList = document.querySelector('.media-list')
-  sectionMediaList.innerHTML = ''
+  const sort = document.querySelector('.custom-option.selected')?.getAttribute('data-value')
+  const filters = []
 
-  mediaList.forEach((media) => {
+  sectionMediaList.innerHTML = ''
+  document.querySelectorAll('.tag--selected').forEach((tagSelected) => {
+    filters.push(tagSelected.textContent.replace('#', ''))
+  })
+
+  mediaList.getMediaList(sort, ...filters).forEach((media) => {
     const linkToMedia = relativePathToSmallImg + currentPhotographer.name.toLowerCase().replace(' ', '') + '/' + media.link
 
     const sectionCardMedia = document.createElement('section')

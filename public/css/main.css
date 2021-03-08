@@ -523,7 +523,7 @@ nav {
   }
 }
 
-.tag:hover {
+.tag:hover, .tag--selected {
   color: white;
   background-color: #901c1c;
   border-color: #901c1c;

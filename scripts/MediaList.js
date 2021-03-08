@@ -7,27 +7,16 @@ export class MediaList {
     this.mediaList.push(media)
   }
 
-  getAllMedia () {
-    return this.mediaList
-  }
+  getMediaList (sort, ...tags) {
+    const localMediaList = this.mediaList.slice()
+    let returnedList = []
 
-  getMediaById (id) {
-    for (const media of this.mediaList) {
-      if (media.id === id) { return media }
-    }
-  }
-
-  GetMediaByTag (...tag) {
-
-  }
-
-  getMediaSorted (sort) {
     if (sort === 'popularite') {
-      return this.mediaList.sort((a, b) => b.likes - a.likes)
+      localMediaList.sort((a, b) => b.likes - a.likes)
     } else if (sort === 'date') {
-      return this.mediaList.sort((a, b) => b.date - a.date)
+      localMediaList.sort((a, b) => b.date - a.date)
     } else if (sort === 'titre') {
-      return this.mediaList.sort(function (a, b) {
+      localMediaList.sort(function (a, b) {
         const titleA = a.title.toUpperCase()
         const titleB = b.title.toUpperCase()
         if (titleA < titleB) {
@@ -38,7 +27,21 @@ export class MediaList {
         }
         return 0
       })
-    } else { return this.mediaList }
+    }
+
+    if (tags.length !== 0) {
+      localMediaList.forEach((media) => {
+        media.tags.forEach((tag) => {
+          if (tags.includes(tag)) {
+            returnedList.push(media)
+          }
+        })
+      })
+    } else {
+      returnedList = localMediaList.slice()
+    }
+
+    return returnedList
   }
 
   getLikes () {

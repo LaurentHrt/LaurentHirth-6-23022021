@@ -1,4 +1,3 @@
-import { displayTags } from './functions.js'
 import { Photographer } from './Photographer.js'
 import { PhotographerList } from './PhotographerList.js'
 
@@ -80,6 +79,24 @@ function displayPhotographers () {
     displayTags(photographer.tags, divTag)
 
     mainHomePage.append(cardPhotograph)
+  })
+}
+
+function displayTags (tags, location) {
+  tags.forEach((tag) => {
+    const a = document.createElement('a')
+    const span = document.createElement('span')
+    a.classList.add('display-contents')
+    span.classList.add('tag')
+    a.href = ''
+    span.textContent = '#' + tag
+    a.append(span)
+    location.append(a)
+
+    a.addEventListener('click', (e) => {
+      e.preventDefault()
+      span.classList.toggle('tag--selected')
+    })
   })
 }
 
