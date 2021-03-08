@@ -16,7 +16,7 @@ function createContent (photographerId) {
       }
     })
     .then((data) => createPhotographerList(data))
-    .then(() => displayPage(photographerId))
+    .then(displayPage)
 }
 
 function createPhotographerList (fetchedData) {

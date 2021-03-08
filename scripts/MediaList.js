@@ -26,4 +26,12 @@ export class MediaList {
   getMediaSorted (sort) {
 
   }
+
+  getLikes () {
+    let sum = 0
+    this.mediaList.forEach((media) => {
+      sum += media.likes
+    })
+    return sum
+  }
 }

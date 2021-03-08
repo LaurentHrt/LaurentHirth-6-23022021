@@ -9,30 +9,9 @@ export class Photographer {
     this.price = price
     this.portrait = portrait
     this.alt = alt
-    this.mediaList = []
   }
 
   getFolderName () {
     return this.name.toLowerCase().replace(' ', '')
-  }
-
-  getLikes () {
-    let sum = 0
-    this.mediaList.forEach((media) => {
-      sum += media.likes
-    })
-    return sum
-  }
-
-  getMediaByTag (...tag) {
-
-  }
-
-  getMediaSorted (sort) {
-
-  }
-
-  addMedia (media) {
-    this.mediaList.push(media)
   }
 }

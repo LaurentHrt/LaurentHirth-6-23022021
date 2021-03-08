@@ -1,12 +1,13 @@
 import { Photographer } from './Photographer.js'
-import { PhotographerList } from './PhotographerList.js'
 import { Media } from './Media.js'
+import { MediaList } from './MediaList.js'
 
 // ***************** Declarations ***************** //
 const urlParams = new URLSearchParams(window.location.search)
 const linkToData = './public/data/FishEyeDataFR.json'
 const relativePathToSmallImg = './public/img/1_small/'
-const photographerList = new PhotographerList()
+let currentPhotographer = Photographer
+const mediaList = new MediaList()
 const contactModal = document.querySelector('.contactModal')
 const mediaModal = document.querySelector('.mediaModal')
 
@@ -18,42 +19,46 @@ function createContent (photographerId) {
         return response.json()
       }
     })
-    .then((data) => createPhotographerList(data))
-    .then(() => displayPage(photographerId))
+    .then((data) => createData(data, photographerId))
+    .then(displayPage)
 }
 
-function createPhotographerList (fetchedData) {
+function createData (fetchedData, photographerId) {
   fetchedData.photographers.forEach((photographer) => {
-    photographerList.addPhotographer(new Photographer(
-      photographer.name,
-      photographer.id,
-      photographer.city,
-      photographer.country,
-      photographer.tags,
-      photographer.tagline,
-      photographer.price,
-      photographer.portrait,
-      photographer.alt
-    ))
+    if (photographer.id === photographerId) {
+      currentPhotographer = new Photographer(
+        photographer.name,
+        photographer.id,
+        photographer.city,
+        photographer.country,
+        photographer.tags,
+        photographer.tagline,
+        photographer.price,
+        photographer.portrait,
+        photographer.alt
+      )
+    }
   })
   fetchedData.media.forEach((media) => {
-    const mediaFactory = new Media(media.id, media.photographerId, media.image?.split('.').pop() || media.video?.split('.').pop(), media.image || media.video, media.tags, media.likes, media.date, media.price, media.alt)
-    photographerList.getPhotographerById(media.photographerId).addMedia(mediaFactory.createMedia())
+    if (media.photographerId === photographerId) {
+      const mediaFactory = new Media(media.id, media.photographerId, media.image?.split('.').pop() || media.video?.split('.').pop(), media.image || media.video, media.tags, media.likes, media.date, media.price, media.alt)
+      mediaList.addMedia(mediaFactory.createMedia())
+    }
   })
 }
 
-function displayPage (photographerId) {
-  document.title += ' - ' + photographerList.getPhotographerById(photographerId).name
+function displayPage () {
+  document.title += ' - ' + currentPhotographer.name
 
-  displayBanner(photographerId)
+  displayBanner()
   displayFilterMenu()
-  displayMediaList(photographerId)
-  displayInfoBox(photographerId)
+  displayMediaList()
+  displayInfoBox()
   buildMediaModal()
 }
 
-function displayBanner (photographerId) {
-  const linkToPhoto = './public/img/1_small/PhotographersID/' + photographerList.getPhotographerById(photographerId).portrait
+function displayBanner () {
+  const linkToPhoto = './public/img/1_small/PhotographersID/' + currentPhotographer.portrait
   const img = document.querySelector('.card-banner-photograph__portrait img')
   const divName = document.querySelector('.card-banner-photograph__name')
   const divCity = document.querySelector('.card-banner-photograph__city')
@@ -63,11 +68,11 @@ function displayBanner (photographerId) {
 
   img.src = linkToPhoto
   img.alt = ''
-  divName.textContent = photographerList.getPhotographerById(photographerId).name
-  divCity.textContent = photographerList.getPhotographerById(photographerId).city + ', ' + photographerList.getPhotographerById(photographerId).country
-  divTagline.textContent = photographerList.getPhotographerById(photographerId).tagline
+  divName.textContent = currentPhotographer.name
+  divCity.textContent = currentPhotographer.city + ', ' + currentPhotographer.country
+  divTagline.textContent = currentPhotographer.tagline
 
-  photographerList.getPhotographerById(photographerId).tags.forEach((tag) => {
+  currentPhotographer.tags.forEach((tag) => {
     const a = document.createElement('a')
     const span = document.createElement('span')
     a.classList.add('display-contents')
@@ -78,7 +83,7 @@ function displayBanner (photographerId) {
     divTag.append(a)
   })
 
-  button.addEventListener('click', () => openContactModal(photographerId))
+  button.addEventListener('click', () => openContactModal())
 }
 
 function displayFilterMenu () {
@@ -104,19 +109,19 @@ function displayFilterMenu () {
   })
 }
 
-function displayInfoBox (photographerId) {
+function displayInfoBox () {
   const likeText = document.querySelector('.info-box__like')
   const priceText = document.querySelector('.info-box__price')
 
-  likeText.textContent = photographerList.getPhotographerById(photographerId).getLikes() + '❤'
-  priceText.textContent = photographerList.getPhotographerById(photographerId).price + '€/jour'
+  likeText.textContent = mediaList.getLikes() + '❤'
+  priceText.textContent = currentPhotographer.price + '€/jour'
 }
 
-function displayMediaList (photographerId) {
+function displayMediaList () {
   const sectionMediaList = document.querySelector('.media-list')
 
-  photographerList.getPhotographerById(photographerId).mediaList.forEach((media) => {
-    const linkToMedia = relativePathToSmallImg + photographerList.getPhotographerById(photographerId).name.toLowerCase().replace(' ', '') + '/' + media.link
+  mediaList.getAllMedia().forEach((media) => {
+    const linkToMedia = relativePathToSmallImg + currentPhotographer.name.toLowerCase().replace(' ', '') + '/' + media.link
 
     const sectionCardMedia = document.createElement('section')
     const divMedia = document.createElement('div')
@@ -165,7 +170,7 @@ function buildMediaModal () {
   leftArrow.addEventListener('click', () => {})
 }
 
-function openContactModal (photographerId) {
+function openContactModal () {
   const title = contactModal.querySelector('.contactModal__content__title')
   const close = contactModal.querySelector('.contactModal__content__close')
 
@@ -173,7 +178,7 @@ function openContactModal (photographerId) {
   contactModal.addEventListener('click', closeContactModal)
   contactModal.firstElementChild.addEventListener('click', (e) => e.stopPropagation())
 
-  title.innerHTML = photographerList.getPhotographerById(photographerId).name + '</br>' + 'Contactez-moi'
+  title.innerHTML = currentPhotographer.name + '</br>' + 'Contactez-moi'
   contactModal.style.display = 'block'
   document.body.classList.add('disable-scroll')
 }
