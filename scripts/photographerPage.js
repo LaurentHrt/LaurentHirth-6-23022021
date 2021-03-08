@@ -55,7 +55,7 @@ function displayPage () {
 
   displayBanner()
   displayFilterMenu()
-  displayMediaList()
+  displayMediaList(mediaList.getMediaSorted('likes'))
   displayInfoBox()
   buildMediaModal()
 }
@@ -91,6 +91,7 @@ function displayFilterMenu () {
         this.parentNode.querySelector('.custom-option.selected').classList.remove('selected')
         this.classList.add('selected')
         this.closest('.custom-select').querySelector('.custom-select__trigger span').textContent = this.textContent
+        displayMediaList(mediaList.getMediaSorted(this.getAttribute('data-value')))
       }
     })
   }
@@ -111,10 +112,11 @@ function displayInfoBox () {
   priceText.textContent = currentPhotographer.price + '€/jour'
 }
 
-function displayMediaList () {
+function displayMediaList (mediaList) {
   const sectionMediaList = document.querySelector('.media-list')
+  sectionMediaList.innerHTML = ''
 
-  mediaList.getAllMedia().forEach((media) => {
+  mediaList.forEach((media) => {
     const linkToMedia = relativePathToSmallImg + currentPhotographer.name.toLowerCase().replace(' ', '') + '/' + media.link
 
     const sectionCardMedia = document.createElement('section')

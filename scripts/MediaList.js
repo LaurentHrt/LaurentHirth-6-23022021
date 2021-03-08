@@ -1,5 +1,3 @@
-// Non Utilisé
-
 export class MediaList {
   constructor () {
     this.mediaList = []
@@ -24,7 +22,7 @@ export class MediaList {
   }
 
   getMediaSorted (sort) {
-
+    return this.mediaList.sort((a, b) => b[sort] - a[sort])
   }
 
   getLikes () {
