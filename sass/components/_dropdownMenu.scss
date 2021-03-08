@@ -1,0 +1,102 @@
+.dropdownMenu-wrapper {
+  width: 170px;
+}
+.custom-select {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.custom-select__trigger {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 22px;
+  font-size: 20px;
+  font-weight: 300;
+  color: white;
+  height: 60px;
+  line-height: 60px;
+  background: map-get($map: $colors, $key: primary);
+  cursor: pointer;
+  border-radius: $standard-border-radius;
+}
+.custom-options {
+  position: absolute;
+  display: block;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: map-get($map: $colors, $key: primary);
+  transition: all 0.5s;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  z-index: 2;
+  border-bottom-left-radius: $standard-border-radius;
+  border-bottom-right-radius: $standard-border-radius;
+}
+.custom-select.open {
+  .custom-options {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: all;
+  }
+  .custom-select__trigger {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+}
+.custom-option {
+  position: relative;
+  display: block;
+  padding: 0 22px 0 22px;
+  font-size: 22px;
+  font-weight: 300;
+  color: white;
+  line-height: 60px;
+  cursor: pointer;
+  transition: all 0.5s;
+  &:hover {
+    cursor: pointer;
+    background-color: map-get($map: $colors, $key: secondary);
+  }
+  &.selected {
+    background-color: map-get($map: $colors, $key: secondary);
+  }
+}
+
+.arrow {
+  position: relative;
+  height: 15px;
+  width: 15px;
+}
+.arrow::before,
+.arrow::after {
+  content: '';
+  position: absolute;
+  bottom: 0px;
+  width: 0.15rem;
+  height: 100%;
+  transition: all 0.5s;
+}
+.arrow::before {
+  left: -5px;
+  transform: rotate(45deg);
+  background-color: white;
+}
+.arrow::after {
+  left: 5px;
+  transform: rotate(-45deg);
+  background-color: white;
+}
+.open .arrow::before {
+  left: -5px;
+  transform: rotate(-45deg);
+}
+.open .arrow::after {
+  left: 5px;
+  transform: rotate(45deg);
+}

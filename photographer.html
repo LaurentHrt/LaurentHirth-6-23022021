@@ -36,14 +36,22 @@
         </div>
       </section>
 
-      <section class="filter">
-        Trier par
-        <select>
-          <option value="popularite">Popularite</option>
-          <option value="date">Date</option>
-          <option value="titre">Titre</option>
-        </select>
-      </section>
+      <span>Trier par </span>
+      <div class="dropdownMenu-wrapper">
+        <div class="custom-select">
+          <div class="custom-select__trigger">
+            <span>Popularité</span>
+            <div class="arrow"></div>
+          </div>
+          <div class="custom-options">
+            <span class="custom-option selected" data-value="popularite"
+              >Popularité</span
+            >
+            <span class="custom-option" data-value="date">Date</span>
+            <span class="custom-option" data-value="titre">Titre</span>
+          </div>
+        </div>
+      </div>
 
       <section class="media-list"></section>
 
