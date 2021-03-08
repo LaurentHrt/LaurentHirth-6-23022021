@@ -1,3 +1,4 @@
+import { displayTags } from './functions.js'
 import { Photographer } from './Photographer.js'
 import { Media } from './Media.js'
 import { MediaList } from './MediaList.js'
@@ -39,10 +40,12 @@ function createData (fetchedData, photographerId) {
       )
     }
   })
+
+  const mediaFactory = new Media()
+
   fetchedData.media.forEach((media) => {
     if (media.photographerId === photographerId) {
-      const mediaFactory = new Media(media.id, media.photographerId, media.image?.split('.').pop() || media.video?.split('.').pop(), media.image || media.video, media.tags, media.likes, media.date, media.price, media.alt)
-      mediaList.addMedia(mediaFactory.createMedia())
+      mediaList.addMedia(mediaFactory.createMedia(media.id, media.photographerId, media.image?.split('.').pop() || media.video?.split('.').pop(), media.image || media.video, media.tags, media.likes, media.date, media.price, media.alt))
     }
   })
 }
@@ -72,16 +75,7 @@ function displayBanner () {
   divCity.textContent = currentPhotographer.city + ', ' + currentPhotographer.country
   divTagline.textContent = currentPhotographer.tagline
 
-  currentPhotographer.tags.forEach((tag) => {
-    const a = document.createElement('a')
-    const span = document.createElement('span')
-    a.classList.add('display-contents')
-    span.classList.add('tag')
-    a.href = ''
-    span.textContent = '#' + tag
-    a.append(span)
-    divTag.append(a)
-  })
+  displayTags(currentPhotographer.tags, divTag)
 
   button.addEventListener('click', () => openContactModal())
 }

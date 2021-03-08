@@ -1,21 +1,27 @@
 export class Media {
-  constructor (id, photographerId, type, link, tags, likes, date, price, alt) {
-    this.id = id
-    this.photographerId = photographerId
-    this.link = link
-    this.type = type
-    this.tags = tags
-    this.likes = likes
-    this.date = date
-    this.price = price
-    this.alt = alt
-  }
-
-  createMedia () {
-    if (this.type === 'jpg') {
-      return new Photo(this.id, this.photographerId, this.type, this.link, this.tags, this.likes, this.date, this.price, this.alt)
-    } else if (this.type === 'mp4') {
-      return new Video(this.id, this.photographerId, this.type, this.link, this.tags, this.likes, this.date, this.price, this.alt)
+  createMedia (id, photographerId, type, link, tags, likes, date, price, alt) {
+    if (type === 'jpg') {
+      const photo = new Photo()
+      photo.id = id
+      photo.photographerId = photographerId
+      photo.link = link
+      photo.tags = tags
+      photo.likes = likes
+      photo.date = date
+      photo.price = price
+      photo.alt = alt
+      return photo
+    } else if (type === 'mp4') {
+      const video = new Video()
+      video.id = id
+      video.photographerId = photographerId
+      video.link = link
+      video.tags = tags
+      video.likes = likes
+      video.date = date
+      video.price = price
+      video.alt = alt
+      return video
     }
   }
 }

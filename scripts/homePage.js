@@ -1,3 +1,4 @@
+import { displayTags } from './functions.js'
 import { Photographer } from './Photographer.js'
 import { PhotographerList } from './PhotographerList.js'
 
@@ -36,21 +37,8 @@ function createPhotographerList (fetchedData) {
 }
 
 function displayPage () {
-  displayTags()
+  displayTags(photographerList.getAllTags(), tagList)
   displayPhotographers()
-}
-
-function displayTags () {
-  photographerList.getAllTags().forEach((tag) => {
-    const a = document.createElement('a')
-    const span = document.createElement('span')
-    a.classList.add('display-contents')
-    span.classList.add('tag')
-    a.href = ''
-    span.textContent = '#' + tag
-    a.append(span)
-    tagList.append(a)
-  })
 }
 
 function displayPhotographers () {
@@ -89,17 +77,7 @@ function displayPhotographers () {
     a.append(divPortrait, divName)
     cardPhotograph.append(a, divCity, divTagline, divPrice, divTag)
 
-    photographer.tags.forEach((tag) => {
-      const a = document.createElement('a')
-      const span = document.createElement('span')
-
-      a.classList.add('display-contents')
-      span.classList.add('tag')
-      a.href = ''
-      span.textContent = '#' + tag
-      a.append(span)
-      divTag.append(a)
-    })
+    displayTags(photographer.tags, divTag)
 
     mainHomePage.append(cardPhotograph)
   })
