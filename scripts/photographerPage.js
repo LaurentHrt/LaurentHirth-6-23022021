@@ -5,8 +5,6 @@ import { MediaList } from './MediaList.js'
 // ***************** Declarations ***************** //
 const urlParams = new URLSearchParams(window.location.search)
 const linkToData = './public/data/FishEyeDataFR.json'
-const relativePathToSmallImg = './public/img/1_small/'
-const relativePathToMediumImg = './public/img/2_medium/'
 let currentPhotographer = Photographer
 const mediaList = new MediaList()
 const contactModal = document.querySelector('.contactModal')
@@ -45,7 +43,7 @@ function createData (fetchedData, photographerId) {
 
   fetchedData.media.forEach((media) => {
     if (media.photographerId === photographerId) {
-      mediaList.addMedia(mediaFactory.createMedia(media.id, media.photographerId, media.image?.split('.').pop() || media.video?.split('.').pop(), media.image || media.video, media.tags, media.likes, media.date, media.price, media.alt))
+      mediaList.addMedia(mediaFactory.createMedia(media.id, media.photographerId, media.image?.split('.').pop() || media.video?.split('.').pop(), media.image || media.video, media.tags, media.likes, media.date, media.price, media.alt, currentPhotographer.name.toLowerCase().replace(' ', '') + '/'))
     }
   })
 }
@@ -138,11 +136,9 @@ function displayMediaList () {
   })
 
   mediaList.getMediaList(sort, ...filters).forEach((media) => {
-    const linkToMedia = relativePathToSmallImg + currentPhotographer.name.toLowerCase().replace(' ', '') + '/' + media.link
-
     const sectionCardMedia = document.createElement('section')
     const divMedia = document.createElement('div')
-    const specificMediaElement = media.getDOMComponent(linkToMedia)
+    const specificMediaElement = media.getDOMComponent()
     const divTitle = document.createElement('div')
     const divPrice = document.createElement('div')
     const divLikes = document.createElement('div')
@@ -159,7 +155,7 @@ function displayMediaList () {
 
     a.href = ''
     a.addEventListener('click', (e) => e.preventDefault())
-    a.addEventListener('click', () => openMediaModal(media, linkToMedia))
+    a.addEventListener('click', () => openMediaModal(media))
 
     divTitle.textContent = media.title
     divPrice.textContent = media.price + '€'
@@ -175,9 +171,9 @@ function displayMediaList () {
 }
 
 function buildMediaModal () {
-  const close = mediaModal.querySelector('.mediaModal__content__close')
-  const rightArrow = mediaModal.querySelector('.mediaModal__content__rightArrow')
-  const leftArrow = mediaModal.querySelector('.mediaModal__content__leftArrow')
+  const close = mediaModal.querySelector('.mediaModal__close')
+  const rightArrow = mediaModal.querySelector('.rightArrow')
+  const leftArrow = mediaModal.querySelector('.leftArrow')
 
   close.addEventListener('click', closeMediaModal)
   mediaModal.addEventListener('click', closeMediaModal)
@@ -205,10 +201,10 @@ function closeContactModal () {
   document.body.classList.remove('disable-scroll')
 }
 
-function openMediaModal (media, linkToMedia) {
+function openMediaModal (media) {
   const mediaSection = mediaModal.querySelector('.mediaModal__content__media')
 
-  mediaSection.firstChild.replaceWith(media.getDOMComponent(linkToMedia))
+  mediaSection.firstChild.replaceWith(media.getDOMComponent())
 
   mediaModal.style.display = 'block'
   document.body.classList.add('disable-scroll')
