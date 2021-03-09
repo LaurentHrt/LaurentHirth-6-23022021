@@ -36,12 +36,14 @@
   border-bottom-left-radius: $standard-border-radius;
   border-bottom-right-radius: $standard-border-radius;
 }
+
 .custom-select.open {
   .custom-options {
     opacity: 1;
     visibility: visible;
     pointer-events: all;
   }
+
   .custom-select__trigger {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
@@ -49,10 +51,11 @@
     border-bottom-right-radius: 0;
   }
 }
+
 .custom-option {
   position: relative;
   display: block;
-  padding: 0 22px 0 22px;
+  margin: 0 20px 0;
   font-size: 22px;
   font-weight: 300;
   color: white;
@@ -61,10 +64,13 @@
   transition: all 0.5s;
   &:hover {
     cursor: pointer;
-    background-color: map-get($map: $colors, $key: secondary);
+    text-decoration: underline;
   }
   &.selected {
-    background-color: map-get($map: $colors, $key: secondary);
+    display: none;
+  }
+  &:not(.selected) {
+    border-top: solid 1px white;
   }
 }
 

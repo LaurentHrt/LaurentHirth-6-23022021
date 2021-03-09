@@ -607,7 +607,7 @@ nav {
 .custom-option {
   position: relative;
   display: block;
-  padding: 0 22px 0 22px;
+  margin: 0 20px 0;
   font-size: 22px;
   font-weight: 300;
   color: white;
@@ -618,11 +618,15 @@ nav {
 
 .custom-option:hover {
   cursor: pointer;
-  background-color: #d3573c;
+  text-decoration: underline;
 }
 
 .custom-option.selected {
-  background-color: #d3573c;
+  display: none;
+}
+
+.custom-option:not(.selected) {
+  border-top: solid 1px white;
 }
 
 .arrow {
@@ -759,13 +763,13 @@ nav {
 }
 
 .filter {
-  display: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   font-weight: 700;
 }
 
-@media screen and (min-width: 768px) {
-  .filter {
-    display: block;
-  }
+.filter > span {
+  margin-right: 20px;
 }
 /*# sourceMappingURL=main.css.map */
