@@ -32,7 +32,7 @@ export class MediaList {
     if (tags.length !== 0) {
       localMediaList.forEach((media) => {
         media.tags.forEach((tag) => {
-          if (tags.includes(tag)) {
+          if (tags.includes(tag) && !returnedList.includes(media)) {
             returnedList.push(media)
           }
         })

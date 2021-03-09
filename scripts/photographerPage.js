@@ -6,6 +6,7 @@ import { MediaList } from './MediaList.js'
 const urlParams = new URLSearchParams(window.location.search)
 const linkToData = './public/data/FishEyeDataFR.json'
 const relativePathToSmallImg = './public/img/1_small/'
+const relativePathToMediumImg = './public/img/2_medium/'
 let currentPhotographer = Photographer
 const mediaList = new MediaList()
 const contactModal = document.querySelector('.contactModal')

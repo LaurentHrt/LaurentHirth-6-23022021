@@ -3,8 +3,6 @@ import { PhotographerList } from './PhotographerList.js'
 
 // ***************** Declarations ***************** //
 const linkToData = './public/data/FishEyeDataFR.json'
-const mainHomePage = document.querySelector('#main-homePage')
-const tagList = document.querySelector('nav.tag-list')
 const photographerList = new PhotographerList()
 
 // ***************** Functions ***************** //
@@ -36,12 +34,41 @@ function createPhotographerList (fetchedData) {
 }
 
 function displayPage () {
-  displayTags(photographerList.getAllTags(), tagList)
+  displayTags()
   displayPhotographers()
 }
 
+function displayTags () {
+  const tagList = document.querySelector('nav.tag-list')
+
+  photographerList.getAllTags().forEach((tag) => {
+    const a = document.createElement('a')
+    const span = document.createElement('span')
+    a.classList.add('display-contents')
+    span.classList.add('tag')
+    a.href = ''
+    span.textContent = '#' + tag
+    a.append(span)
+    tagList.append(a)
+
+    a.addEventListener('click', (e) => {
+      e.preventDefault()
+      span.classList.toggle('tag--selected')
+      displayPhotographers()
+    })
+  })
+}
+
 function displayPhotographers () {
-  photographerList.getAllPhotographer().forEach((photographer) => {
+  const mainHomePage = document.querySelector('#main-homePage')
+  const filters = []
+
+  mainHomePage.innerHTML = ''
+  document.querySelectorAll('.tag--selected').forEach((tagSelected) => {
+    filters.push(tagSelected.textContent.replace('#', ''))
+  })
+
+  photographerList.getPhotographerList(...filters).forEach((photographer) => {
     const linkToPage = 'photographer.html?id=' + photographer.id
     const linkToPhoto = './public/img/1_small/PhotographersID/' + photographer.portrait
     const cardPhotograph = document.createElement('section')
@@ -76,27 +103,14 @@ function displayPhotographers () {
     a.append(divPortrait, divName)
     cardPhotograph.append(a, divCity, divTagline, divPrice, divTag)
 
-    displayTags(photographer.tags, divTag)
+    photographer.tags.forEach((tag) => {
+      const span = document.createElement('span')
+      span.classList.add('tag')
+      span.textContent = '#' + tag
+      divTag.append(span)
+    })
 
     mainHomePage.append(cardPhotograph)
-  })
-}
-
-function displayTags (tags, location) {
-  tags.forEach((tag) => {
-    const a = document.createElement('a')
-    const span = document.createElement('span')
-    a.classList.add('display-contents')
-    span.classList.add('tag')
-    a.href = ''
-    span.textContent = '#' + tag
-    a.append(span)
-    location.append(a)
-
-    a.addEventListener('click', (e) => {
-      e.preventDefault()
-      span.classList.toggle('tag--selected')
-    })
   })
 }
 

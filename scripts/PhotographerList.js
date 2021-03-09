@@ -7,8 +7,22 @@ export class PhotographerList {
     this.photographerList.push(photographer)
   }
 
-  getAllPhotographer () {
-    return this.photographerList
+  getPhotographerList (...tags) {
+    let returnedList = []
+
+    if (tags.length !== 0) {
+      this.photographerList.forEach((photograph) => {
+        photograph.tags.forEach((tag) => {
+          if (tags.includes(tag) && !returnedList.includes(photograph)) {
+            returnedList.push(photograph)
+          }
+        })
+      })
+    } else {
+      returnedList = this.photographerList.slice()
+    }
+
+    return returnedList
   }
 
   getAllTags () {
@@ -16,7 +30,7 @@ export class PhotographerList {
 
     this.photographerList.forEach((photographer) => {
       photographer.tags.forEach((tag) => {
-        tags.push(tag[0].toUpperCase() + tag.substring(1))
+        tags.push(tag)
       })
     })
 
@@ -27,13 +41,5 @@ export class PhotographerList {
     for (const photographer of this.photographerList) {
       if (photographer.id === id) { return photographer }
     }
-  }
-
-  GetPhotographerByTag (...tag) {
-
-  }
-
-  getPhotographerSorted (sort) {
-
   }
 }
