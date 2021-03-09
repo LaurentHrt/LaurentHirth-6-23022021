@@ -13,6 +13,7 @@
   &__content {
     box-sizing: border-box;
     background-color: map-get($map: $colors, $key: secondary-light);
+    border-radius: $standard-border-radius;
     margin: 0;
     border: 1px solid #888;
     padding: 20px;
@@ -105,9 +106,32 @@
   background: rgba($color: black, $alpha: 0.7);
   overflow: auto;
 
+  &__close {
+    align-self: flex-start;
+    justify-self: flex-end;
+    font-size: 50px;
+    font-weight: 700;
+
+    @include tablet-and-higher {
+      right: 70px;
+    }
+
+    &:hover,
+    &:focus {
+      color: map-get($map: $colors, $key: primary);
+      text-decoration: none;
+      cursor: pointer;
+    }
+  }
+
   &__content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
     box-sizing: border-box;
-    background-color: map-get($map: $colors, $key: secondary-light);
+    background-color: white;
+    border-radius: $standard-border-radius;
     margin: 0;
     border: 1px solid #888;
     padding: 20px;
@@ -117,24 +141,53 @@
 
     @include tablet-and-higher {
       margin: 30px auto;
-      width: 400px;
+      width: 90vw;
       height: 90vh;
-      max-height: 800px;
     }
 
-    &__close {
-      float: right;
-      font-size: 28px;
-      font-weight: 700;
+    &__media {
+      width: 70vw;
+      margin: 0 10px;
 
-      &:hover,
-      &:focus {
-        color: map-get($map: $colors, $key: primary);
-        text-decoration: none;
-        cursor: pointer;
+      img,
+      video {
+        width: 100%;
+        height: 80vw;
+        object-fit: cover;
+        object-position: top;
+        border-radius: $standard-border-radius;
+
+        @include tablet-and-higher {
+          height: 80vh;
+        }
       }
     }
   }
+}
+
+.leftArrow,
+.rightArrow {
+  width: 15px;
+  height: 15px;
+  border-top: solid 4px map-get($map: $colors, $key: primary);
+  border-left: solid 4px map-get($map: $colors, $key: primary);
+  cursor: pointer;
+
+  &:hover {
+    border-color: map-get($map: $colors, $key: secondary);
+  }
+
+  @include tablet-and-higher {
+    width: 25px;
+    height: 25px;
+  }
+}
+
+.leftArrow {
+  transform: rotate(-45deg);
+}
+.rightArrow {
+  transform: rotate(135deg);
 }
 
 @keyframes modalOpen {
