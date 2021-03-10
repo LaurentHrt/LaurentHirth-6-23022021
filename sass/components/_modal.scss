@@ -1,4 +1,4 @@
-.form-modal {
+.contactModal {
   display: none;
   flex-direction: column;
   position: fixed;
@@ -9,65 +9,84 @@
   height: 100%;
   background: rgba($color: black, $alpha: 0.7);
   overflow: auto;
-  @include tablet-and-higher {
-  }
-}
 
-.form-modal-content {
-  box-sizing: border-box;
-  background-color: map-get($map: $colors, $key: secondary-light);
-  margin: 0;
-  border: 1px solid #888;
-  padding: 20px;
-  height: 100%;
-  min-height: 600px;
-  animation: modalOpen 0.5s;
-
-  @include tablet-and-higher {
-    margin: 30px auto;
-    width: 400px;
-    height: 90vh;
-    max-height: 800px;
-  }
-  form {
-    display: flex;
-    flex-direction: column;
+  &__content {
+    box-sizing: border-box;
+    background-color: map-get($map: $colors, $key: secondary-light);
+    border-radius: $standard-border-radius;
+    margin: 0;
+    border: 1px solid #888;
+    padding: 20px;
     height: 100%;
-  }
-  .text-control {
-    box-sizing: border-box;
-    width: 100%;
-    border-radius: $standard-border-radius;
-    border: none;
-    height: 35px;
-    margin-top: 5px;
-    padding: 5px;
-  }
-  .textarea-control {
-    box-sizing: border-box;
-    width: 100%;
-    border-radius: $standard-border-radius;
-    border: none;
-    margin-top: 5px;
-    padding: 5px;
-    resize: none;
-    flex-grow: 2;
-  }
-  &__title {
-    font-size: 36px;
-    margin-top: 0;
-    margin-bottom: 20px;
-  }
-  &__btn-submit {
-    align-self: flex-start;
+    min-height: 600px;
+    animation: modalOpen 0.5s;
+
     @include tablet-and-higher {
-      align-self: center;
+      margin: 30px auto;
+      width: 400px;
+      height: 90vh;
+      max-height: 800px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .text-control {
+      box-sizing: border-box;
+      width: 100%;
+      border-radius: $standard-border-radius;
+      border: none;
+      height: 35px;
+      margin-top: 5px;
+      padding: 5px;
+    }
+
+    .textarea-control {
+      box-sizing: border-box;
+      width: 100%;
+      border-radius: $standard-border-radius;
+      border: none;
+      margin-top: 5px;
+      padding: 5px;
+      resize: none;
+      flex-grow: 2;
+    }
+
+    &__title {
+      font-size: 36px;
+      margin-top: 0;
+      margin-bottom: 20px;
+    }
+
+    &__btn-submit {
+      align-self: flex-start;
+
+      @include tablet-and-higher {
+        align-self: center;
+      }
+    }
+
+    &__close {
+      float: right;
+      font-size: 28px;
+      font-weight: 700;
+
+      &:hover,
+      &:focus {
+        color: map-get($map: $colors, $key: primary);
+        text-decoration: none;
+        cursor: pointer;
+      }
     }
   }
 }
 
 .formData {
   margin-bottom: 10px;
+
   &:nth-child(5) {
     display: flex;
     flex-direction: column;
@@ -75,18 +94,100 @@
   }
 }
 
-/* The Close Button */
-.close {
-  float: right;
-  font-size: 28px;
-  font-weight: 700;
+.mediaModal {
+  display: none;
+  flex-direction: column;
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100%;
+  background: rgba($color: black, $alpha: 0.7);
+  overflow: auto;
+
+  &__close {
+    align-self: flex-start;
+    justify-self: flex-end;
+    font-size: 50px;
+    font-weight: 700;
+
+    @include tablet-and-higher {
+      right: 70px;
+    }
+
+    &:hover,
+    &:focus {
+      color: map-get($map: $colors, $key: primary);
+      text-decoration: none;
+      cursor: pointer;
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    background-color: white;
+    border-radius: $standard-border-radius;
+    margin: 0;
+    border: 1px solid #888;
+    padding: 20px;
+    height: 100%;
+    min-height: 600px;
+    animation: modalOpen 0.5s;
+
+    @include tablet-and-higher {
+      margin: 30px auto;
+      width: 90vw;
+      height: 90vh;
+    }
+
+    &__media {
+      width: 70vw;
+      margin: 0 10px;
+
+      img,
+      video {
+        width: 100%;
+        height: 80vw;
+        object-fit: cover;
+        object-position: top;
+        border-radius: $standard-border-radius;
+
+        @include tablet-and-higher {
+          height: 80vh;
+        }
+      }
+    }
+  }
 }
 
-.close:hover,
-.close:focus {
-  color: map-get($map: $colors, $key: primary);
-  text-decoration: none;
+.leftArrow,
+.rightArrow {
+  width: 15px;
+  height: 15px;
+  border-top: solid 4px map-get($map: $colors, $key: primary);
+  border-left: solid 4px map-get($map: $colors, $key: primary);
   cursor: pointer;
+
+  &:hover {
+    border-color: map-get($map: $colors, $key: secondary);
+  }
+
+  @include tablet-and-higher {
+    width: 25px;
+    height: 25px;
+  }
+}
+
+.leftArrow {
+  transform: rotate(-45deg);
+}
+.rightArrow {
+  transform: rotate(135deg);
 }
 
 @keyframes modalOpen {

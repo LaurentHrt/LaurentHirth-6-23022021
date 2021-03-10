@@ -298,7 +298,7 @@ nav {
   white-space: nowrap;
 }
 
-.form-modal {
+.contactModal {
   display: none;
   flex-direction: column;
   position: fixed;
@@ -311,9 +311,10 @@ nav {
   overflow: auto;
 }
 
-.form-modal-content {
+.contactModal__content {
   box-sizing: border-box;
   background-color: #db8876;
+  border-radius: 5px;
   margin: 0;
   border: 1px solid #888;
   padding: 20px;
@@ -323,7 +324,7 @@ nav {
 }
 
 @media screen and (min-width: 768px) {
-  .form-modal-content {
+  .contactModal__content {
     margin: 30px auto;
     width: 400px;
     height: 90vh;
@@ -331,13 +332,13 @@ nav {
   }
 }
 
-.form-modal-content form {
+.contactModal__content form {
   display: flex;
   flex-direction: column;
   height: 100%;
 }
 
-.form-modal-content .text-control {
+.contactModal__content .text-control {
   box-sizing: border-box;
   width: 100%;
   border-radius: 5px;
@@ -347,7 +348,7 @@ nav {
   padding: 5px;
 }
 
-.form-modal-content .textarea-control {
+.contactModal__content .textarea-control {
   box-sizing: border-box;
   width: 100%;
   border-radius: 5px;
@@ -358,20 +359,32 @@ nav {
   flex-grow: 2;
 }
 
-.form-modal-content__title {
+.contactModal__content__title {
   font-size: 36px;
   margin-top: 0;
   margin-bottom: 20px;
 }
 
-.form-modal-content__btn-submit {
+.contactModal__content__btn-submit {
   align-self: flex-start;
 }
 
 @media screen and (min-width: 768px) {
-  .form-modal-content__btn-submit {
+  .contactModal__content__btn-submit {
     align-self: center;
   }
+}
+
+.contactModal__content__close {
+  float: right;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.contactModal__content__close:hover, .contactModal__content__close:focus {
+  color: #901c1c;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 .formData {
@@ -384,18 +397,111 @@ nav {
   flex-grow: 2;
 }
 
-/* The Close Button */
-.close {
-  float: right;
-  font-size: 28px;
+.mediaModal {
+  display: none;
+  flex-direction: column;
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  overflow: auto;
+}
+
+.mediaModal__close {
+  align-self: flex-start;
+  justify-self: flex-end;
+  font-size: 50px;
   font-weight: 700;
 }
 
-.close:hover,
-.close:focus {
+@media screen and (min-width: 768px) {
+  .mediaModal__close {
+    right: 70px;
+  }
+}
+
+.mediaModal__close:hover, .mediaModal__close:focus {
   color: #901c1c;
   text-decoration: none;
   cursor: pointer;
+}
+
+.mediaModal__content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  background-color: white;
+  border-radius: 5px;
+  margin: 0;
+  border: 1px solid #888;
+  padding: 20px;
+  height: 100%;
+  min-height: 600px;
+  animation: modalOpen 0.5s;
+}
+
+@media screen and (min-width: 768px) {
+  .mediaModal__content {
+    margin: 30px auto;
+    width: 90vw;
+    height: 90vh;
+  }
+}
+
+.mediaModal__content__media {
+  width: 70vw;
+  margin: 0 10px;
+}
+
+.mediaModal__content__media img,
+.mediaModal__content__media video {
+  width: 100%;
+  height: 80vw;
+  object-fit: cover;
+  object-position: top;
+  border-radius: 5px;
+}
+
+@media screen and (min-width: 768px) {
+  .mediaModal__content__media img,
+  .mediaModal__content__media video {
+    height: 80vh;
+  }
+}
+
+.leftArrow,
+.rightArrow {
+  width: 15px;
+  height: 15px;
+  border-top: solid 4px #901c1c;
+  border-left: solid 4px #901c1c;
+  cursor: pointer;
+}
+
+.leftArrow:hover,
+.rightArrow:hover {
+  border-color: #d3573c;
+}
+
+@media screen and (min-width: 768px) {
+  .leftArrow,
+  .rightArrow {
+    width: 25px;
+    height: 25px;
+  }
+}
+
+.leftArrow {
+  transform: rotate(-45deg);
+}
+
+.rightArrow {
+  transform: rotate(135deg);
 }
 
 @keyframes modalOpen {
@@ -480,7 +586,7 @@ nav {
   }
 }
 
-.tag:hover {
+.tag:hover, .tag--selected {
   color: white;
   background-color: #901c1c;
   border-color: #901c1c;
@@ -504,6 +610,124 @@ nav {
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
   }
+}
+
+.dropdownMenu-wrapper {
+  width: 170px;
+}
+
+.custom-select {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.custom-select__trigger {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 22px;
+  font-size: 20px;
+  font-weight: 300;
+  color: white;
+  height: 60px;
+  line-height: 60px;
+  background: #901c1c;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.custom-options {
+  position: absolute;
+  display: block;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #901c1c;
+  transition: all 0.5s;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  z-index: 2;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.custom-select.open .custom-options {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: all;
+}
+
+.custom-select.open .custom-select__trigger {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.custom-option {
+  position: relative;
+  display: block;
+  margin: 0 20px 0;
+  font-size: 22px;
+  font-weight: 300;
+  color: white;
+  line-height: 60px;
+  cursor: pointer;
+  transition: all 0.5s;
+}
+
+.custom-option:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.custom-option.selected {
+  display: none;
+}
+
+.custom-option:not(.selected) {
+  border-top: solid 1px white;
+}
+
+.arrow {
+  position: relative;
+  height: 15px;
+  width: 15px;
+}
+
+.arrow::before,
+.arrow::after {
+  content: '';
+  position: absolute;
+  bottom: 0px;
+  width: 0.15rem;
+  height: 100%;
+  transition: all 0.5s;
+}
+
+.arrow::before {
+  left: -5px;
+  transform: rotate(45deg);
+  background-color: white;
+}
+
+.arrow::after {
+  left: 5px;
+  transform: rotate(-45deg);
+  background-color: white;
+}
+
+.open .arrow::before {
+  left: -5px;
+  transform: rotate(-45deg);
+}
+
+.open .arrow::after {
+  left: 5px;
+  transform: rotate(45deg);
 }
 
 header {
@@ -602,13 +826,13 @@ nav {
 }
 
 .filter {
-  display: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   font-weight: 700;
 }
 
-@media screen and (min-width: 768px) {
-  .filter {
-    display: block;
-  }
+.filter > span {
+  margin-right: 20px;
 }
 /*# sourceMappingURL=main.css.map */
