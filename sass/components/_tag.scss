@@ -17,7 +17,6 @@
     font-size: 18px;
   }
 
-  &:hover,
   &--selected {
     color: white;
     background-color: map-get($map: $colors, $key: primary);
