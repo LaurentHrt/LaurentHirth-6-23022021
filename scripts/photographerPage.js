@@ -172,10 +172,32 @@ function displayMediaList () {
 function openContactModal () {
   const title = contactModal.querySelector('.contactModal__content__title')
   const close = contactModal.querySelector('.contactModal__content__close')
+  const form = contactModal.querySelector('.contactModal__content__form')
+  const formData = contactModal.querySelectorAll('.contactModal__content__form .formData')
+  const confirmation = contactModal.querySelector('.contactModal__content__confirmation')
+  const submitBtn = contactModal.querySelector('.contactModal__content__btn-submit')
 
   close.addEventListener('click', closeContactModal)
   contactModal.addEventListener('click', closeContactModal)
   contactModal.firstElementChild.addEventListener('click', (e) => e.stopPropagation())
+
+  form.addEventListener('submit', e => e.preventDefault())
+  form.addEventListener('submit', submitContactModal)
+
+  submitBtn.addEventListener('click', () => {
+    formData.forEach((element) => {
+      element.querySelectorAll('*[required]').forEach((input) => {
+        if (input.matches(':invalid')) {
+          element.setAttribute('data-error-visible', 'true')
+        } else {
+          element.setAttribute('data-error-visible', 'false')
+        }
+      })
+    })
+  })
+
+  form.style.display = 'block'
+  confirmation.style.display = 'none'
 
   title.innerHTML = currentPhotographer.name + '</br>' + 'Contactez-moi'
   contactModal.style.display = 'block'
@@ -185,6 +207,14 @@ function openContactModal () {
 function closeContactModal () {
   contactModal.style.display = 'none'
   document.body.classList.remove('disable-scroll')
+}
+
+function submitContactModal (e) {
+  e.preventDefault()
+  const form = contactModal.querySelector('.contactModal__content__form')
+  const confirmation = contactModal.querySelector('.contactModal__content__confirmation')
+  form.style.display = 'none'
+  confirmation.style.display = 'flex'
 }
 
 function openMediaModal (media) {

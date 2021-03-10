@@ -55,6 +55,10 @@
       flex-grow: 2;
     }
 
+    &__form {
+      height: 100%;
+    }
+
     &__title {
       font-size: 36px;
       margin-top: 0;
@@ -81,16 +85,44 @@
         cursor: pointer;
       }
     }
+
+    &__confirmation {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 25px;
+      height: 100%;
+    }
   }
 }
 
 .formData {
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 
   &:nth-child(5) {
     display: flex;
     flex-direction: column;
     flex-grow: 2;
+    margin-bottom: 30px;
+  }
+}
+
+.formData[data-error]::after {
+  content: attr(data-error);
+  color: red;
+  display: block;
+  text-align: right;
+  height: 0;
+  opacity: 0;
+  transition: 0.3s;
+}
+.formData[data-error-visible='true']::after {
+  opacity: 1;
+}
+.formData[data-error-visible='true'] {
+  .text-control,
+  .textarea-control {
+    border: 3px solid red;
   }
 }
 
