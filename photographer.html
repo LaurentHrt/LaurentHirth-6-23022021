@@ -66,59 +66,65 @@
         <div class="contactModal__content">
           <span class="contactModal__content__close">&times;</span>
 
-          <form name="contact" action="index.js" method="get" onsubmit="">
-            <p class="contactModal__content__title"></p>
-            <div class="formData" data-error="Veuillez entrer votre prénom">
-              <label for="firstname">Prénom</label>
-              <input
-                class="text-control"
-                type="text"
-                id="firstname"
-                name="first"
-                minlength="2"
-                placeholder="Jean"
-                required
-              />
-            </div>
-            <div class="formData">
-              <label for="lastname">Nom</label>
-              <input
-                class="text-control"
-                type="text"
-                id="lastname"
-                name="last"
-                placeholder="Dupont"
-              />
-            </div>
-            <div class="formData" data-error="L'e-mail entré est invalide">
-              <label for="email">E-mail</label>
-              <input
-                class="text-control"
-                type="email"
-                id="email"
-                name="email"
-                placeholder="jean.dupont@mail.com"
-                required
-              />
-            </div>
-            <div class="formData" data-error="Vous devez écrire un message">
-              <label for="message">Votre message</label>
-              <textarea
-                class="textarea-control"
-                id="message"
-                name="message"
-                placeholder="Votre message..."
-                maxlength="500"
-                required
-              ></textarea>
-            </div>
+          <div class="contactModal__content__form">
+            <form name="contact" action="index.js" method="get" onsubmit="">
+              <p class="contactModal__content__title"></p>
+              <div class="formData" data-error="Veuillez entrer votre prénom">
+                <label for="firstname">Prénom</label>
+                <input
+                  class="text-control"
+                  type="text"
+                  id="firstname"
+                  name="first"
+                  minlength="2"
+                  placeholder="Jean"
+                  required
+                />
+              </div>
+              <div class="formData">
+                <label for="lastname">Nom</label>
+                <input
+                  class="text-control"
+                  type="text"
+                  id="lastname"
+                  name="last"
+                  placeholder="Dupont"
+                />
+              </div>
+              <div class="formData" data-error="L'e-mail entré est invalide">
+                <label for="email">E-mail</label>
+                <input
+                  class="text-control"
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="jean.dupont@mail.com"
+                  required
+                />
+              </div>
+              <div class="formData" data-error="Vous devez écrire un message">
+                <label for="message">Votre message</label>
+                <textarea
+                  class="textarea-control"
+                  id="message"
+                  name="message"
+                  placeholder="Votre message..."
+                  maxlength="500"
+                  required
+                ></textarea>
+              </div>
 
-            <div class="contactModal__content__btn-submit">
-              <input class="button" type="submit" value="Envoyer" />
-            </div>
-          </form>
+              <div class="contactModal__content__btn-submit">
+                <input class="button" type="submit" value="Envoyer" />
+              </div>
+            </form>
+          </div>
+          <div class="contactModal__content__confirmation">
+            Merci de votre message !
+          </div>
         </div>
       </div>
+
       <div class="mediaModal">
         <div class="mediaModal__content">
           <div class="leftArrow"></div>
