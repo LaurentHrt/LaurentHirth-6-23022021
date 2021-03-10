@@ -76,13 +76,17 @@ nav {
   color: #901c1c;
 }
 
-.display-contents {
-  display: contents;
+.disable-scroll {
+  overflow: hidden;
 }
 
-.disable-scroll {
-  height: 100%;
+.hidden {
+  height: 1px;
+  width: 1px;
+  left: 0;
   overflow: hidden;
+  position: absolute;
+  top: -10000px;
 }
 
 .card-photograph {
@@ -170,6 +174,7 @@ nav {
 }
 
 .card-banner-photograph__textContainer {
+  order: -1;
   padding-right: 20px;
 }
 
@@ -287,6 +292,13 @@ nav {
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
+  font-size: 14px;
+}
+
+@media screen and (min-width: 768px) {
+  .card-media__title {
+    font-size: 24px;
+  }
 }
 
 .card-media__price {
@@ -338,7 +350,8 @@ nav {
   height: 100%;
 }
 
-.contactModal__content .text-control {
+.contactModal__content .text-control,
+.contactModal__content .textarea-control {
   box-sizing: border-box;
   width: 100%;
   border-radius: 5px;
@@ -349,12 +362,6 @@ nav {
 }
 
 .contactModal__content .textarea-control {
-  box-sizing: border-box;
-  width: 100%;
-  border-radius: 5px;
-  border: none;
-  margin-top: 5px;
-  padding: 5px;
   resize: none;
   flex-grow: 2;
 }
@@ -443,6 +450,8 @@ nav {
 }
 
 .mediaModal__close {
+  color: #901c1c;
+  order: 99;
   align-self: flex-start;
   justify-self: flex-end;
   font-size: 50px;
@@ -456,7 +465,7 @@ nav {
 }
 
 .mediaModal__close:hover, .mediaModal__close:focus {
-  color: #901c1c;
+  color: #d3573c;
   text-decoration: none;
   cursor: pointer;
 }
@@ -565,7 +574,7 @@ nav {
   }
 }
 
-.button:hover {
+.button:hover, .button:focus {
   cursor: pointer;
   background-color: #db8876;
   color: black;

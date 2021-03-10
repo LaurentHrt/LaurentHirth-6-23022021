@@ -78,6 +78,7 @@
   }
 
   &__textContainer {
+    order: -1;
     padding-right: 20px;
     @include tablet-and-higher {
       padding-left: 20px;
@@ -174,6 +175,10 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
+    font-size: 14px;
+    @include tablet-and-higher {
+      font-size: 24px;
+    }
   }
 
   &__price {

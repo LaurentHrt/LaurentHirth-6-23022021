@@ -50,14 +50,14 @@ export class Photo extends Media {
 }
 
 export class Video extends Media {
-  getDOMComponent () {
+  getDOMComponent (controls = false) {
     const relativePathToSmallImg = './public/img/1_small/'
     const relativePathToMediumImg = './public/img/2_medium/'
     const video = document.createElement('video')
     const sourceSmall = document.createElement('source')
     const sourceMedium = document.createElement('source')
 
-    video.controls = true
+    video.controls = controls
     video.muted = true
     video.loop = true
 

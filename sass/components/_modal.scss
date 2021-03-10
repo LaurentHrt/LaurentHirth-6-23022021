@@ -34,7 +34,8 @@
       height: 100%;
     }
 
-    .text-control {
+    .text-control,
+    .textarea-control {
       box-sizing: border-box;
       width: 100%;
       border-radius: $standard-border-radius;
@@ -45,12 +46,6 @@
     }
 
     .textarea-control {
-      box-sizing: border-box;
-      width: 100%;
-      border-radius: $standard-border-radius;
-      border: none;
-      margin-top: 5px;
-      padding: 5px;
       resize: none;
       flex-grow: 2;
     }
@@ -116,9 +111,11 @@
   opacity: 0;
   transition: 0.3s;
 }
+
 .formData[data-error-visible='true']::after {
   opacity: 1;
 }
+
 .formData[data-error-visible='true'] {
   .text-control,
   .textarea-control {
@@ -139,6 +136,8 @@
   overflow: auto;
 
   &__close {
+    color: map-get($map: $colors, $key: primary);
+    order: 99;
     align-self: flex-start;
     justify-self: flex-end;
     font-size: 50px;
@@ -150,7 +149,7 @@
 
     &:hover,
     &:focus {
-      color: map-get($map: $colors, $key: primary);
+      color: map-get($map: $colors, $key: secondary);
       text-decoration: none;
       cursor: pointer;
     }

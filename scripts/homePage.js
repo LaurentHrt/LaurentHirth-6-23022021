@@ -44,7 +44,6 @@ function displayTags () {
   photographerList.getAllTags().forEach((tag) => {
     const a = document.createElement('a')
     const span = document.createElement('span')
-    a.classList.add('display-contents')
     span.classList.add('tag')
     a.href = ''
     span.textContent = '#' + tag
@@ -82,7 +81,6 @@ function displayPhotographers () {
     const divTag = document.createElement('div')
 
     cardPhotograph.classList.add('card-photograph')
-    a.classList.add('display-contents')
     divPortrait.classList.add('card-photograph__protrait')
     divName.classList.add('card-photograph__name')
     divCity.classList.add('card-photograph__city')
@@ -104,10 +102,18 @@ function displayPhotographers () {
     cardPhotograph.append(a, divCity, divTagline, divPrice, divTag)
 
     photographer.tags.forEach((tag) => {
+      const a = document.createElement('a')
       const span = document.createElement('span')
       span.classList.add('tag')
+      a.href = ''
       span.textContent = '#' + tag
-      divTag.append(span)
+      a.append(span)
+      divTag.append(a)
+
+      a.addEventListener('click', (e) => {
+        e.preventDefault()
+        span.classList.toggle('tag--selected')
+      })
     })
 
     mainHomePage.append(cardPhotograph)

@@ -30,10 +30,15 @@ nav {
   color: map-get($map: $colors, $key: primary);
 }
 
-.display-contents {
-  display: contents;
-}
 .disable-scroll {
-  height: 100%;
   overflow: hidden;
+}
+
+.hidden {
+  height: 1px;
+  width: 1px;
+  left: 0;
+  overflow: hidden;
+  position: absolute;
+  top: -10000px;
 }
