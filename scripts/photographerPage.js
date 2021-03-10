@@ -79,15 +79,21 @@ function displayBanner () {
   currentPhotographer.tags.forEach((tag) => {
     const a = document.createElement('a')
     const span = document.createElement('span')
-    span.classList.add('tag')
+    a.classList.add('tag')
     a.href = ''
-    span.textContent = '#' + tag
-    a.append(span)
+    a.textContent = '#' + tag
+    a.setAttribute('aria-labelledby', `${tag}`)
+
+    span.id = `${tag}`
+    span.textContent = 'Hashtag ' + tag
+    span.classList.add('hidden')
+
     divTag.append(a)
+    divTag.append(span)
 
     a.addEventListener('click', (e) => {
       e.preventDefault()
-      span.classList.toggle('tag--selected')
+      a.classList.toggle('tag--selected')
       displayMediaList()
     })
   })
