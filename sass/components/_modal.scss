@@ -55,7 +55,7 @@
     }
 
     &__title {
-      font-size: 36px;
+      font-size: 2.25em;
       margin-top: 0;
       margin-bottom: 20px;
     }
@@ -69,23 +69,15 @@
     }
 
     &__close {
+      @include close-btn-style;
       float: right;
-      font-size: 28px;
-      font-weight: 700;
-
-      &:hover,
-      &:focus {
-        color: map-get($map: $colors, $key: primary);
-        text-decoration: none;
-        cursor: pointer;
-      }
     }
 
     &__confirmation {
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 25px;
+      font-size: 1.5625em;
       height: 100%;
     }
   }
@@ -136,22 +128,10 @@
   overflow: auto;
 
   &__close {
-    color: map-get($map: $colors, $key: primary);
-    order: 99;
+    @include close-btn-style;
     align-self: flex-start;
-    justify-self: flex-end;
-    font-size: 50px;
-    font-weight: 700;
-
     @include tablet-and-higher {
       right: 70px;
-    }
-
-    &:hover,
-    &:focus {
-      color: map-get($map: $colors, $key: secondary);
-      text-decoration: none;
-      cursor: pointer;
     }
   }
 
@@ -193,6 +173,13 @@
         }
       }
     }
+
+    &__title {
+      font-size: 0.875em;
+      @include tablet-and-higher {
+        font-size: 1.5em;
+      }
+    }
   }
 }
 
@@ -204,7 +191,8 @@
   border-left: solid 4px map-get($map: $colors, $key: primary);
   cursor: pointer;
 
-  &:hover {
+  &:hover,
+  &:focus {
     border-color: map-get($map: $colors, $key: secondary);
   }
 

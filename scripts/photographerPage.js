@@ -86,7 +86,7 @@ function displayBanner () {
 
     span.id = `${tag}`
     span.textContent = 'Hashtag ' + tag
-    span.classList.add('hidden')
+    span.classList.add('sr-only')
 
     divTag.append(a)
     divTag.append(span)
@@ -185,10 +185,11 @@ function displayMediaList () {
     divLikes.setAttribute('aria-label', 'likes')
 
     sectionCardMedia.append(divMedia)
-    a.append(specificMediaElement)
-    divMedia.append(a)
+    divMedia.append(specificMediaElement)
+    a.append(divMedia)
+    a.append(textContainer)
     textContainer.append(divTitle, divPrice, divLikes)
-    sectionCardMedia.append(textContainer)
+    sectionCardMedia.append(a)
     sectionMediaList.append(sectionCardMedia)
   })
 }
@@ -266,7 +267,7 @@ function openMediaModal (media) {
   const header = document.querySelector('header')
   const mediaModal = document.querySelector('.mediaModal')
   const mediaSection = mediaModal.querySelector('.mediaModal__content__media')
-  const mediaTitle = mediaModal.querySelector('.card-media__title')
+  const mediaTitle = mediaModal.querySelector('.mediaModal__content__title')
   const close = mediaModal.querySelector('.mediaModal__close')
   const rightArrow = mediaModal.querySelector('.rightArrow')
   const leftArrow = mediaModal.querySelector('.leftArrow')

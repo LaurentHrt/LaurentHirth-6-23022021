@@ -51,7 +51,7 @@ function displayTags () {
 
     span.id = `${tag}`
     span.textContent = 'Hashtag ' + tag
-    span.classList.add('hidden')
+    span.classList.add('sr-only')
 
     tagList.append(a)
     tagList.append(span)
@@ -116,7 +116,7 @@ function displayPhotographers () {
 
       span.id = `${tag}`
       span.textContent = 'Hashtag ' + tag
-      span.classList.add('hidden')
+      span.classList.add('sr-only')
 
       divTag.append(a)
       divTag.append(span)
