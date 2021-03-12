@@ -17,7 +17,7 @@
   border-radius: $standard-border-radius;
   width: 170px;
   height: 35px;
-  font-size: 18px;
+  font-size: 1.125rem;
   border: none;
   transition: $standard-transition-time;
   z-index: 1000;
@@ -27,9 +27,29 @@
     height: 69px;
   }
 
-  &:hover {
+  &:hover,
+  &:focus {
     cursor: pointer;
     background-color: map-get($map: $colors, $key: secondary-light);
     color: black;
+  }
+}
+
+@mixin close-btn-style {
+  color: map-get($map: $colors, $key: primary);
+  order: 99;
+  float: right;
+  font-size: 3.125em;
+  font-weight: 700;
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover,
+  a:active {
+    color: map-get($map: $colors, $key: secondary);
+    text-decoration: none;
+    cursor: pointer;
   }
 }

@@ -55,6 +55,7 @@ body {
 a,
 a:visited {
   text-decoration: none;
+  display: block;
 }
 
 /* Faire en sorte que input, select, textarea et button 
@@ -76,20 +77,26 @@ nav {
   color: #901c1c;
 }
 
-.display-contents {
-  display: contents;
+.disable-scroll {
+  overflow: hidden;
 }
 
-.disable-scroll {
-  height: 100%;
+.sr-only {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
   overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
 }
 
 .card-photograph {
   text-align: center;
 }
 
-.card-photograph:hover img {
+.card-photograph:hover img, .card-photograph:focus img {
   transform: scale(1.1);
 }
 
@@ -104,26 +111,26 @@ nav {
 
 .card-photograph__name {
   color: #d3573c;
-  font-size: 36px;
+  font-size: 2.25em;
   padding-top: 20px;
   padding-bottom: 5px;
 }
 
 .card-photograph__city {
   color: #901c1c;
-  font-size: 13px;
+  font-size: 0.8125em;
   padding-bottom: 5px;
 }
 
 .card-photograph__tagline {
-  font-size: 10px;
+  font-size: 0.625em;
   padding-bottom: 5px;
 }
 
 .card-photograph__price {
   padding-bottom: 10px;
   color: #757575;
-  font-size: 9px;
+  font-size: 0.5625em;
 }
 
 .card-photograph__tags {
@@ -170,6 +177,7 @@ nav {
 }
 
 .card-banner-photograph__textContainer {
+  order: -1;
   padding-right: 20px;
 }
 
@@ -181,38 +189,38 @@ nav {
 
 .card-banner-photograph__name {
   color: #d3573c;
-  font-size: 36px;
+  font-size: 2.25em;
   padding-top: 10px;
   padding-bottom: 5px;
 }
 
 @media screen and (min-width: 768px) {
   .card-banner-photograph__name {
-    font-size: 64px;
+    font-size: 4em;
   }
 }
 
 .card-banner-photograph__city {
   color: #901c1c;
-  font-size: 13px;
+  font-size: 0.8125em;
   padding-bottom: 5px;
 }
 
 @media screen and (min-width: 768px) {
   .card-banner-photograph__city {
-    font-size: 24px;
+    font-size: 1.5em;
   }
 }
 
 .card-banner-photograph__tagline {
   color: #757575;
-  font-size: 10px;
+  font-size: 0.625em;
   padding-bottom: 5px;
 }
 
 @media screen and (min-width: 768px) {
   .card-banner-photograph__tagline {
-    font-size: 18px;
+    font-size: 1.125em;
   }
 }
 
@@ -232,13 +240,10 @@ nav {
 
 .card-media {
   min-width: 100px;
-}
-
-.card-media__media {
   transition: 0.5s;
 }
 
-.card-media__media:hover {
+.card-media:hover, .card-media:focus {
   transform: scale(1.02) rotateZ(-1deg);
 }
 
@@ -269,15 +274,14 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  padding: 0 0 15px 0;
-  font-size: 14px;
+  font-size: 0.875em;
   font-weight: 500;
   color: #901c1c;
 }
 
 @media screen and (min-width: 768px) {
   .card-media__textContainer {
-    font-size: 24px;
+    font-size: 1.5em;
   }
 }
 
@@ -338,7 +342,8 @@ nav {
   height: 100%;
 }
 
-.contactModal__content .text-control {
+.contactModal__content .text-control,
+.contactModal__content .textarea-control {
   box-sizing: border-box;
   width: 100%;
   border-radius: 5px;
@@ -349,12 +354,6 @@ nav {
 }
 
 .contactModal__content .textarea-control {
-  box-sizing: border-box;
-  width: 100%;
-  border-radius: 5px;
-  border: none;
-  margin-top: 5px;
-  padding: 5px;
   resize: none;
   flex-grow: 2;
 }
@@ -364,7 +363,7 @@ nav {
 }
 
 .contactModal__content__title {
-  font-size: 36px;
+  font-size: 2.25em;
   margin-top: 0;
   margin-bottom: 20px;
 }
@@ -380,13 +379,21 @@ nav {
 }
 
 .contactModal__content__close {
+  color: #901c1c;
+  order: 99;
   float: right;
-  font-size: 28px;
+  font-size: 3.125em;
   font-weight: 700;
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  float: right;
 }
 
-.contactModal__content__close:hover, .contactModal__content__close:focus {
-  color: #901c1c;
+.contactModal__content__close:hover,
+.contactModal__content__close a:active {
+  color: #d3573c;
   text-decoration: none;
   cursor: pointer;
 }
@@ -395,7 +402,7 @@ nav {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 25px;
+  font-size: 1.5625em;
   height: 100%;
 }
 
@@ -443,22 +450,29 @@ nav {
 }
 
 .mediaModal__close {
-  align-self: flex-start;
-  justify-self: flex-end;
-  font-size: 50px;
+  color: #901c1c;
+  order: 99;
+  float: right;
+  font-size: 3.125em;
   font-weight: 700;
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-start;
+}
+
+.mediaModal__close:hover,
+.mediaModal__close a:active {
+  color: #d3573c;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 @media screen and (min-width: 768px) {
   .mediaModal__close {
     right: 70px;
   }
-}
-
-.mediaModal__close:hover, .mediaModal__close:focus {
-  color: #901c1c;
-  text-decoration: none;
-  cursor: pointer;
 }
 
 .mediaModal__content {
@@ -506,6 +520,16 @@ nav {
   }
 }
 
+.mediaModal__content__title {
+  font-size: 0.875em;
+}
+
+@media screen and (min-width: 768px) {
+  .mediaModal__content__title {
+    font-size: 1.5em;
+  }
+}
+
 .leftArrow,
 .rightArrow {
   width: 15px;
@@ -515,8 +539,9 @@ nav {
   cursor: pointer;
 }
 
-.leftArrow:hover,
-.rightArrow:hover {
+.leftArrow:hover, .leftArrow:focus,
+.rightArrow:hover,
+.rightArrow:focus {
   border-color: #d3573c;
 }
 
@@ -552,7 +577,7 @@ nav {
   border-radius: 5px;
   width: 170px;
   height: 35px;
-  font-size: 18px;
+  font-size: 1.125rem;
   border: none;
   transition: 0.2s;
   z-index: 1000;
@@ -565,7 +590,7 @@ nav {
   }
 }
 
-.button:hover {
+.button:hover, .button:focus {
   cursor: pointer;
   background-color: #db8876;
   color: black;
@@ -574,6 +599,7 @@ nav {
 .media-list {
   display: grid;
   width: 100%;
+  row-gap: 15px;
 }
 
 @media screen and (min-width: 768px) {
@@ -605,16 +631,16 @@ nav {
   margin-right: 5px;
   margin-bottom: 5px;
   font-weight: 500;
-  font-size: 13px;
+  font-size: 0.8125em;
   padding-right: 7px;
   padding-left: 7px;
   transition: 0.2s;
 }
 
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: 768px) {
   .tag {
     height: 24px;
-    font-size: 18px;
+    font-size: 1.125em;
   }
 }
 
@@ -660,7 +686,7 @@ nav {
   align-items: center;
   justify-content: space-between;
   padding: 0 22px;
-  font-size: 20px;
+  font-size: 1.25em;
   font-weight: 300;
   color: white;
   height: 60px;
@@ -703,7 +729,7 @@ nav {
   position: relative;
   display: block;
   margin: 0 20px 0;
-  font-size: 22px;
+  font-size: 1.375em;
   font-weight: 300;
   color: white;
   line-height: 60px;
@@ -711,7 +737,7 @@ nav {
   transition: all 0.5s;
 }
 
-.custom-option:hover {
+.custom-option:hover, .custom-option:focus {
   cursor: pointer;
   text-decoration: underline;
 }
@@ -800,12 +826,12 @@ header img {
 header h1 {
   white-space: nowrap;
   text-align: right;
-  font-size: 14px;
+  font-size: 0.875em;
 }
 
 @media screen and (min-width: 1200px) {
   header h1 {
-    font-size: 36px;
+    font-size: 2.25em;
   }
 }
 

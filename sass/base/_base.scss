@@ -9,6 +9,7 @@ body {
 a,
 a:visited {
   text-decoration: none;
+  display: block;
 }
 
 /* Faire en sorte que input, select, textarea et button 
@@ -30,10 +31,17 @@ nav {
   color: map-get($map: $colors, $key: primary);
 }
 
-.display-contents {
-  display: contents;
-}
 .disable-scroll {
-  height: 100%;
   overflow: hidden;
+}
+
+.sr-only {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
 }

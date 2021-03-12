@@ -44,17 +44,21 @@ function displayTags () {
   photographerList.getAllTags().forEach((tag) => {
     const a = document.createElement('a')
     const span = document.createElement('span')
-    a.classList.add('display-contents')
-    span.classList.add('tag')
+    a.classList.add('tag')
     a.href = ''
-    span.textContent = '#' + tag
-    a.append(span)
+    a.textContent = '#' + tag
+    a.setAttribute('aria-labelledby', `${tag}`)
+
+    span.id = `${tag}`
+    span.textContent = 'Hashtag ' + tag
+    span.classList.add('sr-only')
+
     tagList.append(a)
+    tagList.append(span)
 
     a.addEventListener('click', (e) => {
       e.preventDefault()
-      span.classList.toggle('tag--selected')
-      displayPhotographers()
+      a.classList.toggle('tag--selected')
     })
   })
 }
@@ -82,7 +86,6 @@ function displayPhotographers () {
     const divTag = document.createElement('div')
 
     cardPhotograph.classList.add('card-photograph')
-    a.classList.add('display-contents')
     divPortrait.classList.add('card-photograph__protrait')
     divName.classList.add('card-photograph__name')
     divCity.classList.add('card-photograph__city')
@@ -104,10 +107,24 @@ function displayPhotographers () {
     cardPhotograph.append(a, divCity, divTagline, divPrice, divTag)
 
     photographer.tags.forEach((tag) => {
+      const a = document.createElement('a')
       const span = document.createElement('span')
-      span.classList.add('tag')
-      span.textContent = '#' + tag
+      a.classList.add('tag')
+      a.href = ''
+      a.textContent = '#' + tag
+      a.setAttribute('aria-labelledby', `${tag}`)
+
+      span.id = `${tag}`
+      span.textContent = 'Hashtag ' + tag
+      span.classList.add('sr-only')
+
+      divTag.append(a)
       divTag.append(span)
+
+      a.addEventListener('click', (e) => {
+        e.preventDefault()
+        a.classList.toggle('tag--selected')
+      })
     })
 
     mainHomePage.append(cardPhotograph)

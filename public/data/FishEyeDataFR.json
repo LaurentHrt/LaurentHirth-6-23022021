@@ -8,8 +8,7 @@
       "tags": ["portrait", "events", "travel", "animals"],
       "tagline": "Voir le beau dans le quotidien",
       "price": 400,
-      "portrait": "MimiKeel.jpg",
-      "alt": "Portrait de Mimi Keel"
+      "portrait": "MimiKeel.jpg"
     },
     {
       "name": "Ellie-Rose Wilkens",
@@ -19,8 +18,7 @@
       "tags": ["sport", "architecture"],
       "tagline": "Capturer des compositions complexes",
       "price": 250,
-      "portrait": "EllieRoseWilkens.jpg",
-      "alt": "Portrait de Ellie-Rose Wilkens"
+      "portrait": "EllieRoseWilkens.jpg"
     },
     {
       "name": "Tracy Galindo",
@@ -30,8 +28,7 @@
       "tags": ["art", "fashion", "events"],
       "tagline": "Photographe freelance",
       "price": 500,
-      "portrait": "TracyGalindo.jpg",
-      "alt": "Portrait de Tracy Galindo"
+      "portrait": "TracyGalindo.jpg"
     },
     {
       "name": "Nabeel Bradford",
@@ -41,8 +38,7 @@
       "tags": ["travel", "portrait"],
       "tagline": "Toujours aller de l'avant",
       "price": 350,
-      "portrait": "NabeelBradford.jpg",
-      "alt": "Portrait de Nabeel Bradford"
+      "portrait": "NabeelBradford.jpg"
     },
     {
       "name": "Rhode Dubois",
@@ -52,8 +48,7 @@
       "tags": ["sport", "fashion", "events", "animals"],
       "tagline": "Je crée des souvenirs",
       "price": 275,
-      "portrait": "RhodeDubois.jpg",
-      "alt": "Portrait de Rhode Dubois"
+      "portrait": "RhodeDubois.jpg"
     },
     {
       "name": "Marcel Nikolic",
@@ -63,8 +58,7 @@
       "tags": ["travel", "architecture"],
       "tagline": "Toujours à la recherche de LA photo",
       "price": 300,
-      "portrait": "MarcelNikolic.jpg",
-      "alt": "Portrait de Marcel Nikolic"
+      "portrait": "MarcelNikolic.jpg"
     }
   ],
   "media": [
@@ -76,7 +70,7 @@
       "likes": 62,
       "date": "2011-12-08",
       "price": 55,
-      "alt": ""
+      "alt": "Personne habillée en jaune devant un terrain de basketball"
     },
     {
       "id": 8520927,
@@ -86,7 +80,7 @@
       "likes": 11,
       "date": "2011-11-06",
       "price": 55,
-      "alt": ""
+      "alt": "Personne devant un paysage urbain"
     },
     {
       "id": 9025895,
@@ -96,7 +90,7 @@
       "likes": 72,
       "date": "2013-08-12",
       "price": 55,
-      "alt": ""
+      "alt": "Personne devant des carreaux noirs et blancs"
     },
     {
       "id": 9275938,
@@ -106,7 +100,7 @@
       "likes": 69,
       "date": "2018-02-22",
       "price": 55,
-      "alt": ""
+      "alt": "Décoration de mariage"
     },
     {
       "id": 2053494,
@@ -116,7 +110,7 @@
       "likes": 2,
       "date": "2020-05-25",
       "price": 55,
-      "alt": ""
+      "alt": "Foule dans la nuit avec des torches"
     },
     {
       "id": 7324238,
@@ -126,7 +120,7 @@
       "likes": 33,
       "date": "2019-06-12",
       "price": 55,
-      "alt": ""
+      "alt": "Décoration d'anniversaire"
     },
     {
       "id": 8328953,
@@ -136,7 +130,7 @@
       "likes": 24,
       "date": "2011-12-08",
       "price": 100,
-      "alt": ""
+      "alt": "Sculpture en forme de cheval"
     },
     {
       "id": 7502053,
@@ -146,7 +140,7 @@
       "likes": 88,
       "date": "2007-05-07",
       "price": 55,
-      "alt": ""
+      "alt": "Art graphique"
     },
     {
       "id": 8523492,
@@ -156,7 +150,7 @@
       "likes": 24,
       "date": "2018-05-05",
       "price": 55,
-      "alt": ""
+      "alt": "Gallerie de métro taguée"
     },
     {
       "id": 75902334,
@@ -166,7 +160,7 @@
       "likes": 75,
       "date": "2019-11-25",
       "price": 55,
-      "alt": ""
+      "alt": "Dessin géometrique"
     },
 
     {
@@ -177,7 +171,7 @@
       "likes": 52,
       "date": "2013-02-30",
       "price": 70,
-      "alt": ""
+      "alt": "Quatre personnes sur des rameurs"
     },
     {
       "id": 92758372,
@@ -187,7 +181,7 @@
       "likes": 58,
       "date": "2018-07-17",
       "price": 70,
-      "alt": ""
+      "alt": "Deux personnes qui dansent"
     },
     {
       "id": 32958383,
@@ -197,7 +191,7 @@
       "likes": 11,
       "date": "2019-08-12",
       "price": 70,
-      "alt": ""
+      "alt": "Personne avec une robe rouge"
     },
     {
       "id": 928587383,
@@ -207,7 +201,7 @@
       "likes": 2,
       "date": "2019-01-02",
       "price": 70,
-      "alt": ""
+      "alt": "Salle de conférence occupée"
     },
     {
       "id": 725639493,
@@ -217,7 +211,7 @@
       "likes": 3,
       "date": "2019-05-20",
       "price": 70,
-      "alt": ""
+      "alt": "Discours dans une salle de conférence"
     },
     {
       "id": 23394384,
@@ -227,7 +221,7 @@
       "likes": 52,
       "date": "2019-07-18",
       "price": 70,
-      "alt": ""
+      "alt": "Pianiste avec son piano"
     },
     {
       "id": 87367293,
@@ -237,7 +231,7 @@
       "likes": 23,
       "date": "2018-02-22",
       "price": 70,
-      "alt": ""
+      "alt": "Personne tenant un micro"
     },
     {
       "id": 593834784,
@@ -247,7 +241,7 @@
       "likes": 52,
       "date": "2017-03-13",
       "price": 70,
-      "alt": ""
+      "alt": "Cerf dans la forêt"
     },
     {
       "id": 83958935,
@@ -257,7 +251,7 @@
       "likes": 52,
       "date": "2016-06-12",
       "price": 70,
-      "alt": ""
+      "alt": "Chiot qui joue sur la plage"
     },
 
     {
@@ -268,7 +262,7 @@
       "likes": 23,
       "date": "2017-03-18",
       "price": 45,
-      "alt": ""
+      "alt": "Montagnes vu de haut"
     },
     {
       "id": 343423425,
@@ -278,7 +272,7 @@
       "likes": 101,
       "date": "2017-04-03",
       "price": 45,
-      "alt": ""
+      "alt": "Bains naturels à l'extérieur"
     },
     {
       "id": 73434243,
@@ -288,7 +282,7 @@
       "likes": 99,
       "date": "2018-04-30",
       "price": 45,
-      "alt": ""
+      "alt": "Route sinueuse dans des colines"
     },
     {
       "id": 23425523,
@@ -298,7 +292,7 @@
       "likes": 34,
       "date": "2016-04-05",
       "price": 45,
-      "alt": ""
+      "alt": "Pont dans la forêt"
     },
     {
       "id": 23134513,
@@ -308,7 +302,7 @@
       "likes": 23,
       "date": "2017-03-18",
       "price": 45,
-      "alt": ""
+      "alt": "Bateau dans des fjords"
     },
     {
       "id": 92352352,
@@ -318,7 +312,7 @@
       "likes": 66,
       "date": "2018-05-24",
       "price": 45,
-      "alt": ""
+      "alt": "Portrait d'une femme"
     },
     {
       "id": 34513453,
@@ -328,7 +322,7 @@
       "likes": 52,
       "date": "2017-04-21",
       "price": 45,
-      "alt": ""
+      "alt": "Portrait d'un homme"
     },
     {
       "id": 23523533,
@@ -338,7 +332,7 @@
       "likes": 95,
       "date": "2018-11-02",
       "price": 45,
-      "alt": ""
+      "alt": "Portrait d'une femme"
     },
     {
       "id": 525834234,
@@ -348,7 +342,7 @@
       "likes": 25,
       "date": "2019-01-02",
       "price": 45,
-      "alt": ""
+      "alt": "portrait d'un homme"
     },
 
     {
@@ -359,7 +353,7 @@
       "likes": 88,
       "date": "2019-02-03",
       "price": 45,
-      "alt": ""
+      "alt": "Personne au sommet d'une montagne"
     },
     {
       "id": 625025343,
@@ -369,7 +363,7 @@
       "likes": 85,
       "date": "2019-04-03",
       "price": 45,
-      "alt": ""
+      "alt": "Habitations au bord d'une falaise"
     },
     {
       "id": 2525345343,
@@ -379,7 +373,7 @@
       "likes": 34,
       "date": "2019-04-07",
       "price": 45,
-      "alt": ""
+      "alt": "Portrait d'une fille"
     },
     {
       "id": 2523434634,
@@ -389,7 +383,7 @@
       "likes": 63,
       "date": "2019-04-07",
       "price": 45,
-      "alt": ""
+      "alt": "Portrait d'une femme"
     },
     {
       "id": 398847109,
@@ -399,7 +393,7 @@
       "likes": 55,
       "date": "2019-06-20",
       "price": 45,
-      "alt": ""
+      "alt": "Portrait d'une femme"
     },
     {
       "id": 2534342,
@@ -409,7 +403,7 @@
       "likes": 25,
       "date": "2019-06-21",
       "price": 45,
-      "alt": ""
+      "alt": "Table décorée à l'extérieur"
     },
     {
       "id": 65235234,
@@ -419,7 +413,7 @@
       "likes": 52,
       "date": "2019-06-25",
       "price": 45,
-      "alt": ""
+      "alt": "Couple en tenue de mariage"
     },
     {
       "id": 23523434,
@@ -429,7 +423,7 @@
       "likes": 77,
       "date": "2019-06-28",
       "price": 45,
-      "alt": ""
+      "alt": "Couple en tenue de mariage"
     },
     {
       "id": 5234343,
@@ -439,7 +433,7 @@
       "likes": 142,
       "date": "2019-08-23",
       "price": 60,
-      "alt": ""
+      "alt": "Chevaux sur une plaine"
     },
     {
       "id": 95234343,
@@ -449,7 +443,7 @@
       "likes": 59,
       "date": "2019-07-02",
       "price": 60,
-      "alt": ""
+      "alt": "Oiseau sur une branche"
     },
 
     {
@@ -460,7 +454,7 @@
       "likes": 25,
       "date": "2019-04-03",
       "price": 60,
-      "alt": ""
+      "alt": "Rue urbaine asiatique"
     },
     {
       "id": 2523434,
@@ -470,7 +464,7 @@
       "likes": 53,
       "date": "2019-05-06",
       "price": 60,
-      "alt": ""
+      "alt": "Canal entouré d'habitations"
     },
     {
       "id": 95293534,
@@ -480,7 +474,7 @@
       "likes": 33,
       "date": "2019-05-12",
       "price": 60,
-      "alt": ""
+      "alt": "Lac au milieu des montagnes"
     },
     {
       "id": 356234343,
@@ -490,7 +484,7 @@
       "likes": 53,
       "date": "2019-06-20",
       "price": 60,
-      "alt": ""
+      "alt": "Byciclette dans la ville"
     },
     {
       "id": 235234343,
@@ -500,7 +494,7 @@
       "likes": 63,
       "date": "2019-06-26",
       "price": 60,
-      "alt": ""
+      "alt": "Porte ouverte sur un paysage"
     },
     {
       "id": 6234234343,
@@ -510,7 +504,7 @@
       "likes": 52,
       "date": "2019-06-30",
       "price": 60,
-      "alt": ""
+      "alt": "Batiments"
     },
     {
       "id": 6525666253,
@@ -520,7 +514,7 @@
       "likes": 63,
       "date": "2019-07-20",
       "price": 60,
-      "alt": ""
+      "alt": "Habitations sur une falaise"
     },
     {
       "id": 98252523433,
@@ -530,7 +524,7 @@
       "likes": 88,
       "date": "2020-01-05",
       "price": 60,
-      "alt": ""
+      "alt": "Architecture"
     },
     {
       "id": 9259398453,
@@ -540,7 +534,7 @@
       "likes": 57,
       "date": "2020-01-20",
       "price": 65,
-      "alt": ""
+      "alt": "Paysage urbain vu de haut"
     },
     {
       "id": 3523523534,
@@ -550,7 +544,7 @@
       "likes": 54,
       "date": "2020-05-05",
       "price": 60,
-      "alt": ""
+      "alt": "Angle d'un bâtiment"
     },
 
     {
@@ -561,7 +555,7 @@
       "likes": 150,
       "date": "2018-02-30",
       "price": 70,
-      "alt": ""
+      "alt": "Personne réalisant des acrobaties"
     },
     {
       "id": 235234343,
@@ -571,7 +565,7 @@
       "likes": 101,
       "date": "2018-03-05",
       "price": 65,
-      "alt": ""
+      "alt": "Personne escaladant des rochers"
     },
     {
       "id": 235343222,
@@ -581,7 +575,7 @@
       "likes": 103,
       "date": "2018-03-10",
       "price": 70,
-      "alt": ""
+      "alt": "Surfeur dans un tunnel"
     },
     {
       "id": 7775342343,
@@ -591,7 +585,7 @@
       "likes": 77,
       "date": "2018-04-16",
       "price": 50,
-      "alt": ""
+      "alt": "Skieur en plein saut"
     },
     {
       "id": 9253445784,
@@ -601,7 +595,7 @@
       "likes": 88,
       "date": "2018-04-22",
       "price": 65,
-      "alt": ""
+      "alt": "Course à pied"
     },
     {
       "id": 22299394,
@@ -611,7 +605,7 @@
       "likes": 95,
       "date": "2018-04-27",
       "price": 70,
-      "alt": ""
+      "alt": "Skateur en plein saut"
     },
     {
       "id": 3452342633,
@@ -621,7 +615,7 @@
       "likes": 52,
       "date": "2018-05-03",
       "price": 75,
-      "alt": ""
+      "alt": "Intérieur d'un batiment"
     },
     {
       "id": 939234243,
@@ -641,7 +635,7 @@
       "likes": 85,
       "date": "2018-05-15",
       "price": 71,
-      "alt": ""
+      "alt": "Architecture moderne"
     },
     {
       "id": 965933434,
@@ -651,7 +645,7 @@
       "likes": 66,
       "date": "2018-05-20",
       "price": 58,
-      "alt": ""
+      "alt": "Architecture en verre"
     },
     {
       "id": 777723343,
@@ -661,7 +655,7 @@
       "likes": 79,
       "date": "2018-05-21",
       "price": 80,
-      "alt": ""
+      "alt": "Architecture courbée"
     }
   ]
 }

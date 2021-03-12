@@ -8,7 +8,6 @@ const linkToData = './public/data/FishEyeDataFR.json'
 let currentPhotographer = Photographer
 const mediaList = new MediaList()
 const contactModal = document.querySelector('.contactModal')
-const mediaModal = document.querySelector('.mediaModal')
 
 // ***************** Functions ***************** //
 function createContent (photographerId) {
@@ -16,10 +15,15 @@ function createContent (photographerId) {
     .then((response) => {
       if (response.ok) {
         return response.json()
+      } else {
+        throw new Error('Unexpected responses status or content type')
       }
     })
     .then((data) => createData(data, photographerId))
     .then(displayPage)
+    .catch(error => {
+      console.log('Error while fetching data:', error)
+    })
 }
 
 function createData (fetchedData, photographerId) {
@@ -75,16 +79,21 @@ function displayBanner () {
   currentPhotographer.tags.forEach((tag) => {
     const a = document.createElement('a')
     const span = document.createElement('span')
-    a.classList.add('display-contents')
-    span.classList.add('tag')
+    a.classList.add('tag')
     a.href = ''
-    span.textContent = '#' + tag
-    a.append(span)
+    a.textContent = '#' + tag
+    a.setAttribute('aria-labelledby', `${tag}`)
+
+    span.id = `${tag}`
+    span.textContent = 'Hashtag ' + tag
+    span.classList.add('sr-only')
+
     divTag.append(a)
+    divTag.append(span)
 
     a.addEventListener('click', (e) => {
       e.preventDefault()
-      span.classList.toggle('tag--selected')
+      a.classList.toggle('tag--selected')
       displayMediaList()
     })
   })
@@ -93,15 +102,30 @@ function displayBanner () {
 }
 
 function displayFilterMenu () {
-  document.querySelector('.dropdownMenu-wrapper').addEventListener('click', function () {
-    this.querySelector('.custom-select').classList.toggle('open')
+  const dropDownMenu = document.querySelector('.dropdownMenu-wrapper a')
+  const customSelect = document.querySelector('.custom-select')
+  const customSelectTrigger = document.querySelector('.custom-select__trigger')
+
+  dropDownMenu.addEventListener('click', function (e) {
+    e.preventDefault()
+    customSelect.classList.toggle('open')
+    if (customSelectTrigger.getAttribute('aria-expanded') === 'true') {
+      customSelectTrigger.setAttribute('aria-expanded', 'false')
+    } else {
+      customSelectTrigger.setAttribute('aria-expanded', 'true')
+    }
   })
 
   for (const option of document.querySelectorAll('.custom-option')) {
-    option.addEventListener('click', function () {
+    option.addEventListener('click', function (e) {
+      e.preventDefault()
       if (!this.classList.contains('selected')) {
-        this.parentNode.querySelector('.custom-option.selected').classList.remove('selected')
+        customSelect.classList.remove('open')
+        const selected = this.parentNode.querySelector('.custom-option.selected')
+        selected.setAttribute('aria-selected', 'false')
+        selected.classList.remove('selected')
         this.classList.add('selected')
+        this.setAttribute('aria-selected', 'true')
         this.closest('.custom-select').querySelector('.custom-select__trigger span').textContent = this.textContent
         displayMediaList()
       }
@@ -109,9 +133,9 @@ function displayFilterMenu () {
   }
 
   window.addEventListener('click', function (e) {
-    const select = document.querySelector('.custom-select')
-    if (!select.contains(e.target)) {
-      select.classList.remove('open')
+    if (!customSelect.contains(e.target)) {
+      customSelect.classList.remove('open')
+      customSelectTrigger.setAttribute('aria-expanded', 'false')
     }
   })
 }
@@ -150,7 +174,6 @@ function displayMediaList () {
     divPrice.classList.add('card-media__price')
     divLikes.classList.add('card-media__likes')
     textContainer.classList.add('card-media__textContainer')
-    a.classList.add('display-contents')
 
     a.href = ''
     a.addEventListener('click', (e) => e.preventDefault())
@@ -159,17 +182,22 @@ function displayMediaList () {
     divTitle.textContent = media.title
     divPrice.textContent = media.price + '€'
     divLikes.textContent = media.likes + ' ❤'
+    divLikes.setAttribute('aria-label', 'likes')
 
     sectionCardMedia.append(divMedia)
-    a.append(specificMediaElement)
-    divMedia.append(a)
+    divMedia.append(specificMediaElement)
+    a.append(divMedia)
+    a.append(textContainer)
     textContainer.append(divTitle, divPrice, divLikes)
-    sectionCardMedia.append(textContainer)
+    sectionCardMedia.append(a)
     sectionMediaList.append(sectionCardMedia)
   })
 }
 
 function openContactModal () {
+  const main = document.querySelector('main')
+  const header = document.querySelector('header')
+  const contactModal = document.querySelector('.contactModal')
   const title = contactModal.querySelector('.contactModal__content__title')
   const close = contactModal.querySelector('.contactModal__content__close')
   const form = contactModal.querySelector('.contactModal__content__form')
@@ -177,6 +205,11 @@ function openContactModal () {
   const confirmation = contactModal.querySelector('.contactModal__content__confirmation')
   const submitBtn = contactModal.querySelector('.contactModal__content__btn-submit')
 
+  main.setAttribute('aria-hidden', 'true')
+  header.setAttribute('aria-hidden', 'true')
+  contactModal.setAttribute('aria-hidden', 'false')
+
+  close.addEventListener('click', e => e.preventDefault())
   close.addEventListener('click', closeContactModal)
   contactModal.addEventListener('click', closeContactModal)
   contactModal.firstElementChild.addEventListener('click', (e) => e.stopPropagation())
@@ -202,9 +235,19 @@ function openContactModal () {
   title.innerHTML = currentPhotographer.name + '</br>' + 'Contactez-moi'
   contactModal.style.display = 'block'
   document.body.classList.add('disable-scroll')
+
+  close.focus()
 }
 
 function closeContactModal () {
+  const main = document.querySelector('main')
+  const header = document.querySelector('header')
+  const contactModal = document.querySelector('.contactModal')
+
+  main.setAttribute('aria-hidden', 'false')
+  header.setAttribute('aria-hidden', 'false')
+  contactModal.setAttribute('aria-hidden', 'true')
+
   contactModal.style.display = 'none'
   document.body.classList.remove('disable-scroll')
 }
@@ -212,30 +255,51 @@ function closeContactModal () {
 function submitContactModal (e) {
   e.preventDefault()
   const form = contactModal.querySelector('.contactModal__content__form')
+  const close = contactModal.querySelector('.contactModal__content__close')
   const confirmation = contactModal.querySelector('.contactModal__content__confirmation')
   form.style.display = 'none'
   confirmation.style.display = 'flex'
+  close.focus()
 }
 
 function openMediaModal (media) {
+  const main = document.querySelector('main')
+  const header = document.querySelector('header')
+  const mediaModal = document.querySelector('.mediaModal')
   const mediaSection = mediaModal.querySelector('.mediaModal__content__media')
+  const mediaTitle = mediaModal.querySelector('.mediaModal__content__title')
   const close = mediaModal.querySelector('.mediaModal__close')
   const rightArrow = mediaModal.querySelector('.rightArrow')
   const leftArrow = mediaModal.querySelector('.leftArrow')
 
+  main.setAttribute('aria-hidden', 'true')
+  header.setAttribute('aria-hidden', 'true')
+  mediaModal.setAttribute('aria-hidden', 'false')
+
+  close.addEventListener('click', e => e.preventDefault())
   close.addEventListener('click', closeMediaModal)
   mediaModal.addEventListener('click', closeMediaModal)
   mediaModal.firstElementChild.addEventListener('click', e => e.stopPropagation())
-  rightArrow.addEventListener('click', () => {})
-  leftArrow.addEventListener('click', () => {})
-
-  mediaSection.firstChild.replaceWith(media.getDOMComponent())
+  rightArrow.addEventListener('click', e => e.preventDefault())
+  leftArrow.addEventListener('click', e => e.preventDefault())
+  mediaTitle.textContent = media.title
+  mediaSection.firstChild.replaceWith(media.getDOMComponent(true))
 
   mediaModal.style.display = 'block'
   document.body.classList.add('disable-scroll')
+
+  close.focus()
 }
 
 function closeMediaModal () {
+  const main = document.querySelector('main')
+  const header = document.querySelector('header')
+  const mediaModal = document.querySelector('.mediaModal')
+
+  main.setAttribute('aria-hidden', 'false')
+  header.setAttribute('aria-hidden', 'false')
+  mediaModal.setAttribute('aria-hidden', 'true')
+
   mediaModal.style.display = 'none'
   document.body.classList.remove('disable-scroll')
 }

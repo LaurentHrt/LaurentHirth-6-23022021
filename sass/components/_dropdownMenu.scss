@@ -12,7 +12,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 22px;
-  font-size: 20px;
+  font-size: 1.25em;
   font-weight: 300;
   color: white;
   height: 60px;
@@ -56,13 +56,14 @@
   position: relative;
   display: block;
   margin: 0 20px 0;
-  font-size: 22px;
+  font-size: 1.375em;
   font-weight: 300;
   color: white;
   line-height: 60px;
   cursor: pointer;
   transition: all 0.5s;
-  &:hover {
+  &:hover,
+  &:focus {
     cursor: pointer;
     text-decoration: underline;
   }

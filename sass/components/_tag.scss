@@ -7,14 +7,14 @@
   margin-right: 5px;
   margin-bottom: 5px;
   font-weight: 500;
-  font-size: 13px;
+  font-size: 0.8125em;
   padding-right: 7px;
   padding-left: 7px;
   transition: $standard-transition-time;
 
-  @include desktop-and-higher {
+  @include tablet-and-higher {
     height: 24px;
-    font-size: 18px;
+    font-size: 1.125em;
   }
 
   &--selected {
