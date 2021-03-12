@@ -212,6 +212,7 @@ function openContactModal () {
   close.addEventListener('click', e => e.preventDefault())
   close.addEventListener('click', closeContactModal)
   contactModal.addEventListener('click', closeContactModal)
+  contactModal.addEventListener('keydown', e => { if (e.keyCode === 27) { closeContactModal() } })
   contactModal.firstElementChild.addEventListener('click', (e) => e.stopPropagation())
 
   form.addEventListener('submit', e => e.preventDefault())
@@ -279,6 +280,7 @@ function openMediaModal (media) {
   close.addEventListener('click', e => e.preventDefault())
   close.addEventListener('click', closeMediaModal)
   mediaModal.addEventListener('click', closeMediaModal)
+  mediaModal.addEventListener('keydown', e => { if (e.keyCode === 27) { closeMediaModal() } })
   mediaModal.firstElementChild.addEventListener('click', e => e.stopPropagation())
   rightArrow.addEventListener('click', e => e.preventDefault())
   leftArrow.addEventListener('click', e => e.preventDefault())

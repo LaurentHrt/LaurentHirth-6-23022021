@@ -20,6 +20,5 @@
   &--selected {
     color: white;
     background-color: map-get($map: $colors, $key: primary);
-    border-color: map-get($map: $colors, $key: primary);
   }
 }
