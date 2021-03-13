@@ -182,30 +182,16 @@
   }
 }
 
-.leftArrow,
-.rightArrow {
-  width: 15px;
-  height: 15px;
-  border-top: solid 4px map-get($map: $colors, $key: primary);
-  border-left: solid 4px map-get($map: $colors, $key: primary);
+.mediaModal__arrow {
+  font-size: 3em;
+  font-weight: 900;
+  color: map-get($map: $colors, $key: primary);
   cursor: pointer;
 
   &:hover,
   &:focus {
-    border-color: map-get($map: $colors, $key: secondary);
+    color: map-get($map: $colors, $key: secondary);
   }
-
-  @include tablet-and-higher {
-    width: 25px;
-    height: 25px;
-  }
-}
-
-.leftArrow {
-  transform: rotate(-45deg);
-}
-.rightArrow {
-  transform: rotate(135deg);
 }
 
 @keyframes modalOpen {

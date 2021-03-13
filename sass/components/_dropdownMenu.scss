@@ -1,11 +1,13 @@
 .dropdownMenu-wrapper {
   width: 170px;
 }
+
 .custom-select {
   position: relative;
   display: flex;
   flex-direction: column;
 }
+
 .custom-select__trigger {
   position: relative;
   display: flex;
@@ -21,6 +23,7 @@
   cursor: pointer;
   border-radius: $standard-border-radius;
 }
+
 .custom-options {
   position: absolute;
   display: block;

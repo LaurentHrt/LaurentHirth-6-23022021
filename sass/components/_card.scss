@@ -26,19 +26,18 @@
 
   &__city {
     color: map-get($map: $colors, $key: primary);
-    font-size: 0.8125em;
     padding-bottom: 5px;
   }
 
   &__tagline {
-    font-size: 0.625em;
+    font-size: 0.8em;
     padding-bottom: 5px;
   }
 
   &__price {
     padding-bottom: 10px;
     color: #757575;
-    font-size: 0.5625em;
+    font-size: 0.7em;
   }
 
   &__tags {

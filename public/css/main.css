@@ -118,19 +118,18 @@ nav {
 
 .card-photograph__city {
   color: #901c1c;
-  font-size: 0.8125em;
   padding-bottom: 5px;
 }
 
 .card-photograph__tagline {
-  font-size: 0.625em;
+  font-size: 0.8em;
   padding-bottom: 5px;
 }
 
 .card-photograph__price {
   padding-bottom: 10px;
   color: #757575;
-  font-size: 0.5625em;
+  font-size: 0.7em;
 }
 
 .card-photograph__tags {
@@ -530,35 +529,15 @@ nav {
   }
 }
 
-.leftArrow,
-.rightArrow {
-  width: 15px;
-  height: 15px;
-  border-top: solid 4px #901c1c;
-  border-left: solid 4px #901c1c;
+.mediaModal__arrow {
+  font-size: 3em;
+  font-weight: 900;
+  color: #901c1c;
   cursor: pointer;
 }
 
-.leftArrow:hover, .leftArrow:focus,
-.rightArrow:hover,
-.rightArrow:focus {
-  border-color: #d3573c;
-}
-
-@media screen and (min-width: 768px) {
-  .leftArrow,
-  .rightArrow {
-    width: 25px;
-    height: 25px;
-  }
-}
-
-.leftArrow {
-  transform: rotate(-45deg);
-}
-
-.rightArrow {
-  transform: rotate(135deg);
+.mediaModal__arrow:hover, .mediaModal__arrow:focus {
+  color: #d3573c;
 }
 
 @keyframes modalOpen {

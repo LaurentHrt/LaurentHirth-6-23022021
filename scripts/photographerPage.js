@@ -7,6 +7,7 @@ const urlParams = new URLSearchParams(window.location.search)
 const linkToData = './public/data/FishEyeDataFR.json'
 let currentPhotographer = Photographer
 const mediaList = new MediaList()
+let displayedMediaList = []
 const contactModal = document.querySelector('.contactModal')
 
 // ***************** Functions ***************** //
@@ -162,7 +163,9 @@ function displayMediaList () {
     filters.push(tagSelected.textContent.replace('#', ''))
   })
 
-  mediaList.getMediaList(sort, ...filters).forEach((media) => {
+  displayedMediaList = mediaList.getMediaList(sort, ...filters)
+
+  displayedMediaList.forEach((media) => {
     const sectionCardMedia = document.createElement('section')
     const divMedia = document.createElement('div')
     const specificMediaElement = media.getDOMComponent()
@@ -213,13 +216,11 @@ function openContactModal () {
   header.setAttribute('aria-hidden', 'true')
   contactModal.setAttribute('aria-hidden', 'false')
 
-  close.addEventListener('click', e => e.preventDefault())
   close.addEventListener('click', closeContactModal)
   contactModal.addEventListener('click', closeContactModal)
   contactModal.addEventListener('keydown', e => { if (e.code === 'Escape') { closeContactModal() } })
   contactModal.firstElementChild.addEventListener('click', (e) => e.stopPropagation())
 
-  form.addEventListener('submit', e => e.preventDefault())
   form.addEventListener('submit', submitContactModal)
 
   submitBtn.addEventListener('click', () => {
@@ -246,7 +247,8 @@ function openContactModal () {
   close.focus()
 }
 
-function closeContactModal () {
+function closeContactModal (e) {
+  e.preventDefault()
   const main = document.querySelector('main')
   const header = document.querySelector('header')
   const contactModal = document.querySelector('.contactModal')
@@ -277,22 +279,23 @@ function openMediaModal (media) {
   const mediaSection = mediaModal.querySelector('.mediaModal__content__media')
   const mediaTitle = mediaModal.querySelector('.mediaModal__content__title')
   const close = mediaModal.querySelector('.mediaModal__close')
-  const rightArrow = mediaModal.querySelector('.rightArrow')
-  const leftArrow = mediaModal.querySelector('.leftArrow')
+  const arrows = mediaModal.querySelectorAll('a.mediaModal__arrow')
+  const leftArrow = arrows[0]
+  const rightArrow = arrows[1]
 
   main.setAttribute('aria-hidden', 'true')
   header.setAttribute('aria-hidden', 'true')
   mediaModal.setAttribute('aria-hidden', 'false')
 
-  close.addEventListener('click', e => e.preventDefault())
   close.addEventListener('click', closeMediaModal)
   mediaModal.addEventListener('click', closeMediaModal)
   mediaModal.addEventListener('keydown', e => { if (e.code === 'Escape') { closeMediaModal() } })
   mediaModal.firstElementChild.addEventListener('click', e => e.stopPropagation())
-  rightArrow.addEventListener('click', e => e.preventDefault())
-  leftArrow.addEventListener('click', e => e.preventDefault())
-  rightArrow.addEventListener('keydown', e => e.preventDefault())
+  rightArrow.addEventListener('click', refeshMediaModal)
+  leftArrow.addEventListener('click', refeshMediaModal)
+  rightArrow.addEventListener('keydown', e => { if (e.code === 'Tab') { e.preventDefault() } })
   rightArrow.addEventListener('keydown', e => { if (e.code === 'Tab') { close.focus() } })
+
   mediaTitle.textContent = media.title
   mediaSection.firstChild.replaceWith(media.getDOMComponent(true))
 
@@ -301,7 +304,12 @@ function openMediaModal (media) {
   close.focus()
 }
 
-function closeMediaModal () {
+function refeshMediaModal (e) {
+  e.preventDefault()
+}
+
+function closeMediaModal (e) {
+  e.preventDefault()
   const main = document.querySelector('main')
   const header = document.querySelector('header')
   const mediaModal = document.querySelector('.mediaModal')
