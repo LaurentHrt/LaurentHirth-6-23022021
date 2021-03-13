@@ -59,6 +59,7 @@ function displayTags () {
     a.addEventListener('click', (e) => {
       e.preventDefault()
       a.classList.toggle('tag--selected')
+      displayPhotographers()
     })
   })
 }
@@ -121,10 +122,12 @@ function displayPhotographers () {
       divTag.append(a)
       divTag.append(span)
 
-      a.addEventListener('click', (e) => {
-        e.preventDefault()
-        a.classList.toggle('tag--selected')
-      })
+      a.href = linkToPage + '&tag=' + tag
+
+      // a.addEventListener('click', (e) => {
+      //   e.preventDefault()
+      //   a.classList.toggle('tag--selected')
+      // })
     })
 
     mainHomePage.append(cardPhotograph)
