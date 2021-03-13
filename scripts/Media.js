@@ -60,6 +60,7 @@ export class Video extends Media {
     video.loop = true
 
     sourceSmall.src = relativePathToSmallImg + this.link
+    sourceSmall.alt = this.alt
     sourceSmall.type = 'video/mp4'
 
     video.append(sourceSmall)
