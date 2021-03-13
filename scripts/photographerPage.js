@@ -10,7 +10,7 @@ const mediaList = new MediaList()
 const contactModal = document.querySelector('.contactModal')
 
 // ***************** Functions ***************** //
-function createContent (photographerId) {
+function createContent () {
   fetch(linkToData)
     .then((response) => {
       if (response.ok) {
@@ -19,16 +19,16 @@ function createContent (photographerId) {
         throw new Error('Unexpected responses status or content type')
       }
     })
-    .then((data) => createData(data, photographerId))
+    .then((fetchedData) => createData(fetchedData))
     .then(displayPage)
     .catch(error => {
       console.log('Error while fetching data:', error)
     })
 }
 
-function createData (fetchedData, photographerId) {
+function createData (fetchedData) {
   fetchedData.photographers.forEach((photographer) => {
-    if (photographer.id === photographerId) {
+    if (photographer.id === Number(urlParams.get('id'))) {
       currentPhotographer = new Photographer(
         photographer.name,
         photographer.id,
@@ -46,7 +46,7 @@ function createData (fetchedData, photographerId) {
   const mediaFactory = new Media()
 
   fetchedData.media.forEach((media) => {
-    if (media.photographerId === photographerId) {
+    if (media.photographerId === currentPhotographer.id) {
       mediaList.addMedia(mediaFactory.createMedia(media.id, media.photographerId, media.image?.split('.').pop() || media.video?.split('.').pop(), media.image || media.video, media.tags, media.likes, media.date, media.price, media.alt, currentPhotographer.name.toLowerCase().replace(' ', '') + '/'))
     }
   })
@@ -96,6 +96,10 @@ function displayBanner () {
       a.classList.toggle('tag--selected')
       displayMediaList()
     })
+
+    if (urlParams.get('tag') && urlParams.get('tag') === tag) {
+      a.classList.toggle('tag--selected')
+    }
   })
 
   button.addEventListener('click', () => openContactModal())
@@ -212,6 +216,7 @@ function openContactModal () {
   close.addEventListener('click', e => e.preventDefault())
   close.addEventListener('click', closeContactModal)
   contactModal.addEventListener('click', closeContactModal)
+  contactModal.addEventListener('keydown', e => { if (e.code === 'Escape') { closeContactModal() } })
   contactModal.firstElementChild.addEventListener('click', (e) => e.stopPropagation())
 
   form.addEventListener('submit', e => e.preventDefault())
@@ -228,6 +233,8 @@ function openContactModal () {
       })
     })
   })
+  submitBtn.addEventListener('keydown', e => { if (e.code === 'Tab') { e.preventDefault() } })
+  submitBtn.addEventListener('keydown', e => { if (e.code === 'Tab') { close.focus() } })
 
   form.style.display = 'block'
   confirmation.style.display = 'none'
@@ -259,6 +266,7 @@ function submitContactModal (e) {
   const confirmation = contactModal.querySelector('.contactModal__content__confirmation')
   form.style.display = 'none'
   confirmation.style.display = 'flex'
+  close.addEventListener('keydown', e => { if (e.code === 'Tab') { e.preventDefault() } })
   close.focus()
 }
 
@@ -279,15 +287,17 @@ function openMediaModal (media) {
   close.addEventListener('click', e => e.preventDefault())
   close.addEventListener('click', closeMediaModal)
   mediaModal.addEventListener('click', closeMediaModal)
+  mediaModal.addEventListener('keydown', e => { if (e.code === 'Escape') { closeMediaModal() } })
   mediaModal.firstElementChild.addEventListener('click', e => e.stopPropagation())
   rightArrow.addEventListener('click', e => e.preventDefault())
   leftArrow.addEventListener('click', e => e.preventDefault())
+  rightArrow.addEventListener('keydown', e => e.preventDefault())
+  rightArrow.addEventListener('keydown', e => { if (e.code === 'Tab') { close.focus() } })
   mediaTitle.textContent = media.title
   mediaSection.firstChild.replaceWith(media.getDOMComponent(true))
 
   mediaModal.style.display = 'block'
   document.body.classList.add('disable-scroll')
-
   close.focus()
 }
 
@@ -304,4 +314,4 @@ function closeMediaModal () {
   document.body.classList.remove('disable-scroll')
 }
 
-createContent(Number(urlParams.get('id')))
+createContent()

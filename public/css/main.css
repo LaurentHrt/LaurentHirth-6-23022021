@@ -83,7 +83,7 @@ nav {
 
 .sr-only {
   border: 0;
-  clip: rect(0 0 0 0);
+  clip: rect(0, 0, 0, 0);
   height: 1px;
   margin: -1px;
   overflow: hidden;
@@ -316,6 +316,7 @@ nav {
 }
 
 .contactModal__content {
+  position: relative;
   box-sizing: border-box;
   background-color: #db8876;
   border-radius: 5px;
@@ -366,6 +367,7 @@ nav {
   font-size: 2.25em;
   margin-top: 0;
   margin-bottom: 20px;
+  padding-right: 50px;
 }
 
 .contactModal__content__btn-submit {
@@ -388,7 +390,8 @@ nav {
   display: flex;
   align-items: center;
   justify-content: center;
-  float: right;
+  position: absolute;
+  right: 20px;
 }
 
 .contactModal__content__close:hover,
@@ -459,6 +462,8 @@ nav {
   display: flex;
   align-items: center;
   justify-content: center;
+  position: absolute;
+  right: 20px;
   align-self: flex-start;
 }
 
@@ -469,13 +474,8 @@ nav {
   cursor: pointer;
 }
 
-@media screen and (min-width: 768px) {
-  .mediaModal__close {
-    right: 70px;
-  }
-}
-
 .mediaModal__content {
+  position: relative;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -647,7 +647,6 @@ nav {
 .tag--selected {
   color: white;
   background-color: #901c1c;
-  border-color: #901c1c;
 }
 
 .info-box {

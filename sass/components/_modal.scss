@@ -11,6 +11,7 @@
   overflow: auto;
 
   &__content {
+    position: relative;
     box-sizing: border-box;
     background-color: map-get($map: $colors, $key: secondary-light);
     border-radius: $standard-border-radius;
@@ -58,6 +59,7 @@
       font-size: 2.25em;
       margin-top: 0;
       margin-bottom: 20px;
+      padding-right: 50px;
     }
 
     &__btn-submit {
@@ -70,7 +72,6 @@
 
     &__close {
       @include close-btn-style;
-      float: right;
     }
 
     &__confirmation {
@@ -130,12 +131,10 @@
   &__close {
     @include close-btn-style;
     align-self: flex-start;
-    @include tablet-and-higher {
-      right: 70px;
-    }
   }
 
   &__content {
+    position: relative;
     display: flex;
     flex-direction: row;
     align-items: center;

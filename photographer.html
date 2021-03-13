@@ -14,7 +14,7 @@
   </head>
   <body>
     <header aria-hidden="false">
-      <a class="logo" href="./index.html" role="link">
+      <a class="logo" href="./index.html">
         <img src="./public/img/logo/logo.svg" alt="FishEye page d'accueil" />
       </a>
     </header>
@@ -97,7 +97,12 @@
       aria-describedby="contactModalTitle"
     >
       <div class="contactModal__content">
-        <a href class="contactModal__content__close">&times;</a>
+        <a
+          href
+          class="contactModal__content__close"
+          aria-label="Fermer la modal"
+          >&times;</a
+        >
 
         <div class="contactModal__content__form">
           <form name="contact" action="index.js" method="get" onsubmit="">
@@ -169,7 +174,9 @@
     >
       <div class="mediaModal__content">
         <span id="mediaModalTitle" class="sr-only">Affichage du media</span>
-        <a href class="mediaModal__close">&times;</a>
+        <a href class="mediaModal__close" aria-label="Fermer la modal"
+          >&times;</a
+        >
         <a href class="leftArrow"></a>
         <div class="mediaModal__content__media">
           <div></div>
