@@ -78,28 +78,11 @@ function displayBanner () {
   divTagline.textContent = currentPhotographer.tagline
 
   currentPhotographer.tags.forEach((tag) => {
-    const a = document.createElement('a')
-    const span = document.createElement('span')
-    a.classList.add('tag')
-    a.href = ''
-    a.textContent = '#' + tag
-    a.setAttribute('aria-labelledby', `${tag}`)
+    divTag.append(tag.getHTML())
+    divTag.append(tag.getSRspan())
 
-    span.id = `${tag}`
-    span.textContent = 'Hashtag ' + tag
-    span.classList.add('sr-only')
-
-    divTag.append(a)
-    divTag.append(span)
-
-    a.addEventListener('click', (e) => {
-      e.preventDefault()
-      a.classList.toggle('tag--selected')
-      displayMediaList()
-    })
-
-    if (urlParams.get('tag') && urlParams.get('tag') === tag) {
-      a.classList.toggle('tag--selected')
+    if (urlParams.get('tag') && urlParams.get('tag') === tag.name) {
+      divTag.classList.toggle('tag--selected')
     }
   })
 
@@ -184,7 +167,7 @@ function displayMediaList () {
 
     a.href = ''
     a.addEventListener('click', (e) => e.preventDefault())
-    a.addEventListener('click', () => openMediaModal(media))
+    a.addEventListener('click', () => openMediaModal(media, displayedMediaList))
 
     divTitle.textContent = media.title
     divPrice.textContent = media.price + '€'
@@ -272,7 +255,7 @@ function submitContactModal (e) {
   close.focus()
 }
 
-function openMediaModal (media) {
+function openMediaModal (media, displayedMediaList) {
   const main = document.querySelector('main')
   const header = document.querySelector('header')
   const mediaModal = document.querySelector('.mediaModal')

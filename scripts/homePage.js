@@ -46,11 +46,11 @@ function displayTags () {
     const span = document.createElement('span')
     a.classList.add('tag')
     a.href = ''
-    a.textContent = '#' + tag
-    a.setAttribute('aria-labelledby', `${tag}`)
+    a.textContent = '#' + tag.name
+    a.setAttribute('aria-labelledby', `${tag.name}`)
 
-    span.id = `${tag}`
-    span.textContent = 'Hashtag ' + tag
+    span.id = `${tag.name}`
+    span.textContent = 'Hashtag ' + tag.name
     span.classList.add('sr-only')
 
     tagList.append(a)
@@ -123,11 +123,6 @@ function displayPhotographers () {
       divTag.append(span)
 
       a.href = linkToPage + '&tag=' + tag
-
-      // a.addEventListener('click', (e) => {
-      //   e.preventDefault()
-      //   a.classList.toggle('tag--selected')
-      // })
     })
 
     mainHomePage.append(cardPhotograph)
