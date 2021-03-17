@@ -192,6 +192,7 @@ function displayMediaList () {
     const divLikes = document.createElement('div')
     const textContainer = document.createElement('div')
     const a = document.createElement('a')
+    const likeIcon = document.createElement('i')
 
     sectionCardMedia.classList.add('card-media')
     divMedia.classList.add('card-media__media')
@@ -199,23 +200,58 @@ function displayMediaList () {
     divPrice.classList.add('card-media__price')
     divLikes.classList.add('card-media__likes')
     textContainer.classList.add('card-media__textContainer')
+    likeIcon.classList.add('far', 'fa-heart')
 
     a.href = '#'
     a.addEventListener('click', (e) => e.preventDefault())
     a.addEventListener('click', () => openMediaModal(media))
 
+    divLikes.addEventListener('click', () => {
+      if (likeIcon.classList.contains('fas')) {
+        removeLike()
+      } else {
+        addLike()
+      }
+    })
+
+    divLikes.addEventListener('keydown', (e) => {
+      if (e.code === 'Enter' || e.code === 'NumpadEnter') {
+        if (likeIcon.classList.contains('fas')) {
+          removeLike()
+        } else {
+          addLike()
+        }
+      }
+    })
+
     divTitle.textContent = media.title
     divPrice.textContent = media.price + '€'
-    divLikes.textContent = media.likes + ' ❤'
-    divLikes.setAttribute('aria-label', 'likes')
+    divLikes.innerHTML = media.likes + ' ' + likeIcon.outerHTML
+    divLikes.setAttribute('aria-label', 'Aimer la photo')
+    divLikes.setAttribute('role', 'button')
+    divLikes.setAttribute('tabindex', '0')
 
     sectionCardMedia.append(divMedia)
     divMedia.append(specificMediaElement)
     a.append(divMedia)
-    a.append(textContainer)
     textContainer.append(divTitle, divPrice, divLikes)
     sectionCardMedia.append(a)
+    sectionCardMedia.append(textContainer)
     sectionMediaList.append(sectionCardMedia)
+
+    function addLike () {
+      media.likes++
+      likeIcon.classList.remove('far')
+      likeIcon.classList.add('fas')
+      divLikes.innerHTML = media.likes + ' ' + likeIcon.outerHTML
+    }
+
+    function removeLike () {
+      media.likes--
+      likeIcon.classList.add('far')
+      likeIcon.classList.remove('fas')
+      divLikes.innerHTML = media.likes + ' ' + likeIcon.outerHTML
+    }
   })
 }
 

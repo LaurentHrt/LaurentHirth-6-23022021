@@ -239,10 +239,13 @@ nav {
 
 .card-media {
   min-width: 100px;
+}
+
+.card-media__media {
   transition: 0.5s;
 }
 
-.card-media:hover, .card-media:focus {
+.card-media__media:hover, .card-media__media:focus {
   transform: scale(1.02) rotateZ(-1deg);
 }
 
@@ -299,6 +302,7 @@ nav {
 
 .card-media__likes {
   white-space: nowrap;
+  cursor: pointer;
 }
 
 .contactModal {
