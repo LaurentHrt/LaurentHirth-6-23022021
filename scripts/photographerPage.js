@@ -204,7 +204,7 @@ function displayMediaList () {
 
     a.href = '#'
     a.addEventListener('click', (e) => e.preventDefault())
-    a.addEventListener('click', () => openMediaModal(media))
+    a.addEventListener('click', () => openMediaModal(media, displayedMediaList))
 
     divLikes.addEventListener('click', () => {
       if (likeIcon.classList.contains('fas')) {
@@ -326,7 +326,7 @@ function submitContactModal (e) {
   close.focus()
 }
 
-function openMediaModal (media) {
+function openMediaModal (media, displayedMediaList) {
   const main = document.querySelector('main')
   const header = document.querySelector('header')
   const mediaModal = document.querySelector('.mediaModal')
@@ -337,29 +337,53 @@ function openMediaModal (media) {
   const leftArrow = arrows[0]
   const rightArrow = arrows[1]
 
+  let currentMedia = media
+
   main.setAttribute('aria-hidden', 'true')
   header.setAttribute('aria-hidden', 'true')
   mediaModal.setAttribute('aria-hidden', 'false')
 
   close.addEventListener('click', closeMediaModal)
   mediaModal.addEventListener('click', closeMediaModal)
-  mediaModal.addEventListener('keydown', e => { if (e.code === 'Escape') { closeMediaModal() } })
+  mediaModal.addEventListener('keydown', e => { if (e.code === 'Escape') { closeMediaModal(e) } })
+  mediaModal.addEventListener('keydown', e => { if (e.code === 'ArrowRight') { nextMedia(e) } })
+  mediaModal.addEventListener('keydown', e => { if (e.code === 'ArrowLeft') { previousMedia(e) } })
   mediaModal.firstElementChild.addEventListener('click', e => e.stopPropagation())
-  rightArrow.addEventListener('click', (refeshMediaModal))
-  leftArrow.addEventListener('click', refeshMediaModal)
+  rightArrow.addEventListener('click', e => nextMedia(e))
+  leftArrow.addEventListener('click', e => previousMedia(e))
   rightArrow.addEventListener('keydown', e => { if (e.code === 'Tab') { e.preventDefault() } })
   rightArrow.addEventListener('keydown', e => { if (e.code === 'Tab') { close.focus() } })
 
-  mediaTitle.textContent = media.title
-  mediaSection.firstChild.replaceWith(media.getDOMComponent(true))
+  showContent()
 
   mediaModal.style.display = 'block'
   document.body.classList.add('disable-scroll')
   close.focus()
-}
 
-function refeshMediaModal (e) {
-  e.preventDefault()
+  function nextMedia (e) {
+    e.preventDefault()
+    if ((displayedMediaList.indexOf(currentMedia) + 1) >= displayedMediaList.length) {
+      currentMedia = displayedMediaList[0]
+    } else {
+      currentMedia = displayedMediaList[displayedMediaList.indexOf(currentMedia) + 1]
+    }
+    showContent()
+  }
+
+  function previousMedia (e) {
+    e.preventDefault()
+    if ((displayedMediaList.indexOf(currentMedia) - 1) < 0) {
+      currentMedia = displayedMediaList[displayedMediaList.length - 1]
+    } else {
+      currentMedia = displayedMediaList[displayedMediaList.indexOf(currentMedia) - 1]
+    }
+    showContent()
+  }
+
+  function showContent () {
+    mediaTitle.textContent = currentMedia.title
+    mediaSection.firstChild.replaceWith(currentMedia.getDOMComponent(true))
+  }
 }
 
 function closeMediaModal (e) {

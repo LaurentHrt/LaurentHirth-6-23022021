@@ -397,7 +397,7 @@ nav {
   right: 20px;
 }
 
-.contactModal__content__close:hover,
+.contactModal__content__close:hover, .contactModal__content__close:focus,
 .contactModal__content__close a:active {
   color: #d3573c;
   text-decoration: none;
@@ -470,7 +470,7 @@ nav {
   align-self: flex-start;
 }
 
-.mediaModal__close:hover,
+.mediaModal__close:hover, .mediaModal__close:focus,
 .mediaModal__close a:active {
   color: #d3573c;
   text-decoration: none;
