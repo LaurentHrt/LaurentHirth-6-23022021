@@ -81,7 +81,7 @@ function displayBanner () {
     const a = document.createElement('a')
     const span = document.createElement('span')
     a.classList.add('tag')
-    a.href = ''
+    a.href = '#'
     a.textContent = '#' + tag
     a.setAttribute('aria-labelledby', `${tag}`)
 
@@ -110,39 +110,57 @@ function displayFilterMenu () {
   const dropDownMenu = document.querySelector('.dropdownMenu-wrapper a')
   const customSelect = document.querySelector('.custom-select')
   const customSelectTrigger = document.querySelector('.custom-select__trigger')
+  const customOptions = document.querySelectorAll('.custom-option')
+  const firstCustomOption = document.querySelector('.custom-select a:first-child')
+  const lastCustomOption = document.querySelector('.custom-select a:last-child')
 
-  dropDownMenu.addEventListener('click', function (e) {
-    e.preventDefault()
-    customSelect.classList.toggle('open')
-    if (customSelectTrigger.getAttribute('aria-expanded') === 'true') {
-      customSelectTrigger.setAttribute('aria-expanded', 'false')
-    } else {
-      customSelectTrigger.setAttribute('aria-expanded', 'true')
-    }
-  })
-
-  for (const option of document.querySelectorAll('.custom-option')) {
+  for (const option of customOptions) {
     option.addEventListener('click', function (e) {
       e.preventDefault()
       if (!this.classList.contains('selected')) {
-        customSelect.classList.remove('open')
         const selected = this.parentNode.querySelector('.custom-option.selected')
-        selected.setAttribute('aria-selected', 'false')
         selected.classList.remove('selected')
         this.classList.add('selected')
         this.setAttribute('aria-selected', 'true')
         this.closest('.custom-select').querySelector('.custom-select__trigger span').textContent = this.textContent
+        collapseDropdown()
         displayMediaList()
       }
     })
   }
 
-  window.addEventListener('click', function (e) {
-    if (!customSelect.contains(e.target)) {
-      customSelect.classList.remove('open')
-      customSelectTrigger.setAttribute('aria-expanded', 'false')
+  dropDownMenu.addEventListener('click', function (e) {
+    e.preventDefault()
+    if (customSelect.classList.contains('open')) { collapseDropdown() } else { expandDropdown() }
+  })
+
+  lastCustomOption.addEventListener('keydown', function (e) {
+    if (e.code === 'Tab' && !e.shiftKey) {
+      collapseDropdown()
     }
   })
+
+  firstCustomOption.addEventListener('keydown', function (e) {
+    if (e.code === 'Tab' && e.shiftKey) {
+      collapseDropdown()
+    }
+  })
+
+  window.addEventListener('click', function (e) {
+    if (!customSelect.contains(e.target)) {
+      collapseDropdown()
+    }
+  })
+
+  function expandDropdown () {
+    customSelect.classList.add('open')
+    customSelectTrigger.setAttribute('aria-expanded', 'true')
+  }
+
+  function collapseDropdown () {
+    customSelect.classList.remove('open')
+    customSelectTrigger.setAttribute('aria-expanded', 'false')
+  }
 }
 
 function displayInfoBox () {
@@ -182,7 +200,7 @@ function displayMediaList () {
     divLikes.classList.add('card-media__likes')
     textContainer.classList.add('card-media__textContainer')
 
-    a.href = ''
+    a.href = '#'
     a.addEventListener('click', (e) => e.preventDefault())
     a.addEventListener('click', () => openMediaModal(media))
 
@@ -291,7 +309,7 @@ function openMediaModal (media) {
   mediaModal.addEventListener('click', closeMediaModal)
   mediaModal.addEventListener('keydown', e => { if (e.code === 'Escape') { closeMediaModal() } })
   mediaModal.firstElementChild.addEventListener('click', e => e.stopPropagation())
-  rightArrow.addEventListener('click', refeshMediaModal)
+  rightArrow.addEventListener('click', (refeshMediaModal))
   leftArrow.addEventListener('click', refeshMediaModal)
   rightArrow.addEventListener('keydown', e => { if (e.code === 'Tab') { e.preventDefault() } })
   rightArrow.addEventListener('keydown', e => { if (e.code === 'Tab') { close.focus() } })

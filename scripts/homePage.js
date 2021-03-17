@@ -45,7 +45,7 @@ function displayTags () {
     const a = document.createElement('a')
     const span = document.createElement('span')
     a.classList.add('tag')
-    a.href = ''
+    a.href = '#'
     a.textContent = '#' + tag
     a.setAttribute('aria-labelledby', `${tag}`)
 
@@ -111,7 +111,7 @@ function displayPhotographers () {
       const a = document.createElement('a')
       const span = document.createElement('span')
       a.classList.add('tag')
-      a.href = ''
+      a.href = '#'
       a.textContent = '#' + tag
       a.setAttribute('aria-labelledby', `${tag}`)
 
