@@ -44,6 +44,10 @@ export class MediaList {
     return returnedList
   }
 
+  getMediaById (id) {
+
+  }
+
   getLikes () {
     let sum = 0
     this.mediaList.forEach((media) => {

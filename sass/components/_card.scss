@@ -130,14 +130,16 @@
 
 .card-media {
   min-width: 100px;
-  transition: 0.5s;
-
-  &:hover,
-  &:focus {
-    transform: scale(1.02) rotateZ(-1deg);
-  }
-
+  
+  
   &__media {
+    transition: 0.5s;
+
+    &:hover,
+    &:focus {
+      transform: scale(1.02) rotateZ(-1deg);
+    }
+
     img,
     video {
       width: 100%;
@@ -185,5 +187,6 @@
 
   &__likes {
     white-space: nowrap;
+    cursor: pointer;
   }
 }

@@ -239,10 +239,13 @@ nav {
 
 .card-media {
   min-width: 100px;
+}
+
+.card-media__media {
   transition: 0.5s;
 }
 
-.card-media:hover, .card-media:focus {
+.card-media__media:hover, .card-media__media:focus {
   transform: scale(1.02) rotateZ(-1deg);
 }
 
@@ -299,6 +302,7 @@ nav {
 
 .card-media__likes {
   white-space: nowrap;
+  cursor: pointer;
 }
 
 .contactModal {
@@ -370,12 +374,12 @@ nav {
 }
 
 .contactModal__content__btn-submit {
-  align-self: flex-start;
+  align-self: center;
 }
 
 @media screen and (min-width: 768px) {
   .contactModal__content__btn-submit {
-    align-self: center;
+    align-self: flex-start;
   }
 }
 
@@ -393,7 +397,7 @@ nav {
   right: 20px;
 }
 
-.contactModal__content__close:hover,
+.contactModal__content__close:hover, .contactModal__content__close:focus,
 .contactModal__content__close a:active {
   color: #d3573c;
   text-decoration: none;
@@ -466,7 +470,7 @@ nav {
   align-self: flex-start;
 }
 
-.mediaModal__close:hover,
+.mediaModal__close:hover, .mediaModal__close:focus,
 .mediaModal__close a:active {
   color: #d3573c;
   text-decoration: none;
@@ -520,6 +524,7 @@ nav {
 }
 
 .mediaModal__content__title {
+  color: #901c1c;
   font-size: 0.875em;
 }
 
@@ -862,13 +867,18 @@ nav {
 }
 
 .filter {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  font-weight: 700;
+  display: none;
 }
 
-.filter > span {
-  margin-right: 20px;
+@media screen and (min-width: 768px) {
+  .filter {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-weight: 700;
+  }
+  .filter > span {
+    margin-right: 20px;
+  }
 }
 /*# sourceMappingURL=main.css.map */

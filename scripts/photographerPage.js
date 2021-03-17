@@ -192,6 +192,7 @@ function displayMediaList () {
     const divLikes = document.createElement('div')
     const textContainer = document.createElement('div')
     const a = document.createElement('a')
+    const likeIcon = document.createElement('i')
 
     sectionCardMedia.classList.add('card-media')
     divMedia.classList.add('card-media__media')
@@ -199,23 +200,58 @@ function displayMediaList () {
     divPrice.classList.add('card-media__price')
     divLikes.classList.add('card-media__likes')
     textContainer.classList.add('card-media__textContainer')
+    likeIcon.classList.add('far', 'fa-heart')
 
     a.href = '#'
     a.addEventListener('click', (e) => e.preventDefault())
-    a.addEventListener('click', () => openMediaModal(media))
+    a.addEventListener('click', () => openMediaModal(media, displayedMediaList))
+
+    divLikes.addEventListener('click', () => {
+      if (likeIcon.classList.contains('fas')) {
+        removeLike()
+      } else {
+        addLike()
+      }
+    })
+
+    divLikes.addEventListener('keydown', (e) => {
+      if (e.code === 'Enter' || e.code === 'NumpadEnter') {
+        if (likeIcon.classList.contains('fas')) {
+          removeLike()
+        } else {
+          addLike()
+        }
+      }
+    })
 
     divTitle.textContent = media.title
     divPrice.textContent = media.price + '€'
-    divLikes.textContent = media.likes + ' ❤'
-    divLikes.setAttribute('aria-label', 'likes')
+    divLikes.innerHTML = media.likes + ' ' + likeIcon.outerHTML
+    divLikes.setAttribute('aria-label', 'Aimer la photo')
+    divLikes.setAttribute('role', 'button')
+    divLikes.setAttribute('tabindex', '0')
 
     sectionCardMedia.append(divMedia)
     divMedia.append(specificMediaElement)
     a.append(divMedia)
-    a.append(textContainer)
     textContainer.append(divTitle, divPrice, divLikes)
     sectionCardMedia.append(a)
+    sectionCardMedia.append(textContainer)
     sectionMediaList.append(sectionCardMedia)
+
+    function addLike () {
+      media.likes++
+      likeIcon.classList.remove('far')
+      likeIcon.classList.add('fas')
+      divLikes.innerHTML = media.likes + ' ' + likeIcon.outerHTML
+    }
+
+    function removeLike () {
+      media.likes--
+      likeIcon.classList.add('far')
+      likeIcon.classList.remove('fas')
+      divLikes.innerHTML = media.likes + ' ' + likeIcon.outerHTML
+    }
   })
 }
 
@@ -258,7 +294,7 @@ function openContactModal () {
   form.style.display = 'block'
   confirmation.style.display = 'none'
 
-  title.innerHTML = currentPhotographer.name + '</br>' + 'Contactez-moi'
+  title.innerHTML = 'Contactez-moi' + '</br>' + currentPhotographer.name
   contactModal.style.display = 'block'
   document.body.classList.add('disable-scroll')
 
@@ -290,7 +326,7 @@ function submitContactModal (e) {
   close.focus()
 }
 
-function openMediaModal (media) {
+function openMediaModal (media, displayedMediaList) {
   const main = document.querySelector('main')
   const header = document.querySelector('header')
   const mediaModal = document.querySelector('.mediaModal')
@@ -301,29 +337,53 @@ function openMediaModal (media) {
   const leftArrow = arrows[0]
   const rightArrow = arrows[1]
 
+  let currentMedia = media
+
   main.setAttribute('aria-hidden', 'true')
   header.setAttribute('aria-hidden', 'true')
   mediaModal.setAttribute('aria-hidden', 'false')
 
   close.addEventListener('click', closeMediaModal)
   mediaModal.addEventListener('click', closeMediaModal)
-  mediaModal.addEventListener('keydown', e => { if (e.code === 'Escape') { closeMediaModal() } })
+  mediaModal.addEventListener('keydown', e => { if (e.code === 'Escape') { closeMediaModal(e) } })
+  mediaModal.addEventListener('keydown', e => { if (e.code === 'ArrowRight') { nextMedia(e) } })
+  mediaModal.addEventListener('keydown', e => { if (e.code === 'ArrowLeft') { previousMedia(e) } })
   mediaModal.firstElementChild.addEventListener('click', e => e.stopPropagation())
-  rightArrow.addEventListener('click', (refeshMediaModal))
-  leftArrow.addEventListener('click', refeshMediaModal)
+  rightArrow.addEventListener('click', e => nextMedia(e))
+  leftArrow.addEventListener('click', e => previousMedia(e))
   rightArrow.addEventListener('keydown', e => { if (e.code === 'Tab') { e.preventDefault() } })
   rightArrow.addEventListener('keydown', e => { if (e.code === 'Tab') { close.focus() } })
 
-  mediaTitle.textContent = media.title
-  mediaSection.firstChild.replaceWith(media.getDOMComponent(true))
+  showContent()
 
   mediaModal.style.display = 'block'
   document.body.classList.add('disable-scroll')
   close.focus()
-}
 
-function refeshMediaModal (e) {
-  e.preventDefault()
+  function nextMedia (e) {
+    e.preventDefault()
+    if ((displayedMediaList.indexOf(currentMedia) + 1) >= displayedMediaList.length) {
+      currentMedia = displayedMediaList[0]
+    } else {
+      currentMedia = displayedMediaList[displayedMediaList.indexOf(currentMedia) + 1]
+    }
+    showContent()
+  }
+
+  function previousMedia (e) {
+    e.preventDefault()
+    if ((displayedMediaList.indexOf(currentMedia) - 1) < 0) {
+      currentMedia = displayedMediaList[displayedMediaList.length - 1]
+    } else {
+      currentMedia = displayedMediaList[displayedMediaList.indexOf(currentMedia) - 1]
+    }
+    showContent()
+  }
+
+  function showContent () {
+    mediaTitle.textContent = currentMedia.title
+    mediaSection.firstChild.replaceWith(currentMedia.getDOMComponent(true))
+  }
 }
 
 function closeMediaModal (e) {
