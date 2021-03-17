@@ -258,7 +258,7 @@ function openContactModal () {
   form.style.display = 'block'
   confirmation.style.display = 'none'
 
-  title.innerHTML = currentPhotographer.name + '</br>' + 'Contactez-moi'
+  title.innerHTML = 'Contactez-moi' + '</br>' + currentPhotographer.name
   contactModal.style.display = 'block'
   document.body.classList.add('disable-scroll')
 

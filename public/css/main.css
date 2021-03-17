@@ -370,12 +370,12 @@ nav {
 }
 
 .contactModal__content__btn-submit {
-  align-self: flex-start;
+  align-self: center;
 }
 
 @media screen and (min-width: 768px) {
   .contactModal__content__btn-submit {
-    align-self: center;
+    align-self: flex-start;
   }
 }
 
@@ -520,6 +520,7 @@ nav {
 }
 
 .mediaModal__content__title {
+  color: #901c1c;
   font-size: 0.875em;
 }
 
@@ -862,13 +863,18 @@ nav {
 }
 
 .filter {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  font-weight: 700;
+  display: none;
 }
 
-.filter > span {
-  margin-right: 20px;
+@media screen and (min-width: 768px) {
+  .filter {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-weight: 700;
+  }
+  .filter > span {
+    margin-right: 20px;
+  }
 }
 /*# sourceMappingURL=main.css.map */
