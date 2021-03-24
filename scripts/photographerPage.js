@@ -306,6 +306,7 @@ function closeContactModal (e) {
   const main = document.querySelector('main')
   const header = document.querySelector('header')
   const contactModal = document.querySelector('.contactModal')
+  const button = document.querySelector('.card-banner-photograph__button')
 
   main.setAttribute('aria-hidden', 'false')
   header.setAttribute('aria-hidden', 'false')
@@ -313,6 +314,7 @@ function closeContactModal (e) {
 
   contactModal.style.display = 'none'
   document.body.classList.remove('disable-scroll')
+  button.focus()
 }
 
 function submitContactModal (e) {
@@ -343,9 +345,9 @@ function openMediaModal (media, displayedMediaList) {
   header.setAttribute('aria-hidden', 'true')
   mediaModal.setAttribute('aria-hidden', 'false')
 
-  close.addEventListener('click', closeMediaModal)
-  mediaModal.addEventListener('click', closeMediaModal)
-  mediaModal.addEventListener('keydown', e => { if (e.code === 'Escape') { closeMediaModal(e) } })
+  close.addEventListener('click', e => closeMediaModal(e, media))
+  mediaModal.addEventListener('click', e => closeMediaModal(e, media))
+  mediaModal.addEventListener('keydown', e => { if (e.code === 'Escape') { closeMediaModal(e, media) } })
   mediaModal.addEventListener('keydown', e => { if (e.code === 'ArrowRight') { nextMedia(e) } })
   mediaModal.addEventListener('keydown', e => { if (e.code === 'ArrowLeft') { previousMedia(e) } })
   mediaModal.firstElementChild.addEventListener('click', e => e.stopPropagation())
@@ -386,11 +388,12 @@ function openMediaModal (media, displayedMediaList) {
   }
 }
 
-function closeMediaModal (e) {
+function closeMediaModal (e, media) {
   e.preventDefault()
   const main = document.querySelector('main')
   const header = document.querySelector('header')
   const mediaModal = document.querySelector('.mediaModal')
+  const mediaList = document.querySelector('.media-list a')
 
   main.setAttribute('aria-hidden', 'false')
   header.setAttribute('aria-hidden', 'false')
@@ -398,6 +401,7 @@ function closeMediaModal (e) {
 
   mediaModal.style.display = 'none'
   document.body.classList.remove('disable-scroll')
+  mediaList.focus()
 }
 
 createContent()
