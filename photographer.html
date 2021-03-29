@@ -4,7 +4,11 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./public/css/fontawesome.css" type="text/css" />
+    <link
+      rel="stylesheet"
+      href="./public/css/fontawesome.css"
+      type="text/css"
+    />
     <link
       rel="shortcut icon"
       href="./public/img/favicon.ico"
@@ -116,8 +120,9 @@
           <form name="contact" action="index.js" method="get" onsubmit="">
             <p id="contactModalTitle" class="contactModal__content__title"></p>
             <div class="formData" data-error="Veuillez entrer votre prénom">
-              <label id="firstname" for="firstname">Prénom</label>
+              <label for="firstname">Prénom</label>
               <input
+                id="firstname"
                 class="text-control"
                 type="text"
                 name="firstname"
@@ -128,8 +133,9 @@
               />
             </div>
             <div class="formData">
-              <label id="lastname" for="lastname">Nom</label>
+              <label for="lastname">Nom</label>
               <input
+                id="lastname"
                 class="text-control"
                 type="text"
                 aria-labelledby="lastname"
@@ -138,8 +144,9 @@
               />
             </div>
             <div class="formData" data-error="L'e-mail entré est invalide">
-              <label id="email" for="email">E-mail</label>
+              <label for="email">E-mail</label>
               <input
+                id="email"
                 class="text-control"
                 type="email"
                 aria-labelledby="email"
@@ -149,8 +156,9 @@
               />
             </div>
             <div class="formData" data-error="Vous devez écrire un message">
-              <label id="message" for="message">Votre message</label>
+              <label for="message">Votre message</label>
               <textarea
+                id="message"
                 class="textarea-control"
                 aria-labelledby="message"
                 name="message"

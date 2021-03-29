@@ -198,11 +198,13 @@ function displayMediaList () {
     divMedia.classList.add('card-media__media')
     divTitle.classList.add('card-media__title')
     divPrice.classList.add('card-media__price')
+    divPrice.classList.add('card-media__price')
     divLikes.classList.add('card-media__likes')
     textContainer.classList.add('card-media__textContainer')
     likeIcon.classList.add('far', 'fa-heart')
 
     a.href = '#'
+    a.setAttribute('title', media.title)
     a.addEventListener('click', (e) => e.preventDefault())
     a.addEventListener('click', () => openMediaModal(media, displayedMediaList))
 
