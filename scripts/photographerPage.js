@@ -271,6 +271,12 @@ function openContactModal () {
   contactModal.setAttribute('aria-hidden', 'false')
 
   close.addEventListener('click', closeContactModal)
+  close.addEventListener('keydown', e => {
+    if (e.code === 'Tab' && e.shiftKey) {
+      e.preventDefault()
+      submitBtn.focus()
+    }
+  })
   contactModal.addEventListener('click', closeContactModal)
   contactModal.addEventListener('keydown', e => { if (e.code === 'Escape') { closeContactModal() } })
   contactModal.firstElementChild.addEventListener('click', (e) => e.stopPropagation())
@@ -288,8 +294,10 @@ function openContactModal () {
       })
     })
   })
-  submitBtn.addEventListener('keydown', e => { if (e.code === 'Tab') { e.preventDefault() } })
-  submitBtn.addEventListener('keydown', e => { if (e.code === 'Tab') { close.focus() } })
+  submitBtn.addEventListener('keydown', e => {
+    if (e.code === 'Tab') { e.preventDefault() }
+    close.focus()
+  })
 
   form.style.display = 'block'
   confirmation.style.display = 'none'
@@ -346,15 +354,27 @@ function openMediaModal (media, displayedMediaList) {
   mediaModal.setAttribute('aria-hidden', 'false')
 
   close.addEventListener('click', e => closeMediaModal(e, media))
+  close.addEventListener('keydown', e => {
+    if (e.code === 'Tab' && e.shiftKey) {
+      e.preventDefault()
+      rightArrow.focus()
+    }
+  })
   mediaModal.addEventListener('click', e => closeMediaModal(e, media))
-  mediaModal.addEventListener('keydown', e => { if (e.code === 'Escape') { closeMediaModal(e, media) } })
-  mediaModal.addEventListener('keydown', e => { if (e.code === 'ArrowRight') { nextMedia(e) } })
-  mediaModal.addEventListener('keydown', e => { if (e.code === 'ArrowLeft') { previousMedia(e) } })
+  mediaModal.addEventListener('keydown', e => {
+    if (e.code === 'Escape') { closeMediaModal(e, media) }
+    if (e.code === 'ArrowRight') { nextMedia(e) }
+    if (e.code === 'ArrowLeft') { previousMedia(e) }
+  })
   mediaModal.firstElementChild.addEventListener('click', e => e.stopPropagation())
   rightArrow.addEventListener('click', e => nextMedia(e))
   leftArrow.addEventListener('click', e => previousMedia(e))
-  rightArrow.addEventListener('keydown', e => { if (e.code === 'Tab') { e.preventDefault() } })
-  rightArrow.addEventListener('keydown', e => { if (e.code === 'Tab') { close.focus() } })
+  rightArrow.addEventListener('keydown', e => {
+    if (e.code === 'Tab' && !e.shiftKey) {
+      e.preventDefault()
+      close.focus()
+    }
+  })
 
   showContent()
 
