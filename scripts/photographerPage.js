@@ -280,7 +280,7 @@ function openContactModal () {
     }
   })
   contactModal.addEventListener('click', closeContactModal)
-  contactModal.addEventListener('keydown', e => { if (e.code === 'Escape') { closeContactModal() } })
+  contactModal.addEventListener('keydown', e => { if (e.code === 'Escape') { closeContactModal(e) } })
   contactModal.firstElementChild.addEventListener('click', (e) => e.stopPropagation())
 
   form.addEventListener('submit', submitContactModal)
