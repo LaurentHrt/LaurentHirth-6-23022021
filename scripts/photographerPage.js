@@ -246,6 +246,7 @@ function displayMediaList () {
       likeIcon.classList.remove('far')
       likeIcon.classList.add('fas')
       divLikes.innerHTML = media.likes + ' ' + likeIcon.outerHTML
+      displayInfoBox()
     }
 
     function removeLike () {
@@ -253,6 +254,7 @@ function displayMediaList () {
       likeIcon.classList.add('far')
       likeIcon.classList.remove('fas')
       divLikes.innerHTML = media.likes + ' ' + likeIcon.outerHTML
+      displayInfoBox()
     }
   })
 }
