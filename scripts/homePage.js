@@ -6,15 +6,23 @@ const linkToData = './public/data/FishEyeDataFR.json'
 const photographerList = new PhotographerList()
 
 // ***************** Functions ***************** //
-function createContent () {
-  fetch(linkToData)
-    .then((response) => {
-      if (response.ok) {
-        return response.json()
-      }
-    })
-    .then((data) => createPhotographerList(data))
-    .then(displayPage)
+async function createContent () {
+  // ? Deux manières de faire (fonctionnement identique)
+  // ? Avec des promises
+  // fetch(linkToData)
+  //   .then((response) => {
+  //     if (response.ok) {
+  //       return response.json()
+  //     }
+  //   })
+  //   .then((data) => createPhotographerList(data))
+  //   .then(displayPage)
+
+  // ? Avec async/await
+  const response = await fetch(linkToData)
+  const data = await response.json()
+  await createPhotographerList(data)
+  await displayPage()
 }
 
 function createPhotographerList (fetchedData) {
